@@ -1,0 +1,23 @@
+Use the existing CuraFlow frontend foundation and do not rewrite earlier files.
+
+Generate only:
+1. templates/settings.html
+
+Requirements:
+- extend base.html
+- create a professional grouped settings page
+
+Include sections for:
+- organization details
+- brand settings
+- locations
+- staff members
+- notifications
+- AI configuration
+- recommendation preferences
+- billing placeholder
+- security placeholder
+
+Use clean grouped cards/panels with a modern SaaS settings layout.
+
+Output only templates/settings.html with full code.

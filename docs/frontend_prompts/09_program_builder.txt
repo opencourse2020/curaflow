@@ -1,0 +1,41 @@
+Use the existing CuraFlow frontend foundation and do not rewrite prior files.
+
+Generate only:
+1. templates/program_builder.html
+
+Requirements:
+- extend base.html
+- create a premium SaaS workflow page for building personalized wellness programs
+
+Include these sections:
+- page header
+- customer summary panel
+- available services catalog
+- selected program items builder panel
+- weekly schedule / timeline preview
+- notes / rationale section
+- pricing summary
+- duration summary
+
+Each available service card should show:
+- service name
+- category
+- duration
+- intensity/type
+- staff assignment
+- contraindication badge if relevant
+- add/select action
+
+The selected program builder should show:
+- service blocks
+- frequency selector
+- duration selector
+- assigned practitioner
+- remove/edit action
+
+Add a polished weekly timeline preview.
+
+Use realistic sample data.
+This page must feel like a real workflow builder, not a generic form.
+
+Output only templates/program_builder.html with full code.

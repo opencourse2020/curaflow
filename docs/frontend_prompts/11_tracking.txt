@@ -1,0 +1,30 @@
+Use the existing CuraFlow frontend foundation and do not rewrite prior files.
+
+Generate only:
+1. templates/tracking.html
+
+Requirements:
+- extend base.html
+- create a page for monitoring wellness program execution
+
+Include:
+- adherence overview card
+- weekly completion chart placeholder
+- session status table
+- missed sessions panel
+- progress indicators
+- alert section for negative trends
+- intervention recommendations box
+
+Track:
+- scheduled sessions
+- completed sessions
+- missed sessions
+- completion percentage
+- customer-reported outcomes
+- coach follow-up status
+
+Use realistic sample data.
+Visually highlight issues without making the UI feel alarming.
+
+Output only templates/tracking.html with full code.

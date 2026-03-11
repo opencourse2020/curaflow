@@ -1,0 +1,20 @@
+You have already generated the CuraFlow frontend file-by-file.
+
+Now perform a consistency and refactor pass.
+
+Important:
+- Do not change the overall information architecture
+- Do not redesign the product from scratch
+- Keep all existing files
+- Only improve consistency, reduce duplication, improve spacing, improve responsiveness, and make the UI feel more premium and polished
+
+Tasks:
+1. Review all templates for consistency in page headers, cards, spacing, and action buttons
+2. Improve sidebar and header consistency across pages
+3. Refine styles.css to remove duplication and improve hierarchy
+4. Improve responsive behavior for tables, cards, and multi-column layouts
+5. Make sure the program builder and dashboard feel especially polished
+6. Keep everything Django-template compatible
+
+Output only the files that need to be updated.
+Do not rewrite files that do not need changes.

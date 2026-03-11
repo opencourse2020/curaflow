@@ -1,0 +1,32 @@
+Use the existing CuraFlow frontend files and conventions.
+
+Do not rewrite existing files.
+
+Generate only:
+1. templates/customers.html
+
+Requirements:
+- extend base.html
+- use a professional SaaS table layout
+- include table toolbar area compatible with the shared toolbar component style
+
+Include:
+- page heading and subtitle
+- add customer button
+- search/filter/sort row
+- responsive customer table
+
+Columns:
+- Customer name
+- Age
+- Goal
+- Active program
+- Adherence
+- Last session
+- Status
+- Actions
+
+Use realistic sample customer data and statuses.
+The page should feel polished, operational, and investor-demo ready.
+
+Output only templates/customers.html with full code.

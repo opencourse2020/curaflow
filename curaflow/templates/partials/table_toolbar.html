@@ -1,0 +1,38 @@
+{# templates/partials/table_toolbar.html #}
+{# Variables: count, search_placeholder, show_status_filter, show_program_filter #}
+<div class="table-toolbar">
+  <div class="table-toolbar-search">
+    <svg class="table-toolbar-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+    </svg>
+    <input type="text" placeholder="{{ search_placeholder|default:'Search…' }}" data-table-search />
+  </div>
+
+  {% if show_status_filter %}
+  <select>
+    <option value="">All Statuses</option>
+    <option value="active">Active</option>
+    <option value="paused">Paused</option>
+    <option value="completed">Completed</option>
+  </select>
+  {% endif %}
+
+  {% if show_program_filter %}
+  <select>
+    <option value="">All Programs</option>
+    <option value="rehab">Rehab &amp; Recovery</option>
+    <option value="weight">Weight Management</option>
+    <option value="mobility">Mobility &amp; Flexibility</option>
+    <option value="stress">Stress &amp; Wellbeing</option>
+  </select>
+  {% endif %}
+
+  <select>
+    <option value="">Sort: Name A–Z</option>
+    <option value="recent">Most Recent</option>
+    <option value="adherence">Adherence</option>
+    <option value="last_session">Last Session</option>
+  </select>
+
+  <span class="table-count" data-table-count>{{ count|default:"0" }} results</span>
+</div>

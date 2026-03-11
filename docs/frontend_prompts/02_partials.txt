@@ -1,0 +1,87 @@
+Use the previously generated base.html, styles.css, and app.js as the design foundation.
+
+Do not rewrite them.
+Generate only the following Django partial templates:
+
+1. templates/partials/sidebar.html
+2. templates/partials/header.html
+3. templates/partials/stat_card.html
+4. templates/partials/alert_card.html
+5. templates/partials/service_card.html
+6. templates/partials/progress_widget.html
+7. templates/partials/timeline_block.html
+8. templates/partials/table_toolbar.html
+
+Project context:
+CuraFlow is a B2B SaaS platform for designing personalized wellness programs and tracking execution for wellness clinics, physiotherapy centers, gyms, and similar providers.
+
+Design direction:
+- premium modern SaaS
+- calm health-tech feel
+- operational dashboard style
+- spacious, clean, structured
+- no gimmicky UI
+- no overdecorated visuals
+
+Requirements:
+- Each partial must be reusable
+- Use class names consistent with the base CSS system
+- Use realistic sample placeholders where useful
+- Keep them Django-template friendly
+- Use semantic markup
+- Avoid inline CSS and inline JS
+
+Specific guidance:
+
+sidebar.html:
+- logo/wordmark: CuraFlow
+- nav links: Dashboard, Customers, Programs, Services, Tracking, Analytics, Settings
+- include icons using simple inline placeholder spans or icon classes
+- support active nav item styling
+
+header.html:
+- page title area
+- search input
+- notifications button
+- quick action button
+- profile dropdown trigger
+
+stat_card.html:
+- title
+- value
+- delta or trend
+- optional icon area
+
+alert_card.html:
+- title
+- severity badge
+- short message
+- action link/button area
+
+service_card.html:
+- service category
+- service name
+- duration
+- practitioner/staff info
+- contraindication badge area
+- action button
+
+progress_widget.html:
+- metric label
+- metric value
+- progress bar
+- supporting note
+
+timeline_block.html:
+- day/week label
+- service entries
+- time or duration
+- assigned staff
+
+table_toolbar.html:
+- search
+- filter dropdown
+- sort dropdown
+- primary action button
+
+Output only these files with full code.

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}CuraFlow{% endblock %} — CuraFlow</title>
+  <meta name="description" content="CuraFlow — AI-assisted wellness program management for clinics and wellness businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  {% include "partials/sidebar.html" %}
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Main content -->
+  <div class="main-content" id="mainContent">
+
+    <!-- Top header -->
+    {% include "partials/header.html" %}
+
+    <!-- Page content -->
+    <main class="page-content {% block content_class %}{% endblock %}">
+      {% block content %}{% endblock %}
+    </main>
+
+  </div><!-- /main-content -->
+
+</div><!-- /app-shell -->
+
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

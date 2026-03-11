@@ -1,0 +1,65 @@
+You are a senior frontend architect and Django UI engineer.
+
+I am building a SaaS frontend for a product called CuraFlow, an AI-assisted wellness program platform for clinics, physiotherapy providers, gyms, and wellness businesses.
+
+I want you to generate only the foundational frontend files for a Django-based project.
+
+Important rules:
+- Do not generate any page-specific templates yet
+- Do not generate React, Vue, or Tailwind
+- Use plain HTML, CSS, and minimal vanilla JavaScript
+- This must be Django-template compatible
+- Use a modern premium SaaS style
+- Keep the design calm, professional, health-tech, and operational
+- Use reusable CSS variables
+- Use a left sidebar + top header shell layout
+- Use semantic HTML
+- Keep everything responsive
+
+Generate only these files:
+
+1. templates/base.html
+2. static/css/styles.css
+3. static/js/app.js
+
+Requirements:
+
+For templates/base.html:
+- use {% load static %}
+- include the main app shell
+- include a sidebar area
+- include a header area
+- include {% block content %}
+- structure it so later partials can be included cleanly
+- include links to static/css/styles.css and static/js/app.js
+
+For static/css/styles.css:
+- define a premium SaaS design system using CSS variables
+- include colors, typography, spacing, shadows, border radius, transitions
+- create core layout styles for app shell, sidebar, header, main content, cards, buttons, badges, tables, forms
+- include responsive breakpoints
+- keep CSS organized with comments by section
+- use a calm wellness palette:
+  - primary: #0f766e
+  - primary-soft: #ccfbf1
+  - accent: #14b8a6
+  - blue-soft: #e0f2fe
+  - bg: #f8fafc
+  - surface: #ffffff
+  - text: #0f172a
+  - muted: #64748b
+  - border: #e2e8f0
+
+For static/js/app.js:
+- implement only:
+  - mobile sidebar toggle
+  - profile dropdown toggle
+  - dismissible alerts
+- keep it very small and clean
+
+Output only these files with headings like:
+=== templates/base.html ===
+=== static/css/styles.css ===
+=== static/js/app.js ===
+
+Write full code, not pseudocode.

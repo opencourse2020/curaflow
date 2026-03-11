@@ -1,0 +1,11 @@
+{# templates/partials/progress_widget.html #}
+{# Variables: label, value, pct, color, unit #}
+<div>
+  <div class="progress-label">
+    <span class="progress-label-text">{{ label }}</span>
+    <span class="progress-label-value">{{ value }}{% if unit %}<span style="font-size:var(--text-xs);font-weight:400;color:var(--muted)"> {{ unit }}</span>{% endif %}</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill {{ color|default:'teal' }}" style="width: {{ pct|default:50 }}%"></div>
+  </div>
+</div>

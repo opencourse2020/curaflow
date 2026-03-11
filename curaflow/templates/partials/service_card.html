@@ -1,0 +1,31 @@
+{# templates/partials/service_card.html #}
+{# Variables: name, category, icon, duration, price, staff, intensity, contraindication #}
+<div class="service-card" data-selectable>
+  <div class="service-card-header">
+    <div class="service-card-icon {{ icon_class|default:'fitness' }}">{{ icon|default:'💪' }}</div>
+    {% if contraindication %}
+    <span class="contraindication-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:10px;height:10px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg>
+      Caution
+    </span>
+    {% endif %}
+  </div>
+  <div class="service-card-name">{{ name }}</div>
+  <div class="service-card-category">{{ category }}</div>
+  <div class="service-card-meta">
+    <span class="service-meta-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      {{ duration }}
+    </span>
+    {% if intensity %}
+    <span class="service-meta-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+      {{ intensity }}
+    </span>
+    {% endif %}
+  </div>
+  <div class="service-card-footer">
+    <span class="service-price">{{ price }}</span>
+    <button class="btn btn-secondary btn-sm service-add-btn btn-add-service">Add</button>
+  </div>
+</div>

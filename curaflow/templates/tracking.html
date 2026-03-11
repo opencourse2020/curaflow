@@ -1,0 +1,756 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Program Tracking{% endblock %}
+{% block header_title %}Program Tracking{% endblock %}
+{% block nav_tracking %}active{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/styles2.css' %}" />{% endblock %}
+{% block header_action %}
+  <button class="btn btn-secondary btn-sm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export Report
+  </button>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page header + customer/program context -->
+<div class="page-header">
+  <div class="page-header-left">
+    <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);">
+      <a href="{% url 'customers:list' %}" style="font-size:var(--text-xs);color:var(--text-muted);">Customers</a>
+      <span style="color:var(--text-subtle);">/</span>
+      <a href="{% url 'customers:customer_profile' %}" style="font-size:var(--text-xs);color:var(--text-muted);">Marcus Webb</a>
+      <span style="color:var(--text-subtle);">/</span>
+      <span style="font-size:var(--text-xs);color:var(--text);">Program Tracking</span>
+    </div>
+    <h1 class="page-title">Post-Surgical Rehabilitation</h1>
+    <p class="page-subtitle">Marcus Webb &middot; 16-week program &middot; Week 11 of 16 &middot; Practitioner: Dr. Dana Kim</p>
+  </div>
+  <div class="page-actions">
+    <select class="form-select form-select-sm" style="width:auto;">
+      <option>All time</option>
+      <option selected>Last 4 weeks</option>
+      <option>Last 8 weeks</option>
+      <option>This week</option>
+    </select>
+    <button class="btn btn-secondary btn-sm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export
+    </button>
+    <button class="btn btn-primary btn-sm">Log Session</button>
+  </div>
+</div>
+
+<!-- Negative trend alerts -->
+<div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-6);">
+  <div class="alert alert-warning" style="position:relative;">
+    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div class="alert-body">
+      <div class="alert-title">Adherence has dropped two weeks in a row</div>
+      <div class="alert-message">Marcus completed 2 of 4 sessions in week 9 and 2 of 4 in week 10. His 4-week rolling adherence is now 62%, below the 70% threshold. Coach follow-up is overdue.</div>
+    </div>
+    <button class="alert-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="alert alert-info" style="position:relative;">
+    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div class="alert-body">
+      <div class="alert-title">Pain score self-report has increased this week</div>
+      <div class="alert-message">Marcus rated pain at 5/10 in his last two sessions, up from 2/10 in weeks 7&ndash;8. Dr. Kim has been notified and a clinical check-in has been scheduled for Thursday.</div>
+    </div>
+    <button class="alert-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+</div>
+
+<!-- Row 1: 5 adherence stat cards -->
+<div class="grid-cols-5 mb-6" style="gap:var(--space-4);">
+
+  <div class="stat-card">
+    <div class="stat-card-label">Overall Adherence</div>
+    <div class="stat-card-value" style="color:var(--warning);">68%</div>
+    <div class="stat-card-trend" style="color:var(--danger);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+      &minus;9% vs last 4 wk
+    </div>
+    <div class="stat-card-icon" style="background:var(--warning-soft);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-label">Sessions Completed</div>
+    <div class="stat-card-value">37</div>
+    <div class="stat-card-trend" style="color:var(--text-muted);">of 44 scheduled so far</div>
+    <div class="stat-card-icon" style="background:var(--primary-soft);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-label">Missed Sessions</div>
+    <div class="stat-card-value" style="color:var(--danger);">7</div>
+    <div class="stat-card-trend" style="color:var(--danger);">4 in last 2 weeks</div>
+    <div class="stat-card-icon" style="background:var(--danger-soft);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-label">Avg Pain Score</div>
+    <div class="stat-card-value" style="color:var(--warning);">4.2<span style="font-size:var(--text-sm);font-weight:500;color:var(--text-muted);">/10</span></div>
+    <div class="stat-card-trend" style="color:var(--danger);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+      Up from 2.1 last month
+    </div>
+    <div class="stat-card-icon" style="background:var(--warning-soft);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-label">Weeks Remaining</div>
+    <div class="stat-card-value">5</div>
+    <div class="stat-card-trend" style="color:var(--text-muted);">Program ends Aug 16</div>
+    <div class="stat-card-icon" style="background:var(--primary-soft);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<!-- Row 2: Adherence chart + Progress indicators -->
+<div style="display:grid;grid-template-columns:1fr 340px;gap:var(--space-6);align-items:start;margin-bottom:var(--space-6);">
+
+  <!-- Weekly completion chart -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Weekly Session Completion</div>
+        <div class="card-subtitle">Scheduled vs completed sessions per week &middot; Weeks 1&ndash;11</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4);">
+        <div style="display:flex;align-items:center;gap:var(--space-2);">
+          <div style="width:10px;height:10px;background:var(--primary);border-radius:2px;"></div>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">Completed</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-2);">
+          <div style="width:10px;height:10px;background:var(--border);border-radius:2px;"></div>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">Scheduled</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-bottom:var(--space-4);">
+
+      <!-- Chart built with inline bars — no JS dependency -->
+      <div style="display:flex;align-items:flex-end;gap:var(--space-2);height:140px;padding-bottom:var(--space-1);">
+
+        {% for week in weeks_data|default:"" %}{% empty %}
+
+        <!-- Wk 1: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;display:flex;flex-direction:column;justify-content:flex-end;height:120px;gap:2px;">
+            <div style="height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;position:relative;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 1</div>
+        </div>
+
+        <!-- Wk 2: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;display:flex;flex-direction:column;justify-content:flex-end;height:120px;">
+            <div style="height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;position:relative;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 2</div>
+        </div>
+
+        <!-- Wk 3: 3/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--border);border-radius:3px 3px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">3/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 3</div>
+        </div>
+
+        <!-- Wk 4: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 4</div>
+        </div>
+
+        <!-- Wk 5: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 5</div>
+        </div>
+
+        <!-- Wk 6: 3/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--border);border-radius:3px 3px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">3/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 6</div>
+        </div>
+
+        <!-- Wk 7: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 7</div>
+        </div>
+
+        <!-- Wk 8: 4/4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--primary);border-radius:3px 3px 0 0;opacity:.85;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">4/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 8</div>
+        </div>
+
+        <!-- Wk 9: 2/4 — declining -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--border);border-radius:3px 3px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--warning);border-radius:3px 3px 0 0;opacity:.8;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--warning);white-space:nowrap;">2/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 9</div>
+        </div>
+
+        <!-- Wk 10: 2/4 — declining -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--border);border-radius:3px 3px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--warning);border-radius:3px 3px 0 0;opacity:.8;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--warning);white-space:nowrap;">2/4</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-subtle);">Wk 10</div>
+        </div>
+
+        <!-- Wk 11: 1/2 — in progress -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="width:100%;position:relative;height:120px;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--border);border-radius:3px 3px 0 0;border:1px dashed var(--border-strong);box-sizing:border-box;"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--primary-light);border-radius:3px 3px 0 0;opacity:.7;">
+              <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;">1/2 ↗</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--primary);font-weight:600;">Wk 11</div>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- 70% threshold line label -->
+      <div style="margin-top:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--warning-soft);border-radius:var(--radius);border-left:3px solid var(--warning);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:var(--text-xs);color:#92400e;font-weight:600;">70% adherence threshold — currently 62% (4-week rolling)</span>
+        <span class="badge badge-warning">Below target</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress indicators -->
+  <div style="display:flex;flex-direction:column;gap:var(--space-5);">
+
+    <!-- Outcome metrics -->
+    <div class="card">
+      <div class="card-header" style="padding-bottom:var(--space-3);">
+        <div class="card-title">Outcome Metrics</div>
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">Customer-reported</span>
+      </div>
+      <div class="card-body" style="padding-top:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+            <span style="font-size:var(--text-xs);font-weight:600;color:var(--text);">Mobility (ROM)</span>
+            <span style="font-size:var(--text-xs);font-weight:700;color:var(--success);">+18% since wk 1</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill progress-fill-success" data-width="72"></div></div>
+          <div style="font-size:10px;color:var(--text-subtle);margin-top:3px;">Baseline: 48° flexion &rarr; Current: 57°</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+            <span style="font-size:var(--text-xs);font-weight:600;color:var(--text);">Pain score (avg)</span>
+            <span style="font-size:var(--text-xs);font-weight:700;color:var(--warning);">4.2 / 10 &#x25b2;</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill progress-fill-warning" data-width="42"></div></div>
+          <div style="font-size:10px;color:var(--text-subtle);margin-top:3px;">Was 2.1 avg at weeks 7&ndash;8</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+            <span style="font-size:var(--text-xs);font-weight:600;color:var(--text);">Functional strength</span>
+            <span style="font-size:var(--text-xs);font-weight:700;color:var(--primary);">+31% vs baseline</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" data-width="68"></div></div>
+          <div style="font-size:10px;color:var(--text-subtle);margin-top:3px;">Leg press: 40 kg &rarr; 52 kg</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+            <span style="font-size:var(--text-xs);font-weight:600;color:var(--text);">Sleep quality (self-rep.)</span>
+            <span style="font-size:var(--text-xs);font-weight:700;color:var(--success);">6.8 / 10</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill progress-fill-success" data-width="68"></div></div>
+          <div style="font-size:10px;color:var(--text-subtle);margin-top:3px;">Improved from 4.5 at intake</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+            <span style="font-size:var(--text-xs);font-weight:600;color:var(--text);">Overall wellbeing</span>
+            <span style="font-size:var(--text-xs);font-weight:700;color:var(--primary);">7.1 / 10</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" data-width="71"></div></div>
+          <div style="font-size:10px;color:var(--text-subtle);margin-top:3px;">Stable over last 3 weeks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Program progress -->
+    <div class="card">
+      <div class="card-header" style="padding-bottom:var(--space-3);">
+        <div class="card-title">Program Progress</div>
+      </div>
+      <div class="card-body" style="padding-top:var(--space-4);">
+        <div style="display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-4);">
+          <div style="position:relative;width:64px;height:64px;flex-shrink:0;">
+            <svg viewBox="0 0 36 36" style="width:64px;height:64px;transform:rotate(-90deg);">
+              <circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--bg-alt)" stroke-width="4"/>
+              <circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--primary)" stroke-width="4"
+                stroke-dasharray="69 31" stroke-linecap="round"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:var(--text-sm);font-weight:800;color:var(--primary);">69%</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:var(--text-base);font-weight:700;color:var(--text);">Week 11 of 16</div>
+            <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">37 of 64 total sessions completed</div>
+            <div style="font-size:var(--text-xs);color:var(--text-muted);">Program ends <strong style="color:var(--text);">Aug 16, 2024</strong></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);">
+          <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);text-align:center;">
+            <div style="font-size:var(--text-xl);font-weight:800;color:var(--success);">37</div>
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Completed</div>
+          </div>
+          <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);text-align:center;">
+            <div style="font-size:var(--text-xl);font-weight:800;color:var(--danger);">7</div>
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Missed</div>
+          </div>
+          <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);text-align:center;">
+            <div style="font-size:var(--text-xl);font-weight:800;color:var(--text-muted);">1</div>
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Rescheduled</div>
+          </div>
+          <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);text-align:center;">
+            <div style="font-size:var(--text-xl);font-weight:800;color:var(--primary);">20</div>
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Remaining</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Row 3: Session status table -->
+<div class="card mb-6">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Session Log</div>
+      <div class="card-subtitle">All scheduled sessions &middot; Weeks 9&ndash;11 shown</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-3);">
+      <select class="form-select form-select-sm" style="width:auto;">
+        <option>All sessions</option>
+        <option>Completed only</option>
+        <option selected>Weeks 9&ndash;11</option>
+        <option>Missed only</option>
+      </select>
+    </div>
+  </div>
+  <div class="table-wrap" style="border:none;border-radius:0;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Service</th>
+          <th>Practitioner</th>
+          <th>Scheduled</th>
+          <th>Status</th>
+          <th>Pain Score</th>
+          <th>Customer Notes</th>
+          <th>Follow-up</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Week 9 -->
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Mon 3 Jun</td>
+          <td>Physiotherapy</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;">DK</div>
+              <span>Dr. Dana Kim</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">10:00 AM</td>
+          <td><span class="badge badge-active"><span class="badge-dot"></span>Completed</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <span style="font-size:var(--text-sm);font-weight:600;color:var(--success);">2/10</span>
+            </div>
+          </td>
+          <td style="max-width:180px;"><span style="font-size:var(--text-xs);color:var(--text-muted);">Feeling good, slight tightness</span></td>
+          <td><span class="badge badge-draft">None needed</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">View</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Wed 5 Jun</td>
+          <td>Strength &amp; Conditioning</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;background:linear-gradient(135deg,#86efac,#16a34a);">TB</div>
+              <span>Tom B.</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">2:00 PM</td>
+          <td><span class="badge badge-risk"><span class="badge-dot"></span>Missed</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-subtle);">&mdash;</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">No response to reminder</span></td>
+          <td><span class="badge badge-warning">Awaiting call</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">Log</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Fri 7 Jun</td>
+          <td>Mobility Session</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;background:linear-gradient(135deg,#c4b5fd,#7c3aed);">JR</div>
+              <span>James R.</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">11:00 AM</td>
+          <td><span class="badge badge-active"><span class="badge-dot"></span>Completed</span></td>
+          <td>
+            <span style="font-size:var(--text-sm);font-weight:600;color:var(--success);">3/10</span>
+          </td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">Good session, minor knee ache</span></td>
+          <td><span class="badge badge-draft">None needed</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">View</button>
+          </td>
+        </tr>
+
+        <!-- Week 10 separator -->
+        <tr style="background:var(--bg);">
+          <td colspan="9" style="padding:var(--space-2) var(--space-6);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);">Week 10</td>
+        </tr>
+
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Mon 10 Jun</td>
+          <td>Physiotherapy</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;">DK</div>
+              <span>Dr. Dana Kim</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">10:00 AM</td>
+          <td><span class="badge badge-active"><span class="badge-dot"></span>Completed</span></td>
+          <td>
+            <span style="font-size:var(--text-sm);font-weight:600;color:var(--warning);">5/10</span>
+          </td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">Pain higher than usual, worried</span></td>
+          <td><span class="badge badge-active">Done &mdash; Thu appt</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">View</button>
+          </td>
+        </tr>
+
+        <tr style="background:rgba(220,38,38,0.018);">
+          <td style="font-weight:600;color:var(--text);">Wed 12 Jun</td>
+          <td>Strength &amp; Conditioning</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;background:linear-gradient(135deg,#86efac,#16a34a);">TB</div>
+              <span>Tom B.</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">2:00 PM</td>
+          <td><span class="badge badge-risk"><span class="badge-dot"></span>Missed</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-subtle);">&mdash;</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">Cancelled same morning, pain</span></td>
+          <td><span class="badge badge-warning">Awaiting call</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">Log</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Fri 14 Jun</td>
+          <td>Physiotherapy</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;">DK</div>
+              <span>Dr. Dana Kim</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">10:00 AM</td>
+          <td><span class="badge badge-active"><span class="badge-dot"></span>Completed</span></td>
+          <td>
+            <span style="font-size:var(--text-sm);font-weight:600;color:var(--warning);">5/10</span>
+          </td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">Confirmed pain is muscular, not joint</span></td>
+          <td><span class="badge badge-active">Reviewed in session</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">View</button>
+          </td>
+        </tr>
+
+        <!-- Week 11 separator -->
+        <tr style="background:var(--bg);">
+          <td colspan="9" style="padding:var(--space-2) var(--space-6);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);">
+            Week 11 &nbsp;<span style="background:var(--primary-soft);color:var(--primary);padding:1px 8px;border-radius:var(--radius-full);font-weight:600;">Current</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="font-weight:600;color:var(--text);">Mon 17 Jun</td>
+          <td>Physiotherapy</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;">DK</div>
+              <span>Dr. Dana Kim</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">10:00 AM</td>
+          <td><span class="badge badge-active"><span class="badge-dot"></span>Completed</span></td>
+          <td>
+            <span style="font-size:var(--text-sm);font-weight:600;color:var(--primary);">3/10</span>
+          </td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">Better today, less tightness</span></td>
+          <td><span class="badge badge-draft">None needed</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">View</button>
+          </td>
+        </tr>
+
+        <tr style="background:var(--primary-subtle);">
+          <td style="font-weight:600;color:var(--text);">Wed 19 Jun</td>
+          <td>Strength &amp; Conditioning</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <div class="sidebar-avatar" style="width:24px;height:24px;font-size:9px;background:linear-gradient(135deg,#86efac,#16a34a);">TB</div>
+              <span>Tom B.</span>
+            </div>
+          </td>
+          <td style="color:var(--text-muted);">2:00 PM</td>
+          <td><span class="badge badge-completed"><span class="badge-dot"></span>Scheduled</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-subtle);">&mdash;</span></td>
+          <td><span style="font-size:var(--text-xs);color:var(--text-muted);">&mdash;</span></td>
+          <td><span class="badge badge-draft">Upcoming</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm">Edit</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div style="padding:var(--space-4) var(--space-6);display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
+    <span style="font-size:var(--text-xs);color:var(--text-muted);">Showing weeks 9&ndash;11 &middot; <a href="#" style="color:var(--primary);">View all 44 sessions</a></span>
+    <button class="btn btn-ghost btn-sm">+ Log Manual Session</button>
+  </div>
+</div>
+
+<!-- Row 4: Missed sessions panel + Intervention recommendations -->
+<div class="grid-cols-2 mb-6">
+
+  <!-- Missed sessions breakdown -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Missed Sessions Detail</div>
+        <div class="card-subtitle">7 total &middot; 4 in last 2 weeks</div>
+      </div>
+      <span class="badge badge-risk">Action required</span>
+    </div>
+    <div class="card-body" style="padding:0;">
+
+      <div style="padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--divider);display:flex;align-items:flex-start;gap:var(--space-4);">
+        <div style="width:36px;height:36px;background:var(--danger-soft);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:var(--text-sm);font-weight:600;color:var(--text);">Wed 12 Jun &mdash; Strength &amp; Conditioning</div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">Cancelled same morning &middot; Reason: increased pain &middot; Tom B.</div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-2);">
+            <span class="badge badge-warning">Follow-up pending</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);flex-shrink:0;">
+          <button class="btn btn-ghost btn-sm">Reschedule</button>
+          <button class="btn btn-secondary btn-sm">Log note</button>
+        </div>
+      </div>
+
+      <div style="padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--divider);display:flex;align-items:flex-start;gap:var(--space-4);">
+        <div style="width:36px;height:36px;background:var(--danger-soft);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:var(--text-sm);font-weight:600;color:var(--text);">Wed 5 Jun &mdash; Strength &amp; Conditioning</div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">No-show &middot; No prior notice &middot; Tom B. &middot; Reminder sent 24h before</div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-2);">
+            <span class="badge badge-warning">Awaiting response</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);flex-shrink:0;">
+          <button class="btn btn-ghost btn-sm">Reschedule</button>
+          <button class="btn btn-secondary btn-sm">Log note</button>
+        </div>
+      </div>
+
+      <div style="padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--divider);display:flex;align-items:flex-start;gap:var(--space-4);">
+        <div style="width:36px;height:36px;background:var(--warning-soft);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" style="width:16px;height:16px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:var(--text-sm);font-weight:600;color:var(--text);">Fri 24 May &mdash; Mobility Session</div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">Rescheduled to following Monday &middot; James R. &middot; Work conflict</div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-2);">
+            <span class="badge badge-active">Rescheduled &amp; attended</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);flex-shrink:0;">
+          <button class="btn btn-ghost btn-sm">View</button>
+        </div>
+      </div>
+
+      <div style="padding:var(--space-4) var(--space-5);display:flex;align-items:center;gap:var(--space-3);">
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">4 earlier misses in weeks 1&ndash;8 &middot;</span>
+        <a href="#" style="font-size:var(--text-xs);color:var(--primary);font-weight:500;">View full history</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Intervention recommendations -->
+  <div style="display:flex;flex-direction:column;gap:var(--space-5);">
+
+    <div class="card">
+      <div class="card-header" style="padding-bottom:var(--space-3);">
+        <div class="card-title">Suggested Interventions</div>
+        <span class="badge badge-primary">3 actions</span>
+      </div>
+      <div class="card-body" style="padding-top:var(--space-4);">
+        <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+
+          <div style="display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:28px;height:28px;background:var(--warning-soft);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" style="width:13px;height:13px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A2 2 0 0 1 5 12a2 2 0 0 1 3.45-1.08L8.5 9"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:var(--text-xs);font-weight:700;color:var(--text);margin-bottom:3px;">Schedule welfare check-in call</div>
+              <div style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.5;">Two consecutive missed sessions with a pain-related cancellation. A brief practitioner call to understand barriers and offer support would be appropriate before week 12.</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="flex-shrink:0;">Assign</button>
+          </div>
+
+          <div style="display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:28px;height:28px;background:var(--primary-soft);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="width:13px;height:13px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:var(--text-xs);font-weight:700;color:var(--text);margin-bottom:3px;">Review strength session intensity</div>
+              <div style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.5;">Pain scores have risen during weeks involving strength conditioning. Consider temporarily reducing load and replacing one session with additional mobility or massage to allow recovery.</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="flex-shrink:0;">Review</button>
+          </div>
+
+          <div style="display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:28px;height:28px;background:var(--info-soft);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--info)" stroke-width="2" style="width:13px;height:13px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:var(--text-xs);font-weight:700;color:var(--text);margin-bottom:3px;">Send mid-program progress summary</div>
+              <div style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.5;">Marcus is at the 11-week mark. Sharing his mobility and strength gains may help re-motivate attendance. Positive framing of progress to date can improve adherence in the final phase.</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="flex-shrink:0;">Generate</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Coach follow-up status -->
+    <div class="card">
+      <div class="card-header" style="padding-bottom:var(--space-3);">
+        <div class="card-title">Coach Follow-up Log</div>
+        <button class="btn btn-ghost btn-sm">+ Add Note</button>
+      </div>
+      <div class="card-body" style="padding-top:var(--space-4);">
+        <div class="activity-list">
+          <div class="activity-item" style="padding-top:0;">
+            <div class="activity-indicator" style="background:var(--success);"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Dr. Dana Kim</strong> noted pain is muscular in origin, not joint-related. Load review scheduled.</div>
+              <div class="activity-time">Fri 14 Jun &middot; Post-session note</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-indicator" style="background:var(--warning);"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Tom B.</strong> sent follow-up SMS after Wed 12 Jun no-show. No response received yet.</div>
+              <div class="activity-time">Wed 12 Jun &middot; SMS</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-indicator" style="background:var(--primary);"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Dr. Dana Kim</strong> flagged increased pain to clinic director. Thursday clinical check-in booked.</div>
+              <div class="activity-time">Mon 10 Jun &middot; Internal note</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-indicator" style="background:var(--text-subtle);"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>System</strong> sent automated adherence alert — 4-week rolling rate fell below 70% threshold.</div>
+              <div class="activity-time">Mon 10 Jun &middot; Automated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+Use the existing CuraFlow frontend foundation and do not rewrite prior files.
+
+Generate only:
+1. templates/recommendation.html
+
+Requirements:
+- extend base.html
+- create a page showing an AI-assisted recommended wellness program
+
+Include:
+- customer snapshot panel
+- AI recommendation summary
+- recommended program composition
+- why this program was selected
+- expected benefits
+- caution / safety notes
+- evidence summary block
+- confidence indicator
+- review status
+- action buttons:
+  - Approve recommendation
+  - Edit program
+  - Regenerate
+  - Request human review
+
+The page should feel structured, credible, operational, and not gimmicky.
+
+Use realistic sample content and language.
+
+Output only templates/recommendation.html with full code.

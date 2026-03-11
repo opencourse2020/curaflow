@@ -1,0 +1,19 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r ./base.txt
+
+gunicorn==20.0.4  # https://github.com/benoitc/gunicorn
+# sentry-sdk==0.14.4  # https://github.com/getsentry/sentry-python
+
+# Django
+# ------------------------------------------------------------------------------
+django-anymail==10.3  # https://github.com/anymail/django-anymail
+
+# others
+stripe==12.4.0
+redis==6.4.0
+celery==5.5.3
+flower==2.0.1
+django-celery-results==2.6.0
+django-celery-beat==2.8.1
+django-redis==6.0.0

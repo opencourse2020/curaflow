@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Elena Marchetti — Customer Profile{% endblock %}
+{% block page_title %}Customer Profile{% endblock %}
+
+{% block header_action %}
+<div style="display:flex;gap:var(--space-3)">
+  <a href="{% url 'core:recommendation' %}" class="btn btn-secondary btn-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+    AI Recommend
+  </a>
+  <a href="{% url 'programs:program_builder' %}" class="btn btn-primary btn-sm">Edit Program</a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);font-size:var(--text-sm);color:var(--muted)">
+  <a href="{% url 'customers:list' %}" style="color:var(--muted)">Customers</a>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+  <span style="color:var(--text)">Elena Marchetti</span>
+</div>
+
+<div class="two-col-layout">
+
+  <!-- LEFT COLUMN -->
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+
+    <!-- Profile summary -->
+    <div class="profile-summary-card">
+      <div class="profile-summary-hero">
+        <div class="profile-avatar-lg">EM</div>
+        <div>
+          <div class="profile-summary-name">Elena Marchetti</div>
+          <div class="profile-summary-sub">Female · Age 42 · Milan, Italy</div>
+          <div class="profile-summary-badges">
+            <span class="badge badge-active">Active</span>
+            <span class="badge badge-info">Post-Op Recovery</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-summary-body">
+        <div class="info-grid">
+          <div>
+            <div class="info-item-label">Email</div>
+            <div class="info-item-value">elena.m@email.com</div>
+          </div>
+          <div>
+            <div class="info-item-label">Phone</div>
+            <div class="info-item-value">+39 02 1234 5678</div>
+          </div>
+          <div>
+            <div class="info-item-label">Registered</div>
+            <div class="info-item-value">14 Jan 2024</div>
+          </div>
+          <div>
+            <div class="info-item-label">Practitioner</div>
+            <div class="info-item-value">Dr. Ananya Patel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health Profile -->
+    <div class="card card-padded">
+      <div class="section-label">Health Profile</div>
+      <div class="info-grid" style="margin-bottom:var(--space-5)">
+        <div>
+          <div class="info-item-label">Height</div>
+          <div class="info-item-value">168 cm</div>
+        </div>
+        <div>
+          <div class="info-item-label">Weight</div>
+          <div class="info-item-value">64 kg</div>
+        </div>
+        <div>
+          <div class="info-item-label">BMI</div>
+          <div class="info-item-value">22.7 <span style="font-size:var(--text-xs);color:var(--success)">Normal</span></div>
+        </div>
+        <div>
+          <div class="info-item-label">Activity Level</div>
+          <div class="info-item-value">Moderate</div>
+        </div>
+        <div>
+          <div class="info-item-label">Sleep Quality</div>
+          <div class="info-item-value">Avg 6.8 hrs</div>
+        </div>
+        <div>
+          <div class="info-item-label">Stress Index</div>
+          <div class="info-item-value">Medium (4/10)</div>
+        </div>
+      </div>
+
+      <div class="section-label">Primary Goals</div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5)">
+        <span class="tag">Post-op recovery</span>
+        <span class="tag">Lower back rehab</span>
+        <span class="tag">Restore mobility</span>
+        <span class="tag">Pain management</span>
+      </div>
+
+      <div class="section-label">Conditions &amp; Risk Flags</div>
+      <div class="risk-flags">
+        <span class="risk-flag medium">L4-L5 disc herniation (resolved)</span>
+        <span class="risk-flag low">Mild hypertension</span>
+        <span class="risk-flag low">Seasonal allergies</span>
+      </div>
+    </div>
+
+    <!-- Active program -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Active Program</div>
+          <div class="card-subtitle">Post-Op Recovery Plan — Week 7 of 12</div>
+        </div>
+        <a href="{% url 'programs:program_builder' %}" class="btn btn-secondary btn-sm">Edit</a>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:var(--space-5)">
+
+        <div style="display:flex;align-items:center;gap:var(--space-5)">
+          <div class="adherence-ring">
+            <svg viewBox="0 0 72 72">
+              <circle class="adherence-ring-bg" cx="36" cy="36" r="30"/>
+              <circle class="adherence-ring-fill" cx="36" cy="36" r="30" data-pct="92" style="stroke-dashoffset:15"/>
+            </svg>
+            <div class="adherence-ring-label">92%</div>
+          </div>
+          <div>
+            <div class="font-semibold" style="margin-bottom:4px">Adherence Rate</div>
+            <div class="text-sm text-muted">22 of 24 sessions completed</div>
+            <div class="text-xs text-success" style="margin-top:4px">On track · Excellent progress</div>
+          </div>
+        </div>
+
+        {% with label="Physiotherapy" value="6/6" pct=100 color="teal" unit="sessions" %}{% include "partials/progress_widget.html" %}{% endwith %}
+        {% with label="Massage Therapy" value="4/4" pct=100 color="green" unit="sessions" %}{% include "partials/progress_widget.html" %}{% endwith %}
+        {% with label="Mobility Training" value="8/10" pct=80 color="blue" unit="sessions" %}{% include "partials/progress_widget.html" %}{% endwith %}
+        {% with label="Pool Hydrotherapy" value="4/4" pct=100 color="teal" unit="sessions" %}{% include "partials/progress_widget.html" %}{% endwith %}
+
+      </div>
+    </div>
+
+    <!-- Session history -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Session History</div>
+        <button class="btn btn-ghost btn-sm">Export</button>
+      </div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Service</th>
+              <th>Staff</th>
+              <th>Duration</th>
+              <th>Outcome</th>
+              <th>Pain Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-medium">Today</td>
+              <td>Physiotherapy</td>
+              <td>Dr. Patel</td>
+              <td>50 min</td>
+              <td><span class="badge badge-active">Excellent</span></td>
+              <td>3/10</td>
+            </tr>
+            <tr>
+              <td>3 Jan</td>
+              <td>Massage Therapy</td>
+              <td>R. Chen</td>
+              <td>45 min</td>
+              <td><span class="badge badge-active">Good</span></td>
+              <td>4/10</td>
+            </tr>
+            <tr>
+              <td>1 Jan</td>
+              <td>Mobility Training</td>
+              <td>K. Osei</td>
+              <td>60 min</td>
+              <td><span class="badge badge-active">Good</span></td>
+              <td>4/10</td>
+            </tr>
+            <tr>
+              <td>29 Dec</td>
+              <td>Physiotherapy</td>
+              <td>Dr. Patel</td>
+              <td>50 min</td>
+              <td><span class="badge badge-paused">Fair</span></td>
+              <td>6/10</td>
+            </tr>
+            <tr>
+              <td>27 Dec</td>
+              <td>Pool Hydrotherapy</td>
+              <td>M. Torres</td>
+              <td>40 min</td>
+              <td><span class="badge badge-active">Good</span></td>
+              <td>3/10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+
+    <!-- Metric widgets -->
+    <div class="grid grid-2" style="gap:var(--space-4)">
+      <div class="metric-widget">
+        <div class="metric-widget-label">Pain Level</div>
+        <div class="metric-widget-value">3<span style="font-size:var(--text-sm);color:var(--muted)">/10</span></div>
+        <div class="metric-widget-trend trend-down">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:12px;height:12px"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+          ↓ from 7 at intake
+        </div>
+      </div>
+      <div class="metric-widget">
+        <div class="metric-widget-label">Mobility Score</div>
+        <div class="metric-widget-value">74<span style="font-size:var(--text-sm);color:var(--muted)">/100</span></div>
+        <div class="metric-widget-trend trend-up" style="color:var(--success)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:12px;height:12px"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"/></svg>
+          ↑ +22 pts since start
+        </div>
+      </div>
+      <div class="metric-widget">
+        <div class="metric-widget-label">Sleep Quality</div>
+        <div class="metric-widget-value">6.8<span style="font-size:var(--text-sm);color:var(--muted)">hrs</span></div>
+        <div class="metric-widget-trend trend-up" style="color:var(--success)">↑ +0.4 avg this week</div>
+      </div>
+      <div class="metric-widget">
+        <div class="metric-widget-label">Stress Index</div>
+        <div class="metric-widget-value">4<span style="font-size:var(--text-sm);color:var(--muted)">/10</span></div>
+        <div class="metric-widget-trend trend-down">↓ from 7 at intake</div>
+      </div>
+    </div>
+
+    <!-- Program timeline -->
+    <div class="card card-padded">
+      <div class="section-label">Program Timeline</div>
+      <div class="timeline">
+        {% with date="14 Jan 2024" title="Initial Assessment" desc="Full health review, mobility test, pain mapping. Program designed by Dr. Patel." color="teal" %}
+        {% include "partials/timeline_block.html" %}
+        {% endwith %}
+
+        {% with date="Week 1–3" title="Foundation Phase" desc="Focus: pain reduction and gentle mobility. Physiotherapy 2×/week + hydrotherapy." color="green" %}
+        {% include "partials/timeline_block.html" %}
+        {% endwith %}
+
+        {% with date="Week 4–6" title="Rebuild Phase" desc="Increased mobility training, introduced massage. Pain reduced significantly." color="green" %}
+        {% include "partials/timeline_block.html" %}
+        {% endwith %}
+
+        {% with date="Now — Week 7" title="Strengthening Phase" desc="Active rehabilitation. Full range of motion exercises. Pain score now 3/10." color="teal" %}
+        {% include "partials/timeline_block.html" %}
+        {% endwith %}
+
+        {% with date="Week 10–12" title="Return to Function" desc="Final phase focused on independence, home exercise plan, discharge preparation." color="gray" %}
+        {% include "partials/timeline_block.html" %}
+        {% endwith %}
+      </div>
+    </div>
+
+    <!-- Coach notes -->
+    <div class="card card-padded">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4)">
+        <div class="section-label" style="margin:0">Clinical Notes</div>
+        <button class="btn btn-secondary btn-sm">+ Add Note</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <div style="border-left:3px solid var(--primary-light);padding-left:var(--space-4)">
+          <div style="font-size:var(--text-xs);color:var(--muted);margin-bottom:4px">Dr. Ananya Patel · Today</div>
+          <div class="text-sm" style="color:var(--text-secondary)">Excellent session today. Elena is responding very well to the strengthening phase. ROM has improved to ~80% of pre-surgical capacity. Pain minimal at rest, moderate only with loaded movement. Continuing as planned.</div>
+        </div>
+        <div style="border-left:3px solid var(--border);padding-left:var(--space-4)">
+          <div style="font-size:var(--text-xs);color:var(--muted);margin-bottom:4px">Dr. Ananya Patel · 29 Dec</div>
+          <div class="text-sm" style="color:var(--text-secondary)">Patient reported increased pain (6/10) following holiday activity. Adjusted this week's plan to reduce intensity. Will monitor closely.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer feedback -->
+    <div class="card card-padded">
+      <div class="section-label">Customer Feedback</div>
+      <div style="display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-4)">
+        <div style="font-size:40px;font-weight:700;color:var(--primary-dark);letter-spacing:-2px">4.8</div>
+        <div>
+          <div style="display:flex;gap:4px;color:#f59e0b;font-size:18px">★★★★★</div>
+          <div class="text-xs text-muted">Based on 7 session ratings</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+        <div style="background:var(--bg);border-radius:var(--radius);padding:var(--space-3) var(--space-4)">
+          <div class="text-sm" style="color:var(--text-secondary);font-style:italic">"Dr. Patel and the team have been incredible. I can finally walk without pain. So happy I chose this clinic."</div>
+          <div class="text-xs text-muted" style="margin-top:var(--space-2)">3 Jan 2025</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

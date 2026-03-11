@@ -1,0 +1,28 @@
+Use the existing CuraFlow frontend system and do not rewrite prior files.
+
+Generate only:
+1. templates/services.html
+
+Requirements:
+- extend base.html
+- create a services management page for wellness businesses
+
+Include:
+- page heading and subtitle
+- add service button
+- search/filter/sort toolbar
+- either a polished card grid or an operational table layout
+
+Each service should show:
+- service name
+- category
+- duration
+- price
+- assigned staff
+- contraindications summary
+- status
+- actions
+
+Use realistic services such as physiotherapy, mobility session, massage therapy, nutrition coaching, yoga recovery, strength class.
+
+Output only templates/services.html with full code.

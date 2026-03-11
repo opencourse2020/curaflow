@@ -347,3 +347,5 @@ action.txt
 /curaflow/programs/migrations/
 /curaflow/scheduling/migrations/
 /curaflow/services/migrations/
+/config/wsgi.py
+/manage.py

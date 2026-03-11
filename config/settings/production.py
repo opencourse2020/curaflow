@@ -1,18 +1,28 @@
 from .base import *  # noqa
 from .base import env
 
-EMAIL_CONFIG = env.email_url("DJANGO_EMAIL_URL")
-vars().update(EMAIL_CONFIG)
-SERVER_EMAIL = EMAIL_CONFIG["EMAIL_HOST_USER"]
-EMAIL_TIMEOUT = 5
+# EMAIL_CONFIG = env.email_url("DJANGO_EMAIL_URL")
+# vars().update(EMAIL_CONFIG)
+# SERVER_EMAIL = EMAIL_CONFIG["EMAIL_HOST_USER"]
+# EMAIL_TIMEOUT = 5
 
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 ADMIN_URL = env.str("DJANGO_ADMIN_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+OPENAI_KEY = env.str("DJANGO_OPENAI")
+GEMINIAPI_KEY = env.str("DJANGO_GEMINIAPI")
+
+# Strip config
+STRIPE_SECRET_KEY = env.str("DJANGO_STRIPE_SECRET_KEY_TEST")
+STRIPE_PUBLISHABLE_KEY = env.str("DJANGO_STRIPE_PUBLISHABLE_KEY_TEST")
+STRIPE_WEBHOOK_SECRET = env.str("DJANGO_STRIPE_WEBHOOK_SECRET_TEST")
+STRIPE_PRICE_ID = env.str("DJANGO_STRIPE_PRICE_ID_TEST")
+FRONTEND_SUCCESS_URL = "https://bizanalytic.com/logiflex/securepay/success/"
+FRONTEND_CANCEL_URL = "https://bizanalytic.com/logiflex/securepay/cancel/"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env.str("DATABASE_NAME"),
         'USER': env.str("DATABASE_USER_SNAME"),
         'PASSWORD': env.str("DATABASE_PASS_WORD"),
@@ -21,6 +31,33 @@ DATABASES = {
     }
 }
 
+CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",  # Adjust host and port if needed
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+# Add a one-minute timeout to all Celery tasks.
+CELERYD_TASK_SOFT_TIME_LIMIT = 55
+
+# google
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'mail.idverifypro.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env.str("DJANGO_EMAIL_HOST")
+EMAIL_HOST_PASSWORD = env.str("DJANGO_EMAI_HOST_PASS")
 
 
 SESSION_COOKIE_SECURE = True
@@ -40,7 +77,7 @@ INSTALLED_APPS += [
     # "django_extensions",
 ]
 
-log_filename = str(BASE_DIR("logs", "syndicma.log"))
+log_filename = str(BASE_DIR("logs", "bizanalytic.log"))
 os.makedirs(os.path.dirname(log_filename), exist_ok=True)
 LOGGING = {
     "version": 1,
@@ -63,7 +100,7 @@ LOGGING = {
         "rotating_file": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(BASE_DIR("logs", "syndicma.log")),
+            "filename": str(BASE_DIR("logs", "curaflow.log")),
             "maxBytes": 1024 * 1024 * 5,
             "backupCount": 5,
         },
@@ -78,3 +115,5 @@ LOGGING = {
 
 RECAPTCHA_PUBLIC_KEY = env.str("DJANGO_RECAPTCHA_PUBLIC", None)
 RECAPTCHA_PRIVATE_KEY = env.str("DJANGO_RECAPTCHA_PRIVATE", None)
+
+UPLOADDOCUMENTKEY = env.str("UPLOAD_DOCUMENT_KEY")

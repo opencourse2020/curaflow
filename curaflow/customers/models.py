@@ -281,30 +281,44 @@ class CustomerAssessment(TimeStampedModel):
         return f"{self.get_assessment_type_display()} - {self.customer}"
 
 
-class CustomerFeedback(TimeStampedModel):
-    customer = models.ForeignKey(
-        "customers.Customer", on_delete=models.CASCADE, related_name="feedbacks"
-    )
-    program = models.ForeignKey(
-        "programs.Program",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="feedbacks",
-    )
-    session_execution = models.ForeignKey(
-        "scheduling.SessionExecution",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="feedbacks",
-    )
-    satisfaction_score = models.PositiveSmallIntegerField(null=True, blank=True)
-    ease_of_following_score = models.PositiveSmallIntegerField(null=True, blank=True)
-    perceived_benefit_score = models.PositiveSmallIntegerField(null=True, blank=True)
-    pain_change_score = models.SmallIntegerField(null=True, blank=True)
-    comment = models.TextField(blank=True)
-    submitted_at = models.DateTimeField(auto_now_add=True)
+class Notification(TimeStampedModel, OrganizationScopedModel):
+    class Channel(models.TextChoices):
+        IN_APP = "in_app", "In-app"
+        EMAIL = "email", "Email"
+        SMS = "sms", "SMS"
 
-    def __str__(self):
-        return f"Feedback - {self.customer}"
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pending"
+        SENT = "sent", "Sent"
+        READ = "read", "Read"
+        FAILED = "failed", "Failed"
+
+    # organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="notifications")
+    user = models.ForeignKey(
+        "profiles.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="notifications",
+    )
+    customer = models.ForeignKey(
+        "customers.Customer",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="notifications",
+    )
+    notification_type = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    channel = models.CharField(max_length=20, choices=Channel.choices, default=Channel.IN_APP)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    sent_at = models.DateTimeField(null=True, blank=True)
+    read_at = models.DateTimeField(null=True, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return str(self.title)

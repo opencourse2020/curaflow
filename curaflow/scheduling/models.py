@@ -205,3 +205,32 @@ class ExecutionAlert(TimeStampedModel, OrganizationScopedModel):
 
     def __str__(self):
         return self.title
+
+
+class CustomerFeedback(TimeStampedModel):
+    customer = models.ForeignKey(
+        "customers.Customer", on_delete=models.CASCADE, related_name="feedbacks"
+    )
+    program = models.ForeignKey(
+        "programs.Program",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="feedbacks",
+    )
+    session_execution = models.ForeignKey(
+        "scheduling.SessionExecution",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="feedbacks",
+    )
+    satisfaction_score = models.PositiveSmallIntegerField(null=True, blank=True)
+    ease_of_following_score = models.PositiveSmallIntegerField(null=True, blank=True)
+    perceived_benefit_score = models.PositiveSmallIntegerField(null=True, blank=True)
+    pain_change_score = models.SmallIntegerField(null=True, blank=True)
+    comment = models.TextField(blank=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback - {self.customer}"

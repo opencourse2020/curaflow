@@ -85,6 +85,34 @@ class OrganizationSettings(TimeStampedModel):
         return f"Settings - {self.organization.name}"
 
 
+class OrganizationMembership(TimeStampedModel):
+    class Role(models.TextChoices):
+        OWNER = "owner", "Owner"
+        ADMIN = "admin", "Admin"
+        MANAGER = "manager", "Manager"
+        PRACTITIONER = "practitioner", "Practitioner"
+        COACH = "coach", "Coach"
+        NUTRITIONIST = "nutritionist", "Nutritionist"
+        RECEPTIONIST = "receptionist", "Receptionist"
+        ANALYST = "analyst", "Analyst"
+
+    user = models.ForeignKey(
+        "profiles.User", on_delete=models.CASCADE, related_name="memberships"
+    )
+    organization = models.ForeignKey(
+        "core.Organization", on_delete=models.CASCADE, related_name="memberships"
+    )
+    role = models.CharField(max_length=30, choices=Role.choices, default=Role.MANAGER)
+    is_active = models.BooleanField(default=True)
+    joined_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "organization")
+
+    def __str__(self):
+        return f"{self.user.email} @ {self.organization.name}"
+
+
 class Location(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
     name = models.CharField(max_length=255)
     address = models.TextField(blank=True)

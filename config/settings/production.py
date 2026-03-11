@@ -77,7 +77,7 @@ INSTALLED_APPS += [
     # "django_extensions",
 ]
 
-log_filename = str(BASE_DIR("logs", "bizanalytic.log"))
+log_filename = str(BASE_DIR("logs", "curaflow.log"))
 os.makedirs(os.path.dirname(log_filename), exist_ok=True)
 LOGGING = {
     "version": 1,

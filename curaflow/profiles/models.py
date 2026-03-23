@@ -143,7 +143,7 @@ class Profile(TimeStampedModel):
         PREFER_NOT_TO_SAY = "prefer_not_to_say", "Prefer not to say"
 
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE,
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
         # related_name="staff_profile"
     )
     organization = models.ForeignKey(

@@ -215,8 +215,8 @@ class StaffAvailability(TimeStampedModel):
         SATURDAY = 6, "Saturday"
         SUNDAY = 7, "Sunday"
 
-    staff = models.ForeignKey(
-        StaffProfile, on_delete=models.CASCADE, related_name="availabilities"
+    admin = models.ForeignKey(
+        Admin, on_delete=models.CASCADE, related_name="availabilities"
     )
     weekday = models.PositiveSmallIntegerField(choices=Weekday.choices)
     start_time = models.TimeField()
@@ -231,10 +231,10 @@ class StaffAvailability(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["staff", "weekday", "start_time"]
+        ordering = ["admin", "weekday", "start_time"]
 
     def __str__(self):
-        return f"{self.staff} - {self.get_weekday_display()}"
+        return f"{self.admin} - {self.get_weekday_display()}"
 
 
 class OrganizationSettings(TimeStampedModel):

@@ -149,6 +149,8 @@ class Profile(TimeStampedModel):
     organization = models.ForeignKey(
         Organization, on_delete=models.CASCADE,
         # related_name="staff_profiles"
+        null=True,
+        blank=True,
     )
     location = models.ForeignKey(
         Location,

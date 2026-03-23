@@ -483,18 +483,18 @@
         {% endif %}
 
         <!-- Login form -->
-        <form method="post" action="{% url 'account_login' %}" >
+        <form action="{% url 'account_login' %}" class="contact-form login_form" method="POST">
           {% csrf_token %}
 
-          {% if next %}
-          <input type="hidden" name="next" value="{{ next }}" />
-          {% endif %}
+{#          {% if next %}#}
+{#          <input type="hidden" name="next" value="{{ next }}" />#}
+{#          {% endif %}#}
 
           <!-- Email / username -->
           <div class="login-field">
-            <label for="id_username">Work email</label>
-            <input type="email" id="id_username" name="username" value="{{ form.username.value|default:'' }}"
-              placeholder="you@yourclinic.com" autocomplete="email" autofocus required
+            <label for="id_login">Work email/Username</label>
+            <input type="text" id="id_login" name="login" value="{{ form.username.value|default:'' }}"
+              placeholder="Username or email" autocomplete="email" autofocus required
               aria-describedby="{% if form.username.errors %}usernameError{% endif %}" />
             {% if form.username.errors %}
             <p id="usernameError" style="font-size:11px; color:#ef4444; margin-top:4px;">
@@ -521,8 +521,8 @@
             {% endif %}
           </div>
         {% if redirect_field_value %}
-						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-					{% endif %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
 
           <!-- Submit -->
           <button type="submit" class="login-submit">

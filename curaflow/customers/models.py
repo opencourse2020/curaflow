@@ -259,7 +259,7 @@ class CustomerAssessment(TimeStampedModel):
         "customers.Customer", on_delete=models.CASCADE, related_name="assessments"
     )
     assessed_by = models.ForeignKey(
-        StaffProfile,
+        Admin,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

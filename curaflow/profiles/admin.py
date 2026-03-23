@@ -4,8 +4,8 @@ from django.contrib import admin
 from . import models
 
 model_objects = (models.User,
-                 models.StaffProfile,
-                 models.MemberProfile,
+                 models.Admin,
+                 models.Member,
                  models.Organization,
                  models.Location,
                  models.StaffAvailability,

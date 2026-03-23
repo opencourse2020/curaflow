@@ -168,7 +168,7 @@ class Profile(TimeStampedModel):
         abstract = True
 
 
-class StaffProfile(Profile):
+class Admin(Profile):
 
     title = models.CharField(max_length=100, blank=True)
     specialization = models.CharField(max_length=255, blank=True)
@@ -195,7 +195,7 @@ class StaffProfile(Profile):
 #         verbose_name_plural = "Admins"
 
 
-class MemberProfile(Profile):  # Member refers to customer
+class Member(Profile):  # Member refers to customer
     date_of_birth = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=50)
     whatsapp = models.CharField(max_length=50, blank=True, null=True)

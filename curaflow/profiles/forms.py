@@ -24,7 +24,7 @@ class SignInForm(LoginForm):
 
 class ProfileCreateForm(SignupForm):
     # USER_TYPES = [("parent", _("Parent")), ("student", _("Student")), ("professor", _("Professor")), ("institutadmin", _("Institute Admin")), ("serviceprovider", _("Service Provider"))]
-    USER_TYPES = [("staff", _("Staff")), ("customer", _("Customer"))]
+    USER_TYPES = [("admin", _("Admin")), ("customer", _("Customer"))]
     # USER_TYPES = [("staff", _("Staff"))]
     # user_type = forms.ChoiceField(choices=USER_TYPES, widget=forms.Select(attrs={'class': 'form-select form-select-lg bg-inverse bg-opacity-5'}))
     user_type = forms.ChoiceField(choices=USER_TYPES)
@@ -41,7 +41,7 @@ class ProfileCreateForm(SignupForm):
 
             user_type = self.cleaned_data["user_type"]
             user_type_class_map = {
-                "staff": models.StaffProfile,
+                "admin": models.StaffProfile,
                 "customer": models.MemberProfile           # Customer refers to Member
             }
             user_class = user_type_class_map[user_type]
@@ -53,7 +53,7 @@ class ProfileCreateForm(SignupForm):
             profile = user_class()
             setattr(user, user_type, profile)
             user.is_staff = False
-            if user_type == "staff":
+            if user_type == "admin":
                 permissions = Permission.objects.filter(codename__startswith="manage")
                 for perm in permissions:
                     user.user_permissions.add(perm)

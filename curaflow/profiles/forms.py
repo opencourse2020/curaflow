@@ -41,8 +41,8 @@ class ProfileCreateForm(SignupForm):
 
             user_type = self.cleaned_data["user_type"]
             user_type_class_map = {
-                "admin": models.StaffProfile,
-                "customer": models.MemberProfile           # Customer refers to Member
+                "admin": models.Admin,
+                "customer": models.Member           # Customer refers to Member
             }
             user_class = user_type_class_map[user_type]
             # ***********************************************************************************************************
@@ -97,7 +97,7 @@ class LanguageForm(forms.ModelForm):
 
 class StaffForm(forms.ModelForm):
     class Meta:
-        model = models.StaffProfile
+        model = models.Admin
         fields = [
             "title",
             "location",
@@ -121,7 +121,7 @@ class StaffForm(forms.ModelForm):
 
 class StaffRulesForm(forms.ModelForm):
     class Meta:
-        model = models.StaffProfile
+        model = models.Admin
         fields = [
             "can_approve_programs",
             "can_edit_services",
@@ -140,7 +140,7 @@ class StaffRulesForm(forms.ModelForm):
 
 class MemberForm(forms.ModelForm):
     class Meta:
-        model = models.MemberProfile
+        model = models.Member
         fields = [
             "gender",
             "date_of_birth",
@@ -181,11 +181,11 @@ class MemberForm(forms.ModelForm):
 
 
 AdminFormSet = inlineformset_factory(
-    User, models.StaffProfile, form=SignupForm, exclude=[], extra=1, can_delete=False,
+    User, models.Admin, form=SignupForm, exclude=[], extra=1, can_delete=False,
 )
 
 MemberFormSet = inlineformset_factory(
-    User, models.MemberProfile, form=MemberForm, exclude=[], extra=1, can_delete=False,
+    User, models.Member, form=MemberForm, exclude=[], extra=1, can_delete=False,
 )
 
 

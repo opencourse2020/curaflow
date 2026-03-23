@@ -1,6 +1,6 @@
 from django.db import models
 
-from curaflow.profiles.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel, Location, StaffProfile
+from curaflow.profiles.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel, Location, Admin
 
 
 class ServiceCategory(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
@@ -120,7 +120,7 @@ class ServiceStaffAssignment(TimeStampedModel):
         "services.Service", on_delete=models.CASCADE, related_name="staff_assignments"
     )
     staff = models.ForeignKey(
-        StaffProfile,
+        Admin,
         on_delete=models.CASCADE,
         related_name="service_assignments",
     )

@@ -143,7 +143,7 @@ class RecommendationDecision(TimeStampedModel):
     )
     decision = models.CharField(max_length=30, choices=Decision.choices)
     reviewed_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        "profiles.Admin",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

@@ -3,13 +3,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}
+{% block title %}
 
 <title>{% trans "Sign Up" %}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content={% trans "Streamline user onboarding and protect your business with our secure, AI-powered ID verification service, ensuring compliance and preventing fraud." %}>
-<meta name="author" content="">
-{% endblock head_title%}
+
+{% endblock title%}
 
 {% block css %}
 
@@ -17,11 +15,8 @@
 
 {% endblock css %}
 
-{% block content_head %}
 
-{% endblock content_head %}
-
-{% block content_body %}
+{% block content %}
 
 <div class="row justify-content-center">
     <div class="col-12 col-md-5">
@@ -61,23 +56,17 @@
 <!--			</div>-->
 	<!-- END #app -->
 	</div>
-            <div class="card-arrow">
-                <div class="card-arrow-top-left"></div>
-                <div class="card-arrow-top-right"></div>
-                <div class="card-arrow-bottom-left"></div>
-                <div class="card-arrow-bottom-right"></div>
-            </div>
+
         </div>
     </div>
 </div>
-{% endblock content_body %}
+{% endblock content %}
 
-{% block js %}
-  {{ block.super }}
+
 
 <script>
 function goBack() {
   window.history.back();
 }
 </script>
-{% endblock js %}
+

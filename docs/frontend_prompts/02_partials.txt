@@ -1,3 +1,18 @@
+Read and follow these project documents:
+
+claude.md
+skills.md
+design-system.md
+frontend-rules.md
+
+Apply the UI standards and design system defined in them.
+
+Do not modify unrelated files.
+Reuse existing UI components when possible.
+If something conflicts with the design system, the design-system.md rules take priority.
+
+Task:
+
 Use the previously generated base.html, styles.css, and app.js as the design foundation.
 
 Do not rewrite them.
@@ -34,7 +49,8 @@ Requirements:
 Specific guidance:
 
 sidebar.html:
-- logo/wordmark: CuraFlow
+- logo/wordmark: CuraFlow (use logo2.png)
+
 - nav links: Dashboard, Customers, Programs, Services, Tracking, Analytics, Settings
 - include icons using simple inline placeholder spans or icon classes
 - support active nav item styling

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, TimeStampedModel
+from curaflow.profiles.models import OrganizationScopedModel, TimeStampedModel, Organization
 
 
 class MetricType(TimeStampedModel):
@@ -12,7 +12,7 @@ class MetricType(TimeStampedModel):
         BOOLEAN = "boolean", "Boolean"
 
     organization = models.ForeignKey(
-        "core.Organization",
+        Organization,
         on_delete=models.CASCADE,
         null=True,
         blank=True,

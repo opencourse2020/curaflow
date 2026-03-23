@@ -1,26 +1,46 @@
-Use the existing CuraFlow frontend foundation and shared partial style conventions.
+Read and follow these project documents:
 
-Do not rewrite any existing files.
+claude.md
+skills.md
+design-system.md
+frontend-rules.md
+
+Apply the UI standards and design system defined in them.
+
+Do not modify unrelated files.
+Reuse existing UI components when possible.
+If something conflicts with the design system, the design-system.md rules take priority.
+
+Task:
+
+Use the existing CuraFlow foundation and shared partials.
+
+Do not rewrite existing files.
 
 Generate only:
-1. templates/login.html
+1. templates/dashboard.html
 
 Requirements:
-- Django template compatible
-- premium login page for CuraFlow
-- minimal, elegant, modern
-- centered card layout
-- include logo/wordmark
-- headline
-- short supporting text
-- email field
-- password field
-- login button
-- forgot password link
-- trust-building microcopy
-- optional subtle split layout or side branding panel
-- fully responsive
+- extend base.html
+- use Django template blocks properly
+- assemble the page using the design system and shared partial conventions
+- create a premium operational dashboard for CuraFlow
 
-The design should feel like a real startup health-tech SaaS login page.
+Include:
+- page heading and subtitle
+- 4 KPI cards:
+  - Active customers
+  - Active programs
+  - Adherence rate
+  - Sessions completed this week
+- upcoming sessions panel
+- recent alerts/issues panel
+- adherence chart placeholder card
+- customer progress overview chart placeholder card
+- recent activity feed
+- quick actions section
 
-Output only templates/login.html with full code.
+Use realistic sample data.
+The page must feel demo-ready and polished.
+
+Output only templates/dashboard.html with full code.

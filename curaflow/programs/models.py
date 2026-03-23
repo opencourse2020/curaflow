@@ -1,6 +1,6 @@
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel
+from curaflow.profiles.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel, StaffProfile
 
 
 class ProgramTemplate(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
@@ -16,7 +16,7 @@ class ProgramTemplate(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel
     default_duration_weeks = models.PositiveIntegerField(default=8)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
     created_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -71,7 +71,7 @@ class ProgramCase(TimeStampedModel, OrganizationScopedModel):
         "customers.Customer", on_delete=models.CASCADE, related_name="program_cases"
     )
     created_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -132,7 +132,7 @@ class Program(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
     adherence_target = models.DecimalField(max_digits=5, decimal_places=2, default=80.00)
     review_frequency_days = models.PositiveIntegerField(default=7)
     approved_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -162,7 +162,7 @@ class ProgramItem(TimeStampedModel):
         "services.Service", on_delete=models.CASCADE, related_name="program_items"
     )
     assigned_staff = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -216,7 +216,7 @@ class ProgramNote(TimeStampedModel):
         "programs.Program", on_delete=models.CASCADE, related_name="notes"
     )
     author = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -246,7 +246,7 @@ class ProgressReview(TimeStampedModel):
         "programs.Program", on_delete=models.CASCADE, related_name="progress_reviews"
     )
     reviewer = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -285,7 +285,7 @@ class ProgramAdjustment(TimeStampedModel):
         related_name="adjustments",
     )
     adjusted_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

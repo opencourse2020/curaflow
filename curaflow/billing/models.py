@@ -1,6 +1,6 @@
 from django.db import models
 
-from curaflow.core.models import TimeStampedModel
+from curaflow.profiles.models import TimeStampedModel
 
 
 class SubscriptionPlan(TimeStampedModel):
@@ -33,7 +33,7 @@ class OrganizationSubscription(TimeStampedModel):
         EXPIRED = "expired", "Expired"
 
     organization = models.ForeignKey(
-        "core.Organization", on_delete=models.CASCADE, related_name="subscriptions"
+        "profiles.Organization", on_delete=models.CASCADE, related_name="subscriptions"
     )
     subscription_plan = models.ForeignKey(
         "billing.SubscriptionPlan", on_delete=models.PROTECT, related_name="subscriptions"
@@ -61,7 +61,7 @@ class Invoice(TimeStampedModel):
         REFUNDED = "refunded", "Refunded"
 
     organization = models.ForeignKey(
-        "core.Organization", on_delete=models.CASCADE, related_name="invoices"
+        "profiles.Organization", on_delete=models.CASCADE, related_name="invoices"
     )
     subscription = models.ForeignKey(
         "billing.OrganizationSubscription",
@@ -84,7 +84,7 @@ class Invoice(TimeStampedModel):
 
 class PaymentTransaction(TimeStampedModel):
     organization = models.ForeignKey(
-        "core.Organization", on_delete=models.CASCADE, related_name="payment_transactions"
+        "profiles.Organization", on_delete=models.CASCADE, related_name="payment_transactions"
     )
     invoice = models.ForeignKey(
         "billing.Invoice", on_delete=models.CASCADE, related_name="transactions"
@@ -103,7 +103,7 @@ class PaymentTransaction(TimeStampedModel):
 
 class UsageRecord(TimeStampedModel):
     organization = models.ForeignKey(
-        "core.Organization", on_delete=models.CASCADE, related_name="usage_records"
+        "profiles.Organization", on_delete=models.CASCADE, related_name="usage_records"
     )
     usage_type = models.CharField(max_length=100)
     quantity = models.PositiveIntegerField(default=0)

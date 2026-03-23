@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, TimeStampedModel
+from curaflow.profiles.models import OrganizationScopedModel, TimeStampedModel
 
 
 class RecommendationRun(TimeStampedModel, OrganizationScopedModel):

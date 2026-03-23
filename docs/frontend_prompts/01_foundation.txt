@@ -1,20 +1,17 @@
-You are a senior frontend architect and Django UI engineer.
+Read and follow these project documents:
 
-I am building a SaaS frontend for a product called CuraFlow, an AI-assisted wellness program platform for clinics, physiotherapy providers, gyms, and wellness businesses.
+claude.md
+skills.md
+design-system.md
+frontend-rules.md
 
-I want you to generate only the foundational frontend files for a Django-based project.
+Apply the UI standards and design system defined in them.
 
-Important rules:
-- Do not generate any page-specific templates yet
-- Do not generate React, Vue, or Tailwind
-- Use plain HTML, CSS, and minimal vanilla JavaScript
-- This must be Django-template compatible
-- Use a modern premium SaaS style
-- Keep the design calm, professional, health-tech, and operational
-- Use reusable CSS variables
-- Use a left sidebar + top header shell layout
-- Use semantic HTML
-- Keep everything responsive
+Do not modify unrelated files.
+Reuse existing UI components when possible.
+If something conflicts with the design system, the design-system.md rules take priority.
+
+Task:
 
 Generate only these files:
 

@@ -1,38 +1,102 @@
-{# templates/partials/table_toolbar.html #}
-{# Variables: count, search_placeholder, show_status_filter, show_program_filter #}
-<div class="table-toolbar">
-  <div class="table-toolbar-search">
-    <svg class="table-toolbar-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-    </svg>
-    <input type="text" placeholder="{{ search_placeholder|default:'Search…' }}" data-table-search />
-  </div>
+{# ============================================================
+partials/table_toolbar.html
+Include variables:
+search_placeholder — input placeholder text
+show_status_filter — boolean — show status <select>
+  show_program_filter — boolean — show program <select>
+    show_sort — boolean (defaults true) — show sort <select>
+      action_label — primary button label (e.g. "Add Customer")
+      action_url — href for primary button
+      count — result count display
+      ============================================================ #}
 
-  {% if show_status_filter %}
-  <select>
-    <option value="">All Statuses</option>
-    <option value="active">Active</option>
-    <option value="paused">Paused</option>
-    <option value="completed">Completed</option>
-  </select>
-  {% endif %}
+      <div class="table-toolbar" role="toolbar" aria-label="Table controls">
 
-  {% if show_program_filter %}
-  <select>
-    <option value="">All Programs</option>
-    <option value="rehab">Rehab &amp; Recovery</option>
-    <option value="weight">Weight Management</option>
-    <option value="mobility">Mobility &amp; Flexibility</option>
-    <option value="stress">Stress &amp; Wellbeing</option>
-  </select>
-  {% endif %}
+        <!-- Search -->
+        <div class="table-search">
+          <svg class="table-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="search" id="tableSearchInput" placeholder="{{ search_placeholder|default:'Search…' }}"
+            aria-label="{{ search_placeholder|default:'Search records' }}" data-table-search />
+        </div>
 
-  <select>
-    <option value="">Sort: Name A–Z</option>
-    <option value="recent">Most Recent</option>
-    <option value="adherence">Adherence</option>
-    <option value="last_session">Last Session</option>
-  </select>
+        <!-- Filter group -->
+        <div class="table-filter-group">
 
-  <span class="table-count" data-table-count>{{ count|default:"0" }} results</span>
-</div>
+          <!-- Status filter -->
+          {% if show_status_filter %}
+          <select class="form-control" style="height: 34px; font-size: var(--text-sm); width: auto;"
+            aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="paused">Paused</option>
+            <option value="completed">Completed</option>
+            <option value="risk">At Risk</option>
+          </select>
+          {% endif %}
+
+          <!-- Program filter -->
+          {% if show_program_filter %}
+          <select class="form-control" style="height: 34px; font-size: var(--text-sm); width: auto;"
+            aria-label="Filter by program">
+            <option value="">All Programs</option>
+            <option value="rehab">Rehab &amp; Recovery</option>
+            <option value="mobility">Mobility &amp; Flexibility</option>
+            <option value="weight">Weight Management</option>
+            <option value="stress">Stress &amp; Wellbeing</option>
+            <option value="custom">Custom Programs</option>
+          </select>
+          {% endif %}
+
+          <!-- Sort -->
+          {% if show_sort != False %}
+          <select class="form-control" style="height: 34px; font-size: var(--text-sm); width: auto;"
+            aria-label="Sort results">
+            <option value="name_asc">Name A–Z</option>
+            <option value="name_desc">Name Z–A</option>
+            <option value="recent">Most Recent</option>
+            <option value="adherence">Adherence</option>
+            <option value="last_session">Last Session</option>
+          </select>
+          {% endif %}
+
+        </div>
+
+        <!-- Right side: result count + primary action -->
+        <div class="flex items-center gap-3" style="margin-left: auto;">
+
+          <!-- Result count -->
+          <span style="font-size: var(--text-sm); color: var(--muted); white-space: nowrap;" aria-live="polite"
+            data-table-count>
+            {% if count is not None %}
+            {{ count }} result{{ count|pluralize }}
+            {% endif %}
+          </span>
+
+          <!-- Primary action button -->
+          {% if action_label and action_url %}
+          <a href="{{ action_url }}" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            {{ action_label }}
+          </a>
+          {% elif action_label %}
+          <button type="button" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            {{ action_label }}
+          </button>
+          {% endif %}
+
+        </div>
+
+      </div>

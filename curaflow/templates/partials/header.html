@@ -1,77 +1,153 @@
-<header class="page-header">
+{# ============================================================
+partials/header.html
+Variables: none — page title injected via {% block header_title %}
+in the parent page, and profile info from request.user
+============================================================ #}
 
-  <!-- Mobile sidebar toggle -->
-  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+<header class="page-header" id="pageHeader" role="banner">
+
+  <!-- Mobile sidebar toggle (shown on ≤768px via CSS) -->
+  <button class="header-icon-btn" id="sidebarToggle" aria-label="Open navigation menu" aria-expanded="false"
+    aria-controls="sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
     </svg>
   </button>
 
-  <!-- Page title -->
-  <h1 class="header-title">{% block page_title %}Dashboard{% endblock %}</h1>
+  <!-- Page title (filled by child template or page partial) -->
+  <span class="header-title" id="pageHeaderTitle">
+    {% block header_title %}{% endblock %}
+  </span>
 
-  <!-- Search -->
-  <div class="header-search">
-    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+  <!-- Global search -->
+  <div class="header-search" role="search">
+    <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
-    <input type="text" placeholder="Search customers, programs, sessions…" />
+    <input type="search" id="globalSearch" placeholder="Search customers, programs, sessions…"
+      aria-label="Global search" />
   </div>
 
-  <!-- Header actions -->
+  <!-- Right-side actions -->
   <div class="header-actions">
 
-    <!-- Quick add -->
+    <!-- Slot for page-specific primary action (e.g. New Customer) -->
     {% block header_action %}{% endblock %}
 
     <!-- Notifications -->
-    <button class="header-icon-btn" title="Notifications">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+    <button class="header-icon-btn" aria-label="View notifications" id="notifBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
       </svg>
-      <span class="notif-dot"></span>
+      <span class="notif-dot" aria-hidden="true"></span>
     </button>
 
     <!-- Help -->
-    <button class="header-icon-btn" title="Help">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+    <button class="header-icon-btn" aria-label="Help and documentation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
       </svg>
     </button>
 
-    <div class="separator"></div>
+    <!-- Profile dropdown trigger -->
+    <div class="header-profile" id="profileTrigger" role="button" tabindex="0" aria-haspopup="true"
+      aria-expanded="false" aria-controls="profileDropdown">
 
-    <!-- Profile -->
-    <div class="header-profile" id="profileTrigger">
-      <div class="header-avatar">SK</div>
-      <span class="header-profile-name">Sarah Kim</span>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:14px;height:14px;color:var(--muted)">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      <div class="header-avatar" aria-hidden="true">
+        {% if request.user.is_authenticated %}
+        {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+        {% else %}
+        SK
+        {% endif %}
+      </div>
+
+      <span class="header-profile-name">
+        {% if request.user.is_authenticated %}
+        {{ request.user.first_name|default:request.user.username }}
+        {% else %}
+        Sarah Kim
+        {% endif %}
+      </span>
+
+      <svg style="width:14px;height:14px;color:var(--muted);flex-shrink:0" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9" />
       </svg>
 
-      <!-- Dropdown -->
-      <div class="profile-dropdown" id="profileDropdown">
+      <!-- ── Profile dropdown panel ──────────────────────── -->
+      <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
+
         <div class="profile-dropdown-header">
-          <div class="profile-dropdown-name">Sarah Kim</div>
-          <div class="profile-dropdown-email">sarah@peakwellness.com</div>
+          <div class="profile-dropdown-name">
+            {% if request.user.is_authenticated %}
+            {{ request.user.get_full_name|default:request.user.username }}
+            {% else %}
+            Sarah Kim
+            {% endif %}
+          </div>
+          <div class="profile-dropdown-email">
+            {% if request.user.is_authenticated %}
+            {{ request.user.email|default:"sarah@peakwellness.com" }}
+            {% else %}
+            sarah@peakwellness.com
+            {% endif %}
+          </div>
         </div>
-        <div class="profile-dropdown-menu">
-          <a href="{% url 'customers:customer_profile' %}" class="profile-dropdown-item">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+
+        <nav class="profile-dropdown-menu">
+
+          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
             My Profile
           </a>
-          <a href="{% url 'core:settings' %}" class="profile-dropdown-item">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+
+          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
             Settings
           </a>
-          <div class="profile-dropdown-divider"></div>
-          <a href="#" class="profile-dropdown-item" style="color: var(--danger)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" /></svg>
+
+          <div class="profile-dropdown-divider" role="separator"></div>
+
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem"
+            style="color: var(--danger);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
             Sign out
           </a>
-        </div>
-      </div>
-    </div>
+          {% else %}
+          <a href="{% url 'login' %}" class="profile-dropdown-item" role="menuitem">
+            Sign in
+          </a>
+          {% endif %}
+
+        </nav>
+      </div><!-- /profile-dropdown -->
+
+    </div><!-- /header-profile -->
 
   </div><!-- /header-actions -->
 

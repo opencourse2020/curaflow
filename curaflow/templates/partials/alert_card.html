@@ -1,23 +1,75 @@
-{# templates/partials/alert_card.html #}
-{# Variables: type (warning/danger/info/success), title, desc, time #}
-<div class="alert-card {{ type|default:'warning' }}">
-  <div class="alert-icon">
-    {% if type == 'danger' %}
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
-    {% elif type == 'success' %}
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-    {% elif type == 'info' %}
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
-    {% else %}
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+{# ============================================================
+partials/alert_card.html
+Include variables (pass via {% include ... with key=value %}):
+type — "info" | "success" | "warning" | "error"
+title — alert heading (short)
+message — descriptive text body
+action_label — optional action link label (e.g. "View customer")
+action_url — optional URL for the action link
+dismissible — boolean (defaults true — add class .alert-dismiss)
+============================================================ #}
+
+<div class="alert-card {{ type|default:'info' }}" role="alert">
+
+  <!-- Severity icon -->
+  <div class="alert-icon" aria-hidden="true">
+    {% if type == 'success' %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+    {% elif type == 'warning' %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+      <line x1="12" y1="9" x2="12" y2="13" />
+      <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+    {% elif type == 'error' %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
+    </svg>
+    {% else %}{# info #}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
     {% endif %}
   </div>
+
+  <!-- Body -->
   <div class="alert-body">
-    <div class="alert-title">{{ title }}</div>
-    <div class="alert-desc">{{ desc }}</div>
+
+    <div class="alert-title">{{ title|default:"Notice" }}</div>
+
+    {% if message %}
+    <div class="alert-text">{{ message }}</div>
+    {% endif %}
+
+    {% if action_label and action_url %}
+    <a href="{{ action_url }}" class="btn btn-ghost btn-sm"
+      style="margin-top: 8px; padding-left: 0; color: inherit; text-decoration: underline; height: auto;">
+      {{ action_label }} →
+    </a>
+    {% endif %}
+
   </div>
-  <div class="alert-time">{{ time }}</div>
-  <button class="alert-dismiss" aria-label="Dismiss">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+
+  <!-- Dismiss button -->
+  {% if dismissible != False %}
+  <button class="alert-dismiss" type="button" aria-label="Dismiss alert">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
   </button>
+  {% endif %}
+
 </div>

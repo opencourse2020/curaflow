@@ -1,0 +1,4177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- =============================================
+     LANDING PAGE — CuraFlow
+     Premium SaaS landing for wellness providers
+     ============================================= -->
+
+<style>
+  /* ─── Landing-specific design tokens ─── */
+  :root {
+    --teal-900: #0f4f4a;
+    --teal-700: #0f766e;
+    --teal-500: #14b8a6;
+    --teal-200: #99f6e4;
+    --teal-50:  #f0fdfa;
+    --slate-900: #0f172a;
+    --slate-700: #334155;
+    --slate-500: #64748b;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50:  #f8fafc;
+    --white: #ffffff;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+    --shadow-md: 0 4px 16px rgba(15,23,42,.08), 0 2px 6px rgba(15,23,42,.05);
+    --shadow-lg: 0 12px 40px rgba(15,23,42,.12), 0 4px 12px rgba(15,23,42,.07);
+  }
+
+  /* ─── Base reset for landing sections ─── */
+  .lp-section {
+    width: 100%;
+    padding: 96px 0;
+  }
+  .lp-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .lp-container--narrow {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ─── Typography ─── */
+  .lp-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--teal-700);
+    margin-bottom: 20px;
+  }
+  .lp-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: var(--teal-500);
+    border-radius: 2px;
+  }
+  .lp-headline {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--slate-900);
+    margin: 0 0 20px;
+  }
+  .lp-headline em {
+    font-style: normal;
+    color: var(--teal-700);
+  }
+  .lp-subheadline {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+  .lp-section-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--slate-500);
+    margin-bottom: 12px;
+  }
+  .lp-section-title {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -.02em;
+    color: var(--slate-900);
+    margin: 0 0 16px;
+  }
+  .lp-section-title em {
+    font-style: normal;
+    color: var(--teal-700);
+  }
+  .lp-section-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* ─── Buttons ─── */
+  .lp-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--teal-700);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background .18s, transform .14s, box-shadow .18s;
+    box-shadow: 0 2px 8px rgba(15,118,110,.28);
+  }
+  .lp-btn-primary:hover {
+    background: var(--teal-900);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15,118,110,.32);
+  }
+  .lp-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: transparent;
+    color: var(--slate-700);
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    border: 1.5px solid var(--slate-200);
+    cursor: pointer;
+    transition: border-color .18s, color .18s, background .18s;
+  }
+  .lp-btn-secondary:hover {
+    border-color: var(--teal-500);
+    color: var(--teal-700);
+    background: var(--teal-50);
+  }
+  .lp-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--teal-700);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background .18s;
+  }
+  .lp-btn-ghost:hover {
+    background: var(--teal-50);
+  }
+  .lp-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 1 — HERO
+  ───────────────────────────────────── */
+  .lp-hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 80px 0 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .lp-hero::before {
+    content: '';
+    position: absolute;
+    top: -180px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(20,184,166,.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .lp-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .lp-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--teal-50);
+    border: 1px solid rgba(20,184,166,.25);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--teal-700);
+    margin-bottom: 28px;
+  }
+  .lp-hero-badge span {
+    width: 7px;
+    height: 7px;
+    background: var(--teal-500);
+    border-radius: 50%;
+    animation: lp-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes lp-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .6; transform: scale(.85); }
+  }
+  .lp-hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--slate-100);
+    flex-wrap: wrap;
+  }
+  .lp-hero-trust-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--slate-500);
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .lp-hero-trust-items {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .lp-hero-trust-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--slate-100);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--slate-700);
+  }
+
+  /* Dashboard mockup */
+  .lp-hero-visual {
+    position: relative;
+    padding-bottom: 0;
+  }
+  .lp-mockup-shell {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+    transform-origin: left center;
+    transition: transform .4s ease;
+  }
+  .lp-hero-visual:hover .lp-mockup-shell {
+    transform: perspective(1200px) rotateY(-2deg) rotateX(1deg);
+  }
+  .lp-mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: var(--slate-50);
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .lp-mockup-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .lp-mockup-dot:nth-child(1) { background: #fc8181; }
+  .lp-mockup-dot:nth-child(2) { background: #f6c90e; }
+  .lp-mockup-dot:nth-child(3) { background: #68d391; }
+  .lp-mockup-url {
+    flex: 1;
+    height: 22px;
+    background: var(--slate-200);
+    border-radius: 4px;
+    margin-left: 12px;
+  }
+  .lp-mockup-body {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    height: 320px;
+  }
+  .lp-mockup-sidebar {
+    background: var(--slate-900);
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lp-mockup-nav-dot {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,.08);
+    border-radius: 8px;
+  }
+  .lp-mockup-nav-dot.active {
+    background: var(--teal-700);
+  }
+  .lp-mockup-main {
+    padding: 20px;
+    background: var(--slate-50);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+  }
+  .lp-mock-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .lp-mock-stat {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .lp-mock-stat-label {
+    height: 8px;
+    background: var(--slate-200);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    width: 60%;
+  }
+  .lp-mock-stat-val {
+    height: 18px;
+    background: var(--slate-300);
+    border-radius: 4px;
+    width: 40%;
+  }
+  .lp-mock-stat-val.accent { background: var(--teal-500); width: 55%; }
+  .lp-mock-chart {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lp-mock-chart-header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .lp-mock-chart-title {
+    height: 10px;
+    width: 120px;
+    background: var(--slate-200);
+    border-radius: 4px;
+  }
+  .lp-mock-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+    padding-top: 8px;
+  }
+  .lp-mock-bar {
+    flex: 1;
+    background: var(--slate-100);
+    border-radius: 4px 4px 0 0;
+  }
+  .lp-mock-bar.t { background: var(--teal-200); }
+  .lp-mock-bar.a { background: var(--teal-500); }
+  .lp-mock-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lp-mock-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 6px;
+  }
+  .lp-mock-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--teal-200);
+    flex-shrink: 0;
+  }
+  .lp-mock-row-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+  .lp-mock-line {
+    height: 7px;
+    background: var(--slate-200);
+    border-radius: 4px;
+  }
+  .lp-mock-line.short { width: 55%; }
+  .lp-mock-badge {
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .lp-mock-badge.green { background: #d1fae5; color: #065f46; }
+  .lp-mock-badge.blue  { background: #dbeafe; color: #1e40af; }
+  .lp-mock-badge.amber { background: #fef3c7; color: #92400e; }
+
+  /* Floating accent cards */
+  .lp-hero-float-1,
+  .lp-hero-float-2 {
+    position: absolute;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    box-shadow: var(--shadow-md);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--slate-700);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    animation: lp-float 4s ease-in-out infinite;
+  }
+  @keyframes lp-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+  .lp-hero-float-1 {
+    bottom: 60px;
+    left: -36px;
+    animation-delay: 0s;
+  }
+  .lp-hero-float-2 {
+    top: 60px;
+    right: -24px;
+    animation-delay: 1.8s;
+  }
+  .lp-float-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--teal-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 2 — SOCIAL PROOF STRIP
+  ───────────────────────────────────── */
+  .lp-proof-strip {
+    background: var(--slate-50);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 28px 0;
+  }
+  .lp-proof-inner {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .lp-proof-stat {
+    text-align: center;
+  }
+  .lp-proof-num {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--slate-900);
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .lp-proof-label {
+    font-size: 13px;
+    color: var(--slate-500);
+    margin-top: 4px;
+  }
+  .lp-proof-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--slate-200);
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 3 — PROBLEM
+  ───────────────────────────────────── */
+  .lp-problem {
+    background: var(--white);
+  }
+  .lp-problem-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .lp-problem-card {
+    padding: 32px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .lp-problem-card:hover {
+    border-color: rgba(20,184,166,.3);
+    box-shadow: var(--shadow-md);
+  }
+  .lp-problem-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .lp-problem-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--slate-500);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-problem-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 10px;
+    letter-spacing: -.01em;
+  }
+  .lp-problem-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 4 — SOLUTION
+  ───────────────────────────────────── */
+  .lp-solution {
+    background: var(--slate-900);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .lp-solution::before {
+    content: '';
+    position: absolute;
+    top: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(20,184,166,.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .lp-solution-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .lp-solution-header .lp-eyebrow {
+    color: var(--teal-200);
+  }
+  .lp-solution-header .lp-eyebrow::before {
+    background: var(--teal-500);
+  }
+  .lp-solution-header .lp-section-title {
+    color: var(--white);
+  }
+  .lp-solution-header .lp-section-body {
+    color: rgba(255,255,255,.55);
+  }
+  .lp-solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .lp-solution-feature {
+    padding: 40px 36px;
+    background: var(--slate-900);
+    transition: background .2s;
+  }
+  .lp-solution-feature:hover {
+    background: rgba(255,255,255,.04);
+  }
+  .lp-solution-num {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--teal-500);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .lp-solution-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(20,184,166,.12);
+    border: 1px solid rgba(20,184,166,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .lp-solution-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--teal-400, #2dd4bf);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-solution-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0 0 12px;
+    letter-spacing: -.01em;
+  }
+  .lp-solution-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(255,255,255,.5);
+    margin: 0;
+  }
+  .lp-solution-tag {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 4px 12px;
+    background: rgba(20,184,166,.1);
+    border: 1px solid rgba(20,184,166,.18);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--teal-400, #2dd4bf);
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 5 — HOW IT WORKS
+  ───────────────────────────────────── */
+  .lp-howit {
+    background: var(--white);
+  }
+  .lp-howit-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .lp-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .lp-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(12.5% + 28px);
+    right: calc(12.5% + 28px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal-500), var(--teal-200));
+  }
+  .lp-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+  }
+  .lp-step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--teal-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--teal-700);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .lp-step-num.active {
+    background: var(--teal-700);
+    color: var(--white);
+    border-color: var(--teal-700);
+    box-shadow: 0 0 0 6px rgba(15,118,110,.12);
+  }
+  .lp-step-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 8px;
+  }
+  .lp-step-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 6 — FEATURES
+  ───────────────────────────────────── */
+  .lp-features {
+    background: var(--slate-50);
+    border-top: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .lp-features-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .lp-feature-item {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .lp-feature-item:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(20,184,166,.28);
+  }
+  .lp-feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--teal-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .lp-feature-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--teal-700);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-feature-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 8px;
+  }
+  .lp-feature-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 7 — TESTIMONIALS
+  ───────────────────────────────────── */
+  .lp-testimonials {
+    background: var(--white);
+  }
+  .lp-testimonials-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .lp-testimonial-card {
+    padding: 32px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: box-shadow .2s;
+  }
+  .lp-testimonial-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+  .lp-testimonial-stars {
+    display: flex;
+    gap: 3px;
+  }
+  .lp-star {
+    width: 14px;
+    height: 14px;
+    fill: #f59e0b;
+  }
+  .lp-testimonial-quote {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--slate-700);
+    margin: 0;
+    font-style: italic;
+  }
+  .lp-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+  }
+  .lp-testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--teal-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal-900);
+    flex-shrink: 0;
+  }
+  .lp-testimonial-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 2px;
+  }
+  .lp-testimonial-role {
+    font-size: 12px;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 8 — CTA BANNER
+  ───────────────────────────────────── */
+  .lp-cta-banner {
+    background: var(--teal-700);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .lp-cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .lp-cta-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .lp-cta-inner .lp-headline {
+    color: var(--white);
+    font-size: clamp(28px, 4vw, 46px);
+  }
+  .lp-cta-inner .lp-subheadline {
+    color: rgba(255,255,255,.7);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .lp-cta-inner .lp-btn-group {
+    justify-content: center;
+  }
+  .lp-cta-inner .lp-btn-primary {
+    background: var(--white);
+    color: var(--teal-700);
+    box-shadow: 0 4px 20px rgba(0,0,0,.16);
+  }
+  .lp-cta-inner .lp-btn-primary:hover {
+    background: var(--slate-50);
+    transform: translateY(-2px);
+  }
+  .lp-cta-inner .lp-btn-secondary {
+    border-color: rgba(255,255,255,.35);
+    color: var(--white);
+  }
+  .lp-cta-inner .lp-btn-secondary:hover {
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,255,255,.55);
+    color: var(--white);
+  }
+  .lp-cta-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,.55);
+  }
+
+  /* ─────────────────────────────────────
+     LANDING NAV OVERRIDE
+  ───────────────────────────────────── */
+  .lp-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .lp-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--slate-900);
+    text-decoration: none;
+    letter-spacing: -.02em;
+  }
+  .lp-nav-logo-mark {
+    width: 30px;
+    height: 30px;
+    background: var(--teal-700);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lp-nav-logo-mark svg {
+    width: 16px;
+    height: 16px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .lp-nav-link {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--slate-500);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: color .15s, background .15s;
+  }
+  .lp-nav-link:hover {
+    color: var(--slate-900);
+    background: var(--slate-100);
+  }
+  .lp-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ─────────────────────────────────────
+     FOOTER
+  ───────────────────────────────────── */
+  .lp-footer {
+    background: var(--slate-900);
+    padding: 64px 0 32px;
+  }
+  .lp-footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .lp-footer-brand {}
+  .lp-footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .lp-footer-tagline {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.45);
+    margin: 0;
+    max-width: 260px;
+  }
+  .lp-footer-col-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin: 0 0 16px;
+  }
+  .lp-footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lp-footer-links a {
+    font-size: 14px;
+    color: rgba(255,255,255,.55);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .lp-footer-links a:hover {
+    color: var(--white);
+  }
+  .lp-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .lp-footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,.35);
+    margin: 0;
+  }
+
+  /* ─────────────────────────────────────
+     RESPONSIVE
+  ───────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .lp-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .lp-mockup-shell {
+      transform: none;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .lp-hero-float-1,
+    .lp-hero-float-2 { display: none; }
+    .lp-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .lp-steps::before { display: none; }
+    .lp-features-grid { grid-template-columns: repeat(2, 1fr); }
+    .lp-solution-grid { grid-template-columns: 1fr; gap: 1px; }
+    .lp-footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    .lp-section { padding: 64px 0; }
+    .lp-container, .lp-container--narrow { padding: 0 20px; }
+    .lp-problem-grid { grid-template-columns: 1fr; }
+    .lp-testimonials-grid { grid-template-columns: 1fr; }
+    .lp-features-grid { grid-template-columns: 1fr; }
+    .lp-steps { grid-template-columns: 1fr; }
+    .lp-nav-links { display: none; }
+    .lp-hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .lp-proof-divider { display: none; }
+    .lp-proof-inner { gap: 24px; }
+    .lp-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .lp-footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="lp-nav" aria-label="Main navigation">
+  <a href="/" class="lp-nav-logo">
+    <span class="lp-nav-logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 16 16">
+        <path d="M8 2C5 2 3 4.5 3 7c0 2 1.5 3.5 3 4.5v2.5h4V11.5C11.5 10.5 13 9 13 7c0-2.5-2-5-5-5z"/>
+        <path d="M6 14h4M7 11.5V8m2 3.5V8"/>
+      </svg>
+    </span>
+    CuraFlow
+  </a>
+  <div class="lp-nav-links" role="list">
+    <a href="#features" class="lp-nav-link" role="listitem">Features</a>
+    <a href="#how-it-works" class="lp-nav-link" role="listitem">How it works</a>
+    <a href="#testimonials" class="lp-nav-link" role="listitem">Testimonials</a>
+    <a href="#" class="lp-nav-link" role="listitem">Pricing</a>
+  </div>
+  <div class="lp-nav-actions">
+    <a href="{% url 'login' %}" class="lp-btn-ghost">Sign in</a>
+    <a href="{% url 'register' %}" class="lp-btn-primary">Request Demo</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="lp-hero" aria-labelledby="hero-headline">
+  <div class="lp-container">
+    <div class="lp-hero-inner">
+
+      <div class="lp-hero-content">
+        <div class="lp-hero-badge">
+          <span aria-hidden="true"></span>
+          Now with AI Program Design
+        </div>
+        <h1 class="lp-headline" id="hero-headline">
+          Wellness programs your<br>
+          <em>clients actually complete.</em>
+        </h1>
+        <p class="lp-subheadline">
+          CuraFlow helps clinics, physios, and wellness centers design, deliver, and track personalized care programs — from first session to full recovery.
+        </p>
+        <div class="lp-btn-group">
+          <a href="{% url 'register' %}" class="lp-btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Request Demo
+          </a>
+          <a href="#how-it-works" class="lp-btn-secondary">View Platform</a>
+        </div>
+        <div class="lp-hero-trust">
+          <span class="lp-hero-trust-label">Trusted by</span>
+          <div class="lp-hero-trust-items">
+            <span class="lp-hero-trust-chip">🏥 Physio clinics</span>
+            <span class="lp-hero-trust-chip">🏋️ Wellness centers</span>
+            <span class="lp-hero-trust-chip">🧘 Health coaches</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-hero-visual" aria-hidden="true">
+        <!-- Floating accent cards -->
+        <div class="lp-hero-float-1">
+          <div class="lp-float-icon">
+            <svg width="16" height="16" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--slate-500);margin-bottom:2px;">Program adherence</div>
+            <div style="font-size:15px;font-weight:700;color:var(--slate-900);">94% completion rate</div>
+          </div>
+        </div>
+        <div class="lp-hero-float-2">
+          <div class="lp-float-icon">
+            <svg width="16" height="16" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--slate-500);margin-bottom:2px;">Outcomes tracked</div>
+            <div style="font-size:15px;font-weight:700;color:var(--slate-900);">Real-time insights</div>
+          </div>
+        </div>
+
+        <!-- Dashboard mockup -->
+        <div class="lp-mockup-shell">
+          <div class="lp-mockup-bar">
+            <span class="lp-mockup-dot"></span>
+            <span class="lp-mockup-dot"></span>
+            <span class="lp-mockup-dot"></span>
+            <span class="lp-mockup-url"></span>
+          </div>
+          <div class="lp-mockup-body">
+            <div class="lp-mockup-sidebar">
+              <div class="lp-mockup-nav-dot active"></div>
+              <div class="lp-mockup-nav-dot"></div>
+              <div class="lp-mockup-nav-dot"></div>
+              <div class="lp-mockup-nav-dot"></div>
+              <div class="lp-mockup-nav-dot"></div>
+            </div>
+            <div class="lp-mockup-main">
+              <div class="lp-mock-stats">
+                <div class="lp-mock-stat">
+                  <div class="lp-mock-stat-label"></div>
+                  <div class="lp-mock-stat-val accent"></div>
+                </div>
+                <div class="lp-mock-stat">
+                  <div class="lp-mock-stat-label"></div>
+                  <div class="lp-mock-stat-val"></div>
+                </div>
+                <div class="lp-mock-stat">
+                  <div class="lp-mock-stat-label"></div>
+                  <div class="lp-mock-stat-val accent" style="width:45%"></div>
+                </div>
+              </div>
+              <div class="lp-mock-chart">
+                <div class="lp-mock-chart-header">
+                  <div class="lp-mock-chart-title"></div>
+                </div>
+                <div class="lp-mock-bars">
+                  <div class="lp-mock-bar" style="height:30%"></div>
+                  <div class="lp-mock-bar t" style="height:50%"></div>
+                  <div class="lp-mock-bar" style="height:40%"></div>
+                  <div class="lp-mock-bar a" style="height:75%"></div>
+                  <div class="lp-mock-bar t" style="height:60%"></div>
+                  <div class="lp-mock-bar a" style="height:90%"></div>
+                  <div class="lp-mock-bar" style="height:55%"></div>
+                  <div class="lp-mock-bar t" style="height:70%"></div>
+                </div>
+              </div>
+              <div class="lp-mock-rows">
+                <div class="lp-mock-row">
+                  <div class="lp-mock-avatar"></div>
+                  <div class="lp-mock-row-lines">
+                    <div class="lp-mock-line"></div>
+                    <div class="lp-mock-line short"></div>
+                  </div>
+                  <span class="lp-mock-badge green">Active</span>
+                </div>
+                <div class="lp-mock-row">
+                  <div class="lp-mock-avatar" style="background:var(--slate-200)"></div>
+                  <div class="lp-mock-row-lines">
+                    <div class="lp-mock-line"></div>
+                    <div class="lp-mock-line short"></div>
+                  </div>
+                  <span class="lp-mock-badge blue">In Progress</span>
+                </div>
+                <div class="lp-mock-row">
+                  <div class="lp-mock-avatar" style="background:#fde68a"></div>
+                  <div class="lp-mock-row-lines">
+                    <div class="lp-mock-line"></div>
+                    <div class="lp-mock-line short"></div>
+                  </div>
+                  <span class="lp-mock-badge amber">Review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL PROOF STRIP ─── -->
+<section class="lp-proof-strip" aria-label="Platform statistics">
+  <div class="lp-container">
+    <div class="lp-proof-inner">
+      <div class="lp-proof-stat">
+        <div class="lp-proof-num">2,400+</div>
+        <div class="lp-proof-label">Active patients</div>
+      </div>
+      <div class="lp-proof-divider" aria-hidden="true"></div>
+      <div class="lp-proof-stat">
+        <div class="lp-proof-num">180+</div>
+        <div class="lp-proof-label">Wellness providers</div>
+      </div>
+      <div class="lp-proof-divider" aria-hidden="true"></div>
+      <div class="lp-proof-stat">
+        <div class="lp-proof-num">94%</div>
+        <div class="lp-proof-label">Program completion rate</div>
+      </div>
+      <div class="lp-proof-divider" aria-hidden="true"></div>
+      <div class="lp-proof-stat">
+        <div class="lp-proof-num">3.2×</div>
+        <div class="lp-proof-label">Faster program design</div>
+      </div>
+      <div class="lp-proof-divider" aria-hidden="true"></div>
+      <div class="lp-proof-stat">
+        <div class="lp-proof-num">12 min</div>
+        <div class="lp-proof-label">Avg. onboarding time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEM ─── -->
+<section class="lp-section lp-problem" id="problem" aria-labelledby="problem-title">
+  <div class="lp-container">
+    <header class="lp-problem-header">
+      <div class="lp-eyebrow" aria-hidden="true">The Challenge</div>
+      <h2 class="lp-section-title" id="problem-title">
+        Running a wellness practice is<br><em>operationally exhausting.</em>
+      </h2>
+      <p class="lp-section-body" style="max-width:560px;margin:0 auto">
+        Most clinics rely on spreadsheets, paper forms, and disconnected apps. The result: inconsistent outcomes, frustrated patients, and overworked staff.
+      </p>
+    </header>
+    <div class="lp-problem-grid">
+      <article class="lp-problem-card">
+        <div class="lp-problem-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <h3 class="lp-problem-title">Fragmented service delivery</h3>
+        <p class="lp-problem-desc">Physiotherapy, nutrition, recovery, and mental wellness live in separate tools with no unified view of the patient journey — creating dangerous gaps in care.</p>
+      </article>
+      <article class="lp-problem-card">
+        <div class="lp-problem-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3 class="lp-problem-title">No personalization at scale</h3>
+        <p class="lp-problem-desc">Generic protocols don't account for individual progress, contraindications, or lifestyle factors. Every patient is different — but most programs treat them the same.</p>
+      </article>
+      <article class="lp-problem-card">
+        <div class="lp-problem-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="lp-problem-title">Invisible outcome tracking</h3>
+        <p class="lp-problem-desc">Without structured tracking, it's nearly impossible to measure progress objectively. Practitioners rely on memory and manual notes, missing early warning signs.</p>
+      </article>
+      <article class="lp-problem-card">
+        <div class="lp-problem-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 class="lp-problem-title">Overwhelming operational burden</h3>
+        <p class="lp-problem-desc">Scheduling, documentation, billing, and compliance consume hours that practitioners should spend with patients. Admin overhead is the leading cause of clinician burnout.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOLUTION ─── -->
+<section class="lp-section lp-solution" id="solution" aria-labelledby="solution-title">
+  <div class="lp-container">
+    <header class="lp-solution-header">
+      <div class="lp-eyebrow">The CuraFlow Way</div>
+      <h2 class="lp-section-title" id="solution-title">
+        One platform. Every touchpoint.<br><em>Exceptional outcomes.</em>
+      </h2>
+      <p class="lp-section-body" style="max-width:540px;margin:0 auto">
+        CuraFlow brings all your wellness services together in a single intelligent workspace — so you can focus on patients, not paperwork.
+      </p>
+    </header>
+    <div class="lp-solution-grid">
+      <article class="lp-solution-feature">
+        <span class="lp-solution-num">01</span>
+        <div class="lp-solution-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="lp-solution-title">AI-Assisted Program Design</h3>
+        <p class="lp-solution-desc">Build fully personalized wellness programs in minutes. Our AI analyzes patient history, goals, and constraints to suggest evidence-based protocols tailored to each individual.</p>
+        <span class="lp-solution-tag">AI Powered</span>
+      </article>
+      <article class="lp-solution-feature">
+        <span class="lp-solution-num">02</span>
+        <div class="lp-solution-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="lp-solution-title">Unified Patient Management</h3>
+        <p class="lp-solution-desc">All patient data — sessions, metrics, notes, attachments, and outcomes — in one clean timeline. Every practitioner on your team stays perfectly in sync.</p>
+        <span class="lp-solution-tag">Collaborative</span>
+      </article>
+      <article class="lp-solution-feature">
+        <span class="lp-solution-num">03</span>
+        <div class="lp-solution-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="lp-solution-title">Real-Time Outcome Tracking</h3>
+        <p class="lp-solution-desc">Track adherence, milestones, and clinical outcomes continuously. Automated alerts surface at-risk patients before they drop out, helping you intervene early.</p>
+        <span class="lp-solution-tag">Live Data</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="lp-section lp-howit" id="how-it-works" aria-labelledby="howit-title">
+  <div class="lp-container">
+    <header class="lp-howit-header">
+      <div class="lp-eyebrow">Process</div>
+      <h2 class="lp-section-title" id="howit-title">Up and running <em>in four steps</em></h2>
+      <p class="lp-section-body" style="max-width:480px;margin:0 auto">No lengthy onboarding. No IT team required. Most clinics are fully operational within a single afternoon.</p>
+    </header>
+    <div class="lp-steps">
+      <div class="lp-step">
+        <div class="lp-step-num active" aria-label="Step 1">1</div>
+        <h3 class="lp-step-title">Add your patients</h3>
+        <p class="lp-step-desc">Import existing records or start fresh. CuraFlow captures intake forms, medical history, and goals in a structured profile.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num" aria-label="Step 2">2</div>
+        <h3 class="lp-step-title">Design their program</h3>
+        <p class="lp-step-desc">Use AI recommendations or build manually from your service library. Combine physio, nutrition, movement, and recovery into one cohesive plan.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num" aria-label="Step 3">3</div>
+        <h3 class="lp-step-title">Deliver and track</h3>
+        <p class="lp-step-desc">Sessions are logged automatically. Patients check in via their portal. You see adherence, progress notes, and outcome metrics in real time.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num" aria-label="Step 4">4</div>
+        <h3 class="lp-step-title">Improve and grow</h3>
+        <p class="lp-step-desc">Analytics surface what's working across your whole practice. Identify top-performing programs and replicate results across your patient cohort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="lp-section lp-features" id="features" aria-labelledby="features-title">
+  <div class="lp-container">
+    <header class="lp-features-header">
+      <div class="lp-eyebrow">Platform Capabilities</div>
+      <h2 class="lp-section-title" id="features-title">Everything your practice needs</h2>
+      <p class="lp-section-body" style="max-width:480px;margin:0 auto">Thoughtfully built for the realities of clinical and wellness operations — not generic project management.</p>
+    </header>
+    <div class="lp-features-grid">
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Session Scheduling</h3>
+        <p class="lp-feature-desc">Intelligent booking that respects recovery time, practitioner availability, and program sequencing — automatically.</p>
+      </article>
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Clinical Documentation</h3>
+        <p class="lp-feature-desc">Structured SOAP notes, treatment records, and progress assessments with smart templates for every service type.</p>
+      </article>
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Outcome Analytics</h3>
+        <p class="lp-feature-desc">Track functional scores, pain scales, and custom KPIs across your entire patient cohort with visual dashboards.</p>
+      </article>
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.18 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Patient Communication</h3>
+        <p class="lp-feature-desc">Automated reminders, check-in surveys, and secure messaging keep patients engaged between sessions.</p>
+      </article>
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Adherence Monitoring</h3>
+        <p class="lp-feature-desc">Real-time adherence scores with early warning alerts for patients at risk of dropping off their program.</p>
+      </article>
+      <article class="lp-feature-item">
+        <div class="lp-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="lp-feature-title">Compliance & Privacy</h3>
+        <p class="lp-feature-desc">HIPAA-ready infrastructure with audit logs, consent management, and role-based access controls built in from day one.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="lp-section lp-testimonials" id="testimonials" aria-labelledby="testimonials-title">
+  <div class="lp-container">
+    <header class="lp-testimonials-header">
+      <div class="lp-eyebrow">From practitioners</div>
+      <h2 class="lp-section-title" id="testimonials-title">What our users are saying</h2>
+    </header>
+    <div class="lp-testimonials-grid">
+      <article class="lp-testimonial-card">
+        <div class="lp-testimonial-stars" aria-label="5 out of 5 stars">
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="lp-testimonial-quote">"We cut program design time from 45 minutes to under 10. Our practitioners now see two additional patients per day — that's real revenue from a software change."</p>
+        <div class="lp-testimonial-author">
+          <div class="lp-testimonial-avatar" aria-hidden="true">SB</div>
+          <div>
+            <p class="lp-testimonial-name">Dr. Sarah Bennett</p>
+            <p class="lp-testimonial-role">Clinical Director, Apex Physiotherapy</p>
+          </div>
+        </div>
+      </article>
+      <article class="lp-testimonial-card">
+        <div class="lp-testimonial-stars" aria-label="5 out of 5 stars">
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="lp-testimonial-quote">"The adherence tracking changed everything for our post-surgery rehab patients. We catch drop-offs before they become setbacks. Patient outcomes improved measurably in the first quarter."</p>
+        <div class="lp-testimonial-author">
+          <div class="lp-testimonial-avatar" style="background:#bfdbfe;color:#1e3a5f" aria-hidden="true">MK</div>
+          <div>
+            <p class="lp-testimonial-name">Marcus Kowalski, PT</p>
+            <p class="lp-testimonial-role">Lead Physiotherapist, RehabPlus Center</p>
+          </div>
+        </div>
+      </article>
+      <article class="lp-testimonial-card">
+        <div class="lp-testimonial-stars" aria-label="5 out of 5 stars">
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="lp-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="lp-testimonial-quote">"As a solo wellness coach managing 60+ clients, CuraFlow is the only tool that actually keeps pace with my business. The AI program builder alone saves me hours every week."</p>
+        <div class="lp-testimonial-author">
+          <div class="lp-testimonial-avatar" style="background:#fde68a;color:#92400e" aria-hidden="true">PN</div>
+          <div>
+            <p class="lp-testimonial-name">Priya Nair</p>
+            <p class="lp-testimonial-role">Certified Wellness Coach, Nair Wellness</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+     NEW SECTION A — DEEP FEATURES
+───────────────────────────────────── -->
+
+<style>
+  /* ─── Deep Features ─── */
+  .lp-deep-features {
+    background: var(--white);
+    border-top: 1px solid var(--slate-200);
+  }
+  .lp-deep-features-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-deep-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--slate-200);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .lp-deep-feature {
+    background: var(--white);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: background .18s;
+    position: relative;
+  }
+  .lp-deep-feature:hover {
+    background: var(--teal-50);
+  }
+  .lp-deep-feature-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--slate-100);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--slate-500);
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .lp-deep-feature-tag.accent {
+    background: var(--teal-50);
+    color: var(--teal-700);
+  }
+  .lp-deep-feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .lp-deep-feature:hover .lp-deep-feature-icon {
+    background: var(--white);
+    border-color: rgba(20,184,166,.3);
+  }
+  .lp-deep-feature-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--teal-700);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-deep-feature-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--slate-900);
+    letter-spacing: -.01em;
+    margin: 0 0 10px;
+  }
+  .lp-deep-feature-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--slate-500);
+    margin: 0 0 20px;
+    flex: 1;
+  }
+  .lp-deep-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lp-deep-feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--slate-600, #475569);
+    line-height: 1.5;
+  }
+  .lp-deep-feature-list li::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f766e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── How It Works (detailed) ─── */
+  .lp-hiw {
+    background: var(--slate-50);
+    border-top: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .lp-hiw-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .lp-hiw-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .lp-hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .lp-hiw-step {
+    display: flex;
+    gap: 24px;
+    position: relative;
+    padding-bottom: 40px;
+    cursor: pointer;
+  }
+  .lp-hiw-step:last-child {
+    padding-bottom: 0;
+  }
+  .lp-hiw-step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .lp-hiw-step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--slate-400, #94a3b8);
+    transition: background .2s, border-color .2s, color .2s;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .lp-hiw-step.is-active .lp-hiw-step-num,
+  .lp-hiw-step:hover .lp-hiw-step-num {
+    background: var(--teal-700);
+    border-color: var(--teal-700);
+    color: var(--white);
+    box-shadow: 0 0 0 5px rgba(15,118,110,.1);
+  }
+  .lp-hiw-step-line {
+    width: 1px;
+    flex: 1;
+    background: var(--slate-200);
+    margin-top: 4px;
+    margin-bottom: 0;
+    min-height: 32px;
+  }
+  .lp-hiw-step:last-child .lp-hiw-step-line {
+    display: none;
+  }
+  .lp-hiw-step-right {
+    padding-top: 10px;
+  }
+  .lp-hiw-step-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 6px;
+    letter-spacing: -.01em;
+  }
+  .lp-hiw-step-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+  .lp-hiw-step-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--teal-700);
+    background: var(--teal-50);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* Right side visual panel */
+  .lp-hiw-visual {
+    position: relative;
+  }
+  .lp-hiw-panel {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .lp-hiw-panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--slate-100);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lp-hiw-panel-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-900);
+  }
+  .lp-hiw-panel-badge {
+    margin-left: auto;
+    padding: 3px 10px;
+    background: var(--teal-50);
+    color: var(--teal-700);
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 999px;
+  }
+  .lp-hiw-panel-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Patient profile mock */
+  .lp-mock-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--slate-50);
+    border-radius: 10px;
+    border: 1px solid var(--slate-100);
+  }
+  .lp-mock-profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal-200), var(--teal-500));
+    flex-shrink: 0;
+  }
+  .lp-mock-profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .lp-mock-profile-name {
+    height: 11px;
+    width: 110px;
+    background: var(--slate-300);
+    border-radius: 4px;
+  }
+  .lp-mock-profile-sub {
+    height: 8px;
+    width: 75px;
+    background: var(--slate-200);
+    border-radius: 4px;
+  }
+  .lp-mock-tag-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .lp-mock-tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .lp-mock-tag.teal  { background: var(--teal-50);  color: var(--teal-700); border: 1px solid rgba(20,184,166,.25); }
+  .lp-mock-tag.slate { background: var(--slate-100); color: var(--slate-600, #475569); }
+  .lp-mock-tag.blue  { background: #eff6ff;          color: #1d4ed8; }
+  .lp-mock-metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .lp-mock-metric {
+    padding: 10px 12px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-100);
+    border-radius: 8px;
+  }
+  .lp-mock-metric-label {
+    height: 7px;
+    width: 48px;
+    background: var(--slate-200);
+    border-radius: 3px;
+    margin-bottom: 7px;
+  }
+  .lp-mock-metric-val {
+    height: 14px;
+    width: 36px;
+    background: var(--teal-200);
+    border-radius: 3px;
+  }
+  .lp-mock-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lp-mock-prog-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .lp-mock-prog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lp-mock-prog-label {
+    height: 8px;
+    width: 100px;
+    background: var(--slate-200);
+    border-radius: 3px;
+  }
+  .lp-mock-prog-pct {
+    height: 8px;
+    width: 28px;
+    background: var(--teal-200);
+    border-radius: 3px;
+  }
+  .lp-mock-prog-bar {
+    height: 6px;
+    background: var(--slate-100);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .lp-mock-prog-fill {
+    height: 100%;
+    background: var(--teal-500);
+    border-radius: 999px;
+  }
+
+  /* ─── Product Preview ─── */
+  .lp-preview {
+    background: var(--white);
+    border-top: 1px solid var(--slate-200);
+  }
+  .lp-preview-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-preview-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 40px;
+    background: var(--slate-100);
+    padding: 4px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lp-preview-tab {
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--slate-500);
+    border-radius: 7px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: background .15s, color .15s, box-shadow .15s;
+  }
+  .lp-preview-tab.is-active {
+    background: var(--white);
+    color: var(--slate-900);
+    box-shadow: var(--shadow-sm);
+  }
+  .lp-preview-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  /* Primary large panel */
+  .lp-preview-main {
+    background: var(--slate-900);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.06);
+  }
+  .lp-preview-main-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .lp-preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .lp-preview-dot:nth-child(1) { background: #fc8181; }
+  .lp-preview-dot:nth-child(2) { background: #f6c90e; }
+  .lp-preview-dot:nth-child(3) { background: #68d391; }
+  .lp-preview-url-bar {
+    flex: 1;
+    height: 22px;
+    background: rgba(255,255,255,.07);
+    border-radius: 4px;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .lp-preview-url-text {
+    height: 8px;
+    width: 160px;
+    background: rgba(255,255,255,.15);
+    border-radius: 3px;
+  }
+  .lp-preview-main-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 400px;
+  }
+  .lp-preview-main-sidebar {
+    background: rgba(255,255,255,.03);
+    border-right: 1px solid rgba(255,255,255,.06);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lp-preview-sidebar-section {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.25);
+    padding: 8px 12px 4px;
+    margin-top: 8px;
+  }
+  .lp-preview-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,.5);
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .lp-preview-nav-item.active {
+    background: rgba(20,184,166,.15);
+    color: var(--teal-200);
+  }
+  .lp-preview-nav-item svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+  .lp-preview-nav-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.1);
+    flex-shrink: 0;
+  }
+  .lp-preview-nav-label {
+    height: 9px;
+    border-radius: 3px;
+    background: currentColor;
+    opacity: .4;
+  }
+  .lp-preview-main-content {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+  }
+  .lp-preview-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .lp-preview-page-title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .lp-preview-page-title-bar {
+    height: 14px;
+    width: 180px;
+    background: rgba(255,255,255,.7);
+    border-radius: 4px;
+  }
+  .lp-preview-page-subtitle-bar {
+    height: 9px;
+    width: 120px;
+    background: rgba(255,255,255,.2);
+    border-radius: 4px;
+  }
+  .lp-preview-add-btn {
+    padding: 8px 16px;
+    background: var(--teal-700);
+    border-radius: 6px;
+    height: 32px;
+    width: 110px;
+    flex-shrink: 0;
+  }
+  .lp-preview-stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .lp-preview-stat-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lp-preview-stat-label {
+    height: 8px;
+    width: 60px;
+    background: rgba(255,255,255,.2);
+    border-radius: 3px;
+  }
+  .lp-preview-stat-val {
+    height: 20px;
+    width: 50px;
+    background: rgba(255,255,255,.55);
+    border-radius: 4px;
+  }
+  .lp-preview-stat-delta {
+    height: 8px;
+    width: 40px;
+    background: rgba(52,211,153,.5);
+    border-radius: 3px;
+  }
+  .lp-preview-chart-area {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .lp-preview-chart-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lp-preview-chart-title-bar {
+    height: 10px;
+    width: 140px;
+    background: rgba(255,255,255,.35);
+    border-radius: 3px;
+  }
+  .lp-preview-chart-legend {
+    display: flex;
+    gap: 16px;
+  }
+  .lp-preview-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .lp-preview-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .lp-preview-legend-label {
+    height: 7px;
+    width: 50px;
+    background: rgba(255,255,255,.2);
+    border-radius: 3px;
+  }
+  .lp-preview-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 100px;
+  }
+  .lp-preview-bar-group {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+  .lp-preview-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+  }
+  .lp-preview-patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .lp-preview-patient-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 8px;
+  }
+  .lp-preview-patient-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .lp-preview-patient-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lp-preview-patient-name {
+    height: 9px;
+    width: 100px;
+    background: rgba(255,255,255,.45);
+    border-radius: 3px;
+  }
+  .lp-preview-patient-prog {
+    height: 7px;
+    width: 65px;
+    background: rgba(255,255,255,.15);
+    border-radius: 3px;
+  }
+  .lp-preview-patient-status {
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  /* Secondary 2-col panels */
+  .lp-preview-secondary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .lp-preview-panel {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .lp-preview-panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .lp-preview-panel-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-900);
+  }
+  .lp-preview-panel-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--teal-50);
+    color: var(--teal-700);
+  }
+  .lp-preview-panel-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Program builder mock */
+  .lp-pb-week {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .lp-pb-week-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--slate-400, #94a3b8);
+    margin-bottom: 2px;
+  }
+  .lp-pb-session {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 7px;
+    border-left: 3px solid var(--teal-500);
+  }
+  .lp-pb-session-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--teal-50);
+    flex-shrink: 0;
+  }
+  .lp-pb-session-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lp-pb-session-name {
+    height: 9px;
+    width: 120px;
+    background: var(--slate-300);
+    border-radius: 3px;
+  }
+  .lp-pb-session-meta {
+    height: 7px;
+    width: 70px;
+    background: var(--slate-200);
+    border-radius: 3px;
+  }
+  .lp-pb-session-dur {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--slate-500);
+  }
+  .lp-pb-session.blue { border-left-color: #60a5fa; }
+  .lp-pb-session.amber { border-left-color: #f59e0b; }
+  .lp-pb-add-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1.5px dashed var(--slate-200);
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  .lp-pb-add-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--slate-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lp-pb-add-label {
+    height: 8px;
+    width: 80px;
+    background: var(--slate-200);
+    border-radius: 3px;
+  }
+
+  /* Tracking mock */
+  .lp-track-header-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 0 4px;
+  }
+  .lp-track-col-label {
+    height: 8px;
+    background: var(--slate-200);
+    border-radius: 3px;
+  }
+  .lp-track-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 7px;
+  }
+  .lp-track-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lp-track-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .lp-track-name-bar {
+    height: 9px;
+    width: 80px;
+    background: var(--slate-300);
+    border-radius: 3px;
+  }
+  .lp-track-score {
+    height: 9px;
+    border-radius: 3px;
+  }
+  .lp-track-progress {
+    height: 6px;
+    background: var(--slate-100);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .lp-track-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+  .lp-track-status {
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    width: fit-content;
+  }
+
+  /* Responsive additions */
+  @media (max-width: 1024px) {
+    .lp-deep-features-grid { grid-template-columns: repeat(2, 1fr); }
+    .lp-hiw-layout { grid-template-columns: 1fr; gap: 48px; }
+    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
+    .lp-preview-main-body { grid-template-columns: 160px 1fr; }
+    .lp-preview-secondary { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .lp-deep-features-grid { grid-template-columns: 1fr; }
+    .lp-preview-main-sidebar { display: none; }
+    .lp-preview-main-body { grid-template-columns: 1fr; }
+    .lp-preview-tabs { flex-wrap: wrap; width: 100%; justify-content: flex-start; }
+    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- ─── DEEP FEATURES ─── -->
+<section class="lp-section lp-deep-features" id="platform-features" aria-labelledby="deep-features-title">
+  <div class="lp-container">
+    <header class="lp-deep-features-header">
+      <div class="lp-eyebrow">Built for practitioners</div>
+      <h2 class="lp-section-title" id="deep-features-title">
+        Every tool your practice needs,<br><em>designed to work together.</em>
+      </h2>
+      <p class="lp-section-body" style="max-width:520px;margin:0 auto">
+        Each feature is purpose-built for clinical and wellness workflows — not retrofitted from generic project management software.
+      </p>
+    </header>
+    <div class="lp-deep-features-grid">
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag accent">Core</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">Program Builder</h3>
+        <p class="lp-deep-feature-desc">Design multi-week wellness programs with a structured drag-and-drop editor. Combine services, set milestones, and define success criteria before a single session begins.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Visual multi-week timeline editor</li>
+          <li>Service and exercise library with 400+ entries</li>
+          <li>Reusable program templates per condition type</li>
+          <li>Contraindication and load management rules</li>
+        </ul>
+      </article>
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag accent">AI Powered</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">AI Recommendations</h3>
+        <p class="lp-deep-feature-desc">Our AI reads intake data, clinical history, and patient goals to suggest the most appropriate program structure — then adapts recommendations as outcomes evolve.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Evidence-based protocol matching</li>
+          <li>Dynamic program adjustment based on progress</li>
+          <li>Risk flag detection from patient data</li>
+          <li>Outcome prediction with confidence scoring</li>
+        </ul>
+      </article>
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag">Bundling</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="4"/><circle cx="16" cy="8" r="4"/><circle cx="12" cy="16" r="4"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">Service Bundling</h3>
+        <p class="lp-deep-feature-desc">Package physiotherapy, nutrition, recovery, and mental wellness into unified care bundles. Set pricing, session limits, and expiry rules per bundle — and sell them directly from your CuraFlow portal.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Multi-discipline bundle creation</li>
+          <li>Flexible pricing and session quotas</li>
+          <li>Patient-facing bundle portal</li>
+          <li>Renewal and upsell automations</li>
+        </ul>
+      </article>
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag">Delivery</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">Session Tracking</h3>
+        <p class="lp-deep-feature-desc">Log sessions with structured SOAP notes, exercise sets, and patient-reported outcomes in under two minutes. Every session automatically updates the patient's program timeline and outcome record.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Structured session note templates</li>
+          <li>Exercise set and rep logging</li>
+          <li>Patient check-in via mobile portal</li>
+          <li>Automatic timeline and record update</li>
+        </ul>
+      </article>
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag">Monitoring</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">Adherence Monitoring</h3>
+        <p class="lp-deep-feature-desc">Track every patient's adherence score in real time. Automated alerts notify practitioners when a patient misses consecutive sessions or falls below their adherence threshold — before it becomes a dropout.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Per-patient adherence score dashboard</li>
+          <li>Configurable alert thresholds</li>
+          <li>Automated SMS and email re-engagement</li>
+          <li>Cohort-level drop-off trend analysis</li>
+        </ul>
+      </article>
+
+      <article class="lp-deep-feature">
+        <span class="lp-deep-feature-tag">Insights</span>
+        <div class="lp-deep-feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="lp-deep-feature-title">Analytics Dashboard</h3>
+        <p class="lp-deep-feature-desc">A practice-level view of what's working. Measure program performance, practitioner productivity, revenue per service, and patient outcomes — filterable by cohort, period, or condition type.</p>
+        <ul class="lp-deep-feature-list">
+          <li>Program efficacy and completion rates</li>
+          <li>Revenue and utilization reporting</li>
+          <li>Outcome benchmarking by condition</li>
+          <li>Exportable reports for clinical audits</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS (DETAILED) ─── -->
+<section class="lp-section lp-hiw" id="how-it-works-detail" aria-labelledby="hiw-title">
+  <div class="lp-container">
+    <header class="lp-hiw-header">
+      <div class="lp-eyebrow">Workflow</div>
+      <h2 class="lp-section-title" id="hiw-title">From first consult to <em>full recovery</em></h2>
+      <p class="lp-section-body" style="max-width:500px;margin:0 auto">
+        CuraFlow structures the entire care journey — so nothing falls through the cracks, and every patient gets the attention they deserve.
+      </p>
+    </header>
+    <div class="lp-hiw-layout">
+
+      <!-- Steps -->
+      <div class="lp-hiw-steps" role="list">
+
+        <div class="lp-hiw-step is-active" role="listitem">
+          <div class="lp-hiw-step-left">
+            <div class="lp-hiw-step-num" aria-label="Step 1">1</div>
+            <div class="lp-hiw-step-line" aria-hidden="true"></div>
+          </div>
+          <div class="lp-hiw-step-right">
+            <h3 class="lp-hiw-step-title">Create the customer profile</h3>
+            <p class="lp-hiw-step-desc">Capture intake information, medical history, current complaints, and wellness goals through a structured digital intake form. CuraFlow builds a complete patient profile ready for program design — no transcription, no lost notes.</p>
+            <span class="lp-hiw-step-time">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              ~5 minutes
+            </span>
+          </div>
+        </div>
+
+        <div class="lp-hiw-step" role="listitem">
+          <div class="lp-hiw-step-left">
+            <div class="lp-hiw-step-num" aria-label="Step 2">2</div>
+            <div class="lp-hiw-step-line" aria-hidden="true"></div>
+          </div>
+          <div class="lp-hiw-step-right">
+            <h3 class="lp-hiw-step-title">Generate a personalized program</h3>
+            <p class="lp-hiw-step-desc">The AI analyzes the patient profile and recommends a structured, evidence-based program combining the right services at the right frequency. Review, adjust, and approve — or build from scratch using your service library.</p>
+            <span class="lp-hiw-step-time">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              ~8 minutes
+            </span>
+          </div>
+        </div>
+
+        <div class="lp-hiw-step" role="listitem">
+          <div class="lp-hiw-step-left">
+            <div class="lp-hiw-step-num" aria-label="Step 3">3</div>
+            <div class="lp-hiw-step-line" aria-hidden="true"></div>
+          </div>
+          <div class="lp-hiw-step-right">
+            <h3 class="lp-hiw-step-title">Deliver and track every session</h3>
+            <p class="lp-hiw-step-desc">Sessions are logged with structured notes, exercise data, and patient-reported outcomes. Patients check in via their personal portal after each session, keeping adherence data current and clinical records audit-ready.</p>
+            <span class="lp-hiw-step-time">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              2 min per session
+            </span>
+          </div>
+        </div>
+
+        <div class="lp-hiw-step" role="listitem">
+          <div class="lp-hiw-step-left">
+            <div class="lp-hiw-step-num" aria-label="Step 4">4</div>
+            <div class="lp-hiw-step-line" aria-hidden="true"></div>
+          </div>
+          <div class="lp-hiw-step-right">
+            <h3 class="lp-hiw-step-title">Optimize using real outcome data</h3>
+            <p class="lp-hiw-step-desc">Analytics surface what programs perform best for which conditions, which sessions drive the highest outcome scores, and where drop-off tends to occur. Use these insights to continuously improve your protocols and grow your practice.</p>
+            <span class="lp-hiw-step-time">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              Weekly review
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Visual panel -->
+      <div class="lp-hiw-visual" aria-hidden="true">
+        <div class="lp-hiw-panel">
+          <div class="lp-hiw-panel-header">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal-200),var(--teal-500));flex-shrink:0"></div>
+            <span class="lp-hiw-panel-title" style="margin-left:10px">Emma Richardson — Knee Rehab Program</span>
+            <span class="lp-hiw-panel-badge">Week 3 of 8</span>
+          </div>
+          <div class="lp-hiw-panel-body">
+            <div class="lp-mock-profile">
+              <div class="lp-mock-profile-avatar"></div>
+              <div class="lp-mock-profile-info">
+                <div class="lp-mock-profile-name"></div>
+                <div class="lp-mock-profile-sub"></div>
+              </div>
+            </div>
+            <div class="lp-mock-tag-row">
+              <span class="lp-mock-tag teal">ACL Recovery</span>
+              <span class="lp-mock-tag slate">Post-Op Week 3</span>
+              <span class="lp-mock-tag blue">High Priority</span>
+            </div>
+            <div class="lp-mock-metric-row">
+              <div class="lp-mock-metric"><div class="lp-mock-metric-label"></div><div class="lp-mock-metric-val"></div></div>
+              <div class="lp-mock-metric"><div class="lp-mock-metric-label"></div><div class="lp-mock-metric-val" style="background:var(--slate-200)"></div></div>
+              <div class="lp-mock-metric"><div class="lp-mock-metric-label"></div><div class="lp-mock-metric-val" style="background:#bfdbfe"></div></div>
+            </div>
+            <div class="lp-mock-progress-section">
+              <div class="lp-mock-prog-item">
+                <div class="lp-mock-prog-header">
+                  <div class="lp-mock-prog-label"></div>
+                  <div class="lp-mock-prog-pct"></div>
+                </div>
+                <div class="lp-mock-prog-bar">
+                  <div class="lp-mock-prog-fill" style="width:78%"></div>
+                </div>
+              </div>
+              <div class="lp-mock-prog-item">
+                <div class="lp-mock-prog-header">
+                  <div class="lp-mock-prog-label" style="width:80px"></div>
+                  <div class="lp-mock-prog-pct" style="background:var(--slate-200)"></div>
+                </div>
+                <div class="lp-mock-prog-bar">
+                  <div class="lp-mock-prog-fill" style="width:55%;background:#60a5fa"></div>
+                </div>
+              </div>
+              <div class="lp-mock-prog-item">
+                <div class="lp-mock-prog-header">
+                  <div class="lp-mock-prog-label" style="width:65px"></div>
+                  <div class="lp-mock-prog-pct" style="background:var(--slate-200)"></div>
+                </div>
+                <div class="lp-mock-prog-bar">
+                  <div class="lp-mock-prog-fill" style="width:90%"></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <div style="flex:1;padding:9px 14px;background:var(--teal-700);border-radius:6px;height:34px"></div>
+              <div style="width:90px;padding:9px 14px;background:var(--slate-100);border:1px solid var(--slate-200);border-radius:6px;height:34px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCT PREVIEW ─── -->
+<section class="lp-section lp-preview" id="product-preview" aria-labelledby="preview-title">
+  <div class="lp-container">
+    <header class="lp-preview-header">
+      <div class="lp-eyebrow">Product</div>
+      <h2 class="lp-section-title" id="preview-title">
+        See CuraFlow <em>in action</em>
+      </h2>
+      <p class="lp-section-body" style="max-width:480px;margin:0 auto">
+        A platform designed for clarity. Every view is built around the decisions practitioners need to make — fast.
+      </p>
+    </header>
+
+    <div class="lp-preview-panels">
+
+      <!-- Main dashboard preview -->
+      <div class="lp-preview-main" role="img" aria-label="CuraFlow dashboard interface preview">
+        <div class="lp-preview-main-bar">
+          <span class="lp-preview-dot"></span>
+          <span class="lp-preview-dot"></span>
+          <span class="lp-preview-dot"></span>
+          <div class="lp-preview-url-bar">
+            <div class="lp-preview-url-text"></div>
+          </div>
+        </div>
+        <div class="lp-preview-main-body">
+          <!-- Sidebar -->
+          <div class="lp-preview-main-sidebar" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 8px 16px;">
+              <div style="width:28px;height:28px;border-radius:7px;background:var(--teal-700);flex-shrink:0"></div>
+              <div style="height:10px;width:70px;background:rgba(255,255,255,.35);border-radius:3px"></div>
+            </div>
+            <div class="lp-preview-sidebar-section">Navigation</div>
+            <div class="lp-preview-nav-item active">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              Dashboard
+            </div>
+            <div class="lp-preview-nav-item">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Patients
+            </div>
+            <div class="lp-preview-nav-item">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Programs
+            </div>
+            <div class="lp-preview-nav-item">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Tracking
+            </div>
+            <div class="lp-preview-nav-item">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Analytics
+            </div>
+            <div class="lp-preview-sidebar-section">Settings</div>
+            <div class="lp-preview-nav-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M22 12h-2M4 12H2M12 22v-2M12 4V2"/></svg>
+              Settings
+            </div>
+          </div>
+          <!-- Main content -->
+          <div class="lp-preview-main-content" aria-hidden="true">
+            <div class="lp-preview-page-header">
+              <div class="lp-preview-page-title">
+                <div class="lp-preview-page-title-bar"></div>
+                <div class="lp-preview-page-subtitle-bar"></div>
+              </div>
+              <div class="lp-preview-add-btn"></div>
+            </div>
+            <div class="lp-preview-stat-row">
+              <div class="lp-preview-stat-card">
+                <div class="lp-preview-stat-label"></div>
+                <div class="lp-preview-stat-val"></div>
+                <div class="lp-preview-stat-delta"></div>
+              </div>
+              <div class="lp-preview-stat-card">
+                <div class="lp-preview-stat-label"></div>
+                <div class="lp-preview-stat-val" style="background:rgba(255,255,255,.4)"></div>
+                <div class="lp-preview-stat-delta" style="background:rgba(52,211,153,.35)"></div>
+              </div>
+              <div class="lp-preview-stat-card">
+                <div class="lp-preview-stat-label"></div>
+                <div class="lp-preview-stat-val" style="background:rgba(255,255,255,.35)"></div>
+                <div class="lp-preview-stat-delta"></div>
+              </div>
+              <div class="lp-preview-stat-card">
+                <div class="lp-preview-stat-label"></div>
+                <div class="lp-preview-stat-val" style="background:rgba(255,255,255,.45)"></div>
+                <div class="lp-preview-stat-delta" style="background:rgba(251,191,36,.4)"></div>
+              </div>
+            </div>
+            <div class="lp-preview-chart-area">
+              <div class="lp-preview-chart-title">
+                <div class="lp-preview-chart-title-bar"></div>
+                <div class="lp-preview-chart-legend" style="margin-left:16px">
+                  <div class="lp-preview-legend-item">
+                    <div class="lp-preview-legend-dot" style="background:var(--teal-500)"></div>
+                    <div class="lp-preview-legend-label"></div>
+                  </div>
+                  <div class="lp-preview-legend-item">
+                    <div class="lp-preview-legend-dot" style="background:rgba(255,255,255,.2)"></div>
+                    <div class="lp-preview-legend-label"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lp-preview-bars">
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:45%;background:rgba(255,255,255,.15)"></div><div class="lp-preview-bar" style="height:60%;background:var(--teal-700)"></div></div>
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:35%;background:rgba(255,255,255,.1)"></div><div class="lp-preview-bar" style="height:50%;background:var(--teal-700)"></div></div>
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:55%;background:rgba(255,255,255,.15)"></div><div class="lp-preview-bar" style="height:75%;background:var(--teal-600,#0d9488)"></div></div>
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:40%;background:rgba(255,255,255,.1)"></div><div class="lp-preview-bar" style="height:65%;background:var(--teal-700)"></div></div>
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:60%;background:rgba(255,255,255,.15)"></div><div class="lp-preview-bar" style="height:88%;background:var(--teal-500)"></div></div>
+                <div class="lp-preview-bar-group"><div class="lp-preview-bar" style="height:48%;background:rgba(255,255,255,.1)"></div><div class="lp-preview-bar" style="height:70%;background:var(--teal-700)"></div></div>
+              </div>
+            </div>
+            <div class="lp-preview-patient-list">
+              <div class="lp-preview-patient-row">
+                <div class="lp-preview-patient-avatar" style="background:linear-gradient(135deg,var(--teal-200),var(--teal-500))"></div>
+                <div class="lp-preview-patient-info"><div class="lp-preview-patient-name"></div><div class="lp-preview-patient-prog"></div></div>
+                <span class="lp-preview-patient-status" style="background:#d1fae5;color:#065f46">Active</span>
+              </div>
+              <div class="lp-preview-patient-row">
+                <div class="lp-preview-patient-avatar" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa)"></div>
+                <div class="lp-preview-patient-info"><div class="lp-preview-patient-name" style="width:80px"></div><div class="lp-preview-patient-prog"></div></div>
+                <span class="lp-preview-patient-status" style="background:#dbeafe;color:#1e40af">Week 5</span>
+              </div>
+              <div class="lp-preview-patient-row">
+                <div class="lp-preview-patient-avatar" style="background:linear-gradient(135deg,#fde68a,#f59e0b)"></div>
+                <div class="lp-preview-patient-info"><div class="lp-preview-patient-name" style="width:95px"></div><div class="lp-preview-patient-prog"></div></div>
+                <span class="lp-preview-patient-status" style="background:#fef3c7;color:#92400e">Review</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two secondary panels -->
+      <div class="lp-preview-secondary">
+
+        <!-- Program Builder panel -->
+        <div class="lp-preview-panel" role="img" aria-label="Program builder interface preview">
+          <div class="lp-preview-panel-header">
+            <span class="lp-preview-panel-title">Program Builder</span>
+            <span class="lp-preview-panel-pill">Mobility Recovery · 6 weeks</span>
+          </div>
+          <div class="lp-preview-panel-body" aria-hidden="true">
+            <div class="lp-pb-week">
+              <div class="lp-pb-week-label">Week 1 — Foundation</div>
+              <div class="lp-pb-session">
+                <div class="lp-pb-session-icon"></div>
+                <div class="lp-pb-session-info"><div class="lp-pb-session-name"></div><div class="lp-pb-session-meta"></div></div>
+                <span class="lp-pb-session-dur">45 min</span>
+              </div>
+              <div class="lp-pb-session blue">
+                <div class="lp-pb-session-icon" style="background:#eff6ff"></div>
+                <div class="lp-pb-session-info"><div class="lp-pb-session-name" style="width:100px"></div><div class="lp-pb-session-meta"></div></div>
+                <span class="lp-pb-session-dur">30 min</span>
+              </div>
+            </div>
+            <div class="lp-pb-week">
+              <div class="lp-pb-week-label">Week 2 — Load Introduction</div>
+              <div class="lp-pb-session amber">
+                <div class="lp-pb-session-icon" style="background:#fffbeb"></div>
+                <div class="lp-pb-session-info"><div class="lp-pb-session-name" style="width:90px"></div><div class="lp-pb-session-meta"></div></div>
+                <span class="lp-pb-session-dur">60 min</span>
+              </div>
+              <div class="lp-pb-add-row">
+                <div class="lp-pb-add-icon">
+                  <svg width="10" height="10" fill="none" stroke="var(--slate-400)" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+                <div class="lp-pb-add-label"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracking panel -->
+        <div class="lp-preview-panel" role="img" aria-label="Session tracking interface preview">
+          <div class="lp-preview-panel-header">
+            <span class="lp-preview-panel-title">Adherence Tracking</span>
+            <span class="lp-preview-panel-pill">This week</span>
+          </div>
+          <div class="lp-preview-panel-body" aria-hidden="true">
+            <div class="lp-track-header-row">
+              <div class="lp-track-col-label" style="width:70%"></div>
+              <div class="lp-track-col-label" style="width:40%"></div>
+              <div class="lp-track-col-label" style="width:55%"></div>
+              <div class="lp-track-col-label" style="width:45%"></div>
+            </div>
+            <div class="lp-track-row">
+              <div class="lp-track-name">
+                <div class="lp-track-avatar" style="background:linear-gradient(135deg,var(--teal-200),var(--teal-500))"></div>
+                <div class="lp-track-name-bar"></div>
+              </div>
+              <div class="lp-track-score" style="width:28px;height:9px;background:var(--teal-200)"></div>
+              <div class="lp-track-progress"><div class="lp-track-progress-fill" style="width:92%;background:var(--teal-500)"></div></div>
+              <span class="lp-track-status" style="background:#d1fae5;color:#065f46">On Track</span>
+            </div>
+            <div class="lp-track-row">
+              <div class="lp-track-name">
+                <div class="lp-track-avatar" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa)"></div>
+                <div class="lp-track-name-bar" style="width:60px"></div>
+              </div>
+              <div class="lp-track-score" style="width:28px;height:9px;background:#bfdbfe"></div>
+              <div class="lp-track-progress"><div class="lp-track-progress-fill" style="width:75%;background:#60a5fa"></div></div>
+              <span class="lp-track-status" style="background:#dbeafe;color:#1e40af">Good</span>
+            </div>
+            <div class="lp-track-row">
+              <div class="lp-track-name">
+                <div class="lp-track-avatar" style="background:linear-gradient(135deg,#fde68a,#f59e0b)"></div>
+                <div class="lp-track-name-bar" style="width:75px"></div>
+              </div>
+              <div class="lp-track-score" style="width:28px;height:9px;background:#fde68a"></div>
+              <div class="lp-track-progress"><div class="lp-track-progress-fill" style="width:38%;background:#f59e0b"></div></div>
+              <span class="lp-track-status" style="background:#fef3c7;color:#92400e">At Risk</span>
+            </div>
+            <div class="lp-track-row">
+              <div class="lp-track-name">
+                <div class="lp-track-avatar" style="background:linear-gradient(135deg,#fecaca,#f87171)"></div>
+                <div class="lp-track-name-bar" style="width:85px"></div>
+              </div>
+              <div class="lp-track-score" style="width:28px;height:9px;background:#fecaca"></div>
+              <div class="lp-track-progress"><div class="lp-track-progress-fill" style="width:20%;background:#f87171"></div></div>
+              <span class="lp-track-status" style="background:#fee2e2;color:#991b1b">Alert</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end lp-preview-panels -->
+  </div>
+</section>
+
+
+<style>
+  /* ─────────────────────────────────────
+     SECTION 7 — BENEFITS
+  ───────────────────────────────────── */
+  .lp-benefits {
+    background: var(--slate-50);
+    border-top: 1px solid var(--slate-200);
+  }
+  .lp-benefits-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .lp-benefits-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .lp-benefits-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .lp-benefit-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .lp-benefit-card:hover {
+    border-color: rgba(20,184,166,.3);
+    box-shadow: var(--shadow-md);
+  }
+  .lp-benefit-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    padding: 12px 8px;
+    background: var(--teal-50);
+    border: 1px solid rgba(20,184,166,.2);
+    border-radius: 10px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .lp-benefit-metric-num {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--teal-700);
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .lp-benefit-metric-unit {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--teal-700);
+    opacity: .7;
+    margin-top: 3px;
+  }
+  .lp-benefit-body {}
+  .lp-benefit-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 6px;
+    letter-spacing: -.01em;
+  }
+  .lp-benefit-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--slate-500);
+    margin: 0;
+  }
+
+  /* Right-side comparison block */
+  .lp-benefits-compare {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .lp-compare-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--slate-50);
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .lp-compare-col-label {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .lp-compare-col-label:first-child {
+    color: var(--slate-400, #94a3b8);
+    border-right: 1px solid var(--slate-200);
+  }
+  .lp-compare-col-label:last-child {
+    color: var(--teal-700);
+  }
+  .lp-compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .lp-compare-row:last-child {
+    border-bottom: none;
+  }
+  .lp-compare-cell {
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lp-compare-cell:first-child {
+    color: var(--slate-500);
+    border-right: 1px solid var(--slate-100);
+  }
+  .lp-compare-cell:last-child {
+    color: var(--slate-700);
+    font-weight: 500;
+  }
+  .lp-compare-icon-bad {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fee2e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lp-compare-icon-bad svg {
+    width: 10px;
+    height: 10px;
+    stroke: #dc2626;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+  .lp-compare-icon-good {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--teal-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lp-compare-icon-good svg {
+    width: 10px;
+    height: 10px;
+    stroke: var(--teal-700);
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 8 — SOCIAL PROOF
+  ───────────────────────────────────── */
+  .lp-social-proof {
+    background: var(--white);
+    border-top: 1px solid var(--slate-200);
+  }
+  .lp-social-proof-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .lp-proof-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+  }
+  /* Left: aggregate score card */
+  .lp-proof-score-card {
+    background: var(--slate-900);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 80px;
+  }
+  .lp-proof-score-top {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lp-proof-score-num {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+  .lp-proof-score-label {
+    font-size: 14px;
+    color: rgba(255,255,255,.5);
+  }
+  .lp-proof-score-stars {
+    display: flex;
+    gap: 4px;
+  }
+  .lp-proof-score-star {
+    width: 18px;
+    height: 18px;
+    fill: #f59e0b;
+  }
+  .lp-proof-score-divider {
+    height: 1px;
+    background: rgba(255,255,255,.08);
+  }
+  .lp-proof-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .lp-proof-breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lp-proof-breakdown-label {
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .lp-proof-breakdown-bar {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,.1);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .lp-proof-breakdown-fill {
+    height: 100%;
+    background: var(--teal-500);
+    border-radius: 999px;
+  }
+  .lp-proof-breakdown-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,.6);
+    width: 30px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .lp-proof-score-source {
+    font-size: 12px;
+    color: rgba(255,255,255,.3);
+  }
+
+  /* Right: testimonial cards */
+  .lp-proof-testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .lp-proof-tcard {
+    padding: 32px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .lp-proof-tcard:hover {
+    border-color: rgba(20,184,166,.25);
+    box-shadow: var(--shadow-md);
+  }
+  .lp-proof-tcard-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .lp-proof-tcard-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lp-proof-tcard-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .lp-proof-tcard-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin: 0 0 3px;
+  }
+  .lp-proof-tcard-role {
+    font-size: 12px;
+    color: var(--slate-500);
+    margin: 0;
+  }
+  .lp-proof-tcard-clinic {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--slate-600, #475569);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .lp-proof-tcard-quote {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--slate-700);
+    margin: 0;
+    position: relative;
+    padding-left: 18px;
+  }
+  .lp-proof-tcard-quote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -4px;
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+    color: var(--teal-200);
+    line-height: 1;
+  }
+  .lp-proof-tcard-metrics {
+    display: flex;
+    gap: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--slate-200);
+  }
+  .lp-proof-tcard-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .lp-proof-tcard-metric-num {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--teal-700);
+    letter-spacing: -.02em;
+  }
+  .lp-proof-tcard-metric-label {
+    font-size: 11px;
+    color: var(--slate-500);
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 9 — FINAL CTA
+  ───────────────────────────────────── */
+  .lp-final-cta {
+    background: var(--slate-900);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .lp-final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(15,118,110,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 50%, rgba(20,184,166,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Decorative grid lines */
+  .lp-final-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .lp-final-cta-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .lp-final-cta-left {}
+  .lp-final-cta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(20,184,166,.1);
+    border: 1px solid rgba(20,184,166,.2);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--teal-400, #2dd4bf);
+    margin-bottom: 24px;
+  }
+  .lp-final-cta-headline {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.12;
+    letter-spacing: -.025em;
+    margin: 0 0 20px;
+  }
+  .lp-final-cta-headline em {
+    font-style: normal;
+    color: var(--teal-400, #2dd4bf);
+  }
+  .lp-final-cta-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255,255,255,.55);
+    margin: 0 0 36px;
+  }
+  .lp-final-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .lp-final-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    background: var(--teal-500);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background .18s, transform .14s, box-shadow .18s;
+    box-shadow: 0 4px 20px rgba(20,184,166,.3);
+  }
+  .lp-final-cta-primary:hover {
+    background: var(--teal-400, #2dd4bf);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(20,184,166,.38);
+  }
+  .lp-final-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    background: transparent;
+    color: rgba(255,255,255,.7);
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,.2);
+    transition: border-color .18s, color .18s, background .18s;
+  }
+  .lp-final-cta-secondary:hover {
+    border-color: rgba(255,255,255,.4);
+    color: var(--white);
+    background: rgba(255,255,255,.05);
+  }
+  .lp-final-cta-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,.3);
+  }
+  /* Right card */
+  .lp-final-cta-right {}
+  .lp-demo-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .lp-demo-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+  }
+  .lp-demo-card-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,.45);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .lp-demo-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .lp-demo-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 10px;
+  }
+  .lp-demo-step-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: rgba(20,184,166,.12);
+    border: 1px solid rgba(20,184,166,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lp-demo-step-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--teal-400, #2dd4bf);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-demo-step-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,.7);
+  }
+  .lp-demo-step-time {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,.3);
+    white-space: nowrap;
+  }
+  .lp-demo-card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--teal-700);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background .18s;
+  }
+  .lp-demo-card-cta:hover {
+    background: var(--teal-900);
+  }
+  .lp-demo-card-cta-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .lp-demo-card-cta-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lp-demo-card-cta-arrow svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--white);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ─────────────────────────────────────
+     SECTION 10 — FOOTER (upgraded)
+  ───────────────────────────────────── */
+  .lp-footer-v2 {
+    background: var(--slate-900);
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding: 72px 0 0;
+  }
+  .lp-footer-v2-inner {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .lp-footer-v2-brand {}
+  .lp-footer-v2-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    margin-bottom: 16px;
+    letter-spacing: -.02em;
+  }
+  .lp-footer-v2-logo-mark {
+    width: 30px;
+    height: 30px;
+    background: var(--teal-700);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lp-footer-v2-logo-mark svg {
+    width: 15px;
+    height: 15px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-footer-v2-tagline {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.4);
+    margin: 0 0 24px;
+    max-width: 280px;
+  }
+  .lp-footer-v2-socials {
+    display: flex;
+    gap: 8px;
+  }
+  .lp-footer-v2-social-link {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background .15s, border-color .15s;
+  }
+  .lp-footer-v2-social-link:hover {
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,255,255,.15);
+  }
+  .lp-footer-v2-social-link svg {
+    width: 15px;
+    height: 15px;
+    stroke: rgba(255,255,255,.5);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lp-footer-v2-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    margin: 0 0 18px;
+  }
+  .lp-footer-v2-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .lp-footer-v2-links a {
+    font-size: 14px;
+    color: rgba(255,255,255,.5);
+    text-decoration: none;
+    transition: color .15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .lp-footer-v2-links a:hover {
+    color: var(--white);
+  }
+  .lp-footer-v2-links .new-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    background: rgba(20,184,166,.15);
+    border: 1px solid rgba(20,184,166,.2);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--teal-400, #2dd4bf);
+    letter-spacing: .04em;
+  }
+  .lp-footer-v2-bottom {
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .lp-footer-v2-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,.3);
+    margin: 0;
+  }
+  .lp-footer-v2-bottom-links {
+    display: flex;
+    gap: 20px;
+  }
+  .lp-footer-v2-bottom-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,.3);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .lp-footer-v2-bottom-links a:hover {
+    color: rgba(255,255,255,.6);
+  }
+  .lp-footer-v2-compliance {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .lp-footer-v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,.4);
+    letter-spacing: .04em;
+  }
+  .lp-footer-v2-badge svg {
+    width: 12px;
+    height: 12px;
+    stroke: rgba(255,255,255,.4);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Responsive — new sections */
+  @media (max-width: 1024px) {
+    .lp-benefits-layout { grid-template-columns: 1fr; gap: 48px; }
+    .lp-proof-layout { grid-template-columns: 1fr; }
+    .lp-proof-score-card { position: static; }
+    .lp-final-cta-inner { grid-template-columns: 1fr; gap: 48px; }
+    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr 1fr; }
+    .lp-footer-v2-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 768px) {
+    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr; }
+    .lp-footer-v2-bottom { flex-direction: column; align-items: flex-start; }
+    .lp-proof-tcard-top { flex-direction: column; align-items: flex-start; }
+    .lp-compare-row { grid-template-columns: 1fr; }
+    .lp-compare-cell:first-child { border-right: none; border-bottom: 1px solid var(--slate-100); }
+    .lp-compare-header { display: none; }
+  }
+</style>
+
+<!-- ─── BENEFITS ─── -->
+<section class="lp-section lp-benefits" id="benefits" aria-labelledby="benefits-title">
+  <div class="lp-container">
+    <header class="lp-benefits-header">
+      <div class="lp-eyebrow">Outcomes</div>
+      <h2 class="lp-section-title" id="benefits-title">
+        Measurable impact on your<br><em>practice and your patients.</em>
+      </h2>
+      <p class="lp-section-body" style="max-width:500px;margin:0 auto">
+        CuraFlow is built around results — for clinicians who need efficiency, and for patients who need consistency.
+      </p>
+    </header>
+    <div class="lp-benefits-layout">
+
+      <!-- Benefit cards -->
+      <div class="lp-benefits-cards">
+        <article class="lp-benefit-card">
+          <div class="lp-benefit-metric">
+            <span class="lp-benefit-metric-num">+38%</span>
+            <span class="lp-benefit-metric-unit">outcomes</span>
+          </div>
+          <div class="lp-benefit-body">
+            <h3 class="lp-benefit-title">Improve client results</h3>
+            <p class="lp-benefit-desc">Structured, personalized programs deliver demonstrably better clinical outcomes than ad-hoc session planning. Patients who follow a CuraFlow-designed program report significantly higher functional improvement scores at the 6-week mark.</p>
+          </div>
+        </article>
+        <article class="lp-benefit-card">
+          <div class="lp-benefit-metric">
+            <span class="lp-benefit-metric-num">2.4×</span>
+            <span class="lp-benefit-metric-unit">retention</span>
+          </div>
+          <div class="lp-benefit-body">
+            <h3 class="lp-benefit-title">Increase patient retention</h3>
+            <p class="lp-benefit-desc">Patients who can see their progress, receive check-in reminders, and feel engaged in their care journey are more than twice as likely to complete their full program — reducing early terminations that cost your practice revenue.</p>
+          </div>
+        </article>
+        <article class="lp-benefit-card">
+          <div class="lp-benefit-metric">
+            <span class="lp-benefit-metric-num">−60%</span>
+            <span class="lp-benefit-metric-unit">admin load</span>
+          </div>
+          <div class="lp-benefit-body">
+            <h3 class="lp-benefit-title">Streamline clinical operations</h3>
+            <p class="lp-benefit-desc">Automated scheduling, structured note templates, and real-time dashboards eliminate the administrative overhead that consumes up to three hours per practitioner per day. Spend that time with patients, not paperwork.</p>
+          </div>
+        </article>
+        <article class="lp-benefit-card">
+          <div class="lp-benefit-metric">
+            <span class="lp-benefit-metric-num">10 hr</span>
+            <span class="lp-benefit-metric-unit">saved / wk</span>
+          </div>
+          <div class="lp-benefit-body">
+            <h3 class="lp-benefit-title">Reduce manual work</h3>
+            <p class="lp-benefit-desc">AI program generation, automated patient reminders, and pre-built reporting eliminate the manual tasks that accumulate across a busy clinic. What used to take hours now takes minutes — consistently, every week.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Without / With comparison -->
+      <div class="lp-benefits-compare" aria-label="Comparison of practice without and with CuraFlow">
+        <div class="lp-compare-header">
+          <div class="lp-compare-col-label">Without CuraFlow</div>
+          <div class="lp-compare-col-label">With CuraFlow</div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Programs built manually per session
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            AI-generated programs in 8 minutes
+          </div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            No visibility into patient adherence
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Real-time adherence scores and alerts
+          </div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Notes scattered across tools and paper
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Structured records in a single timeline
+          </div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Outcomes measured informally, if at all
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Quantified clinical outcomes per patient
+          </div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Services billed and tracked separately
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Bundled services, unified billing
+          </div>
+        </div>
+        <div class="lp-compare-row">
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-bad" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Drop-offs discovered weeks after they happen
+          </div>
+          <div class="lp-compare-cell">
+            <div class="lp-compare-icon-good" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Automated alerts before dropout occurs
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL PROOF ─── -->
+<section class="lp-section lp-social-proof" id="social-proof" aria-labelledby="proof-title">
+  <div class="lp-container">
+    <header class="lp-social-proof-header">
+      <div class="lp-eyebrow">From the field</div>
+      <h2 class="lp-section-title" id="proof-title">
+        What practitioners say after<br><em>six months on CuraFlow.</em>
+      </h2>
+    </header>
+    <div class="lp-proof-layout">
+
+      <!-- Aggregate score card -->
+      <aside class="lp-proof-score-card" aria-label="Average review score">
+        <div class="lp-proof-score-top">
+          <div class="lp-proof-score-num">4.9</div>
+          <div class="lp-proof-score-label">Average rating from 180+ providers</div>
+          <div class="lp-proof-score-stars" aria-label="5 stars">
+            <svg class="lp-proof-score-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="lp-proof-score-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="lp-proof-score-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="lp-proof-score-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="lp-proof-score-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="lp-proof-score-divider" aria-hidden="true"></div>
+        <div class="lp-proof-breakdown" aria-label="Rating breakdown">
+          <div class="lp-proof-breakdown-row">
+            <span class="lp-proof-breakdown-label">Ease of use</span>
+            <div class="lp-proof-breakdown-bar"><div class="lp-proof-breakdown-fill" style="width:96%"></div></div>
+            <span class="lp-proof-breakdown-pct">4.8</span>
+          </div>
+          <div class="lp-proof-breakdown-row">
+            <span class="lp-proof-breakdown-label">Features</span>
+            <div class="lp-proof-breakdown-bar"><div class="lp-proof-breakdown-fill" style="width:98%"></div></div>
+            <span class="lp-proof-breakdown-pct">4.9</span>
+          </div>
+          <div class="lp-proof-breakdown-row">
+            <span class="lp-proof-breakdown-label">Support</span>
+            <div class="lp-proof-breakdown-bar"><div class="lp-proof-breakdown-fill" style="width:100%"></div></div>
+            <span class="lp-proof-breakdown-pct">5.0</span>
+          </div>
+          <div class="lp-proof-breakdown-row">
+            <span class="lp-proof-breakdown-label">Value</span>
+            <div class="lp-proof-breakdown-bar"><div class="lp-proof-breakdown-fill" style="width:94%"></div></div>
+            <span class="lp-proof-breakdown-pct">4.7</span>
+          </div>
+        </div>
+        <p class="lp-proof-score-source">Based on verified reviews from physiotherapy clinics, wellness centers, and private practitioners.</p>
+      </aside>
+
+      <!-- Testimonial cards -->
+      <div class="lp-proof-testimonials">
+
+        <article class="lp-proof-tcard">
+          <div class="lp-proof-tcard-top">
+            <div class="lp-proof-tcard-author">
+              <div class="lp-proof-tcard-avatar" style="background:var(--teal-200);color:var(--teal-900)" aria-hidden="true">TN</div>
+              <div>
+                <p class="lp-proof-tcard-name">Dr. Tariq Nadeem, PT, DPT</p>
+                <p class="lp-proof-tcard-role">Director of Rehabilitation, Central Physio Group</p>
+              </div>
+            </div>
+            <span class="lp-proof-tcard-clinic">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              12-practitioner clinic
+            </span>
+          </div>
+          <p class="lp-proof-tcard-quote">
+            We were managing 340 active patients across three practitioners using a combination of spreadsheets, a legacy EMR, and a shared calendar. The handoff between intake and program delivery was broken — patients frequently arrived for sessions without a clear protocol in place. CuraFlow gave us a structured workflow from day one. Within the first month, program design time dropped from 40 minutes to under 10. More importantly, the AI recommendations are clinically sensible — this isn't a generic exercise app, it respects the clinical nuance of post-surgical rehab and progressive loading protocols.
+          </p>
+          <div class="lp-proof-tcard-metrics" aria-label="Reported outcomes">
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">−73%</span>
+              <span class="lp-proof-tcard-metric-label">Program design time</span>
+            </div>
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">+41%</span>
+              <span class="lp-proof-tcard-metric-label">Program completion rate</span>
+            </div>
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">6 wks</span>
+              <span class="lp-proof-tcard-metric-label">Full practice transition</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="lp-proof-tcard">
+          <div class="lp-proof-tcard-top">
+            <div class="lp-proof-tcard-author">
+              <div class="lp-proof-tcard-avatar" style="background:#e0e7ff;color:#3730a3" aria-hidden="true">LF</div>
+              <div>
+                <p class="lp-proof-tcard-name">Léa Fontaine, MSc Nutrition</p>
+                <p class="lp-proof-tcard-role">Founder, Fontaine Wellness Studio</p>
+              </div>
+            </div>
+            <span class="lp-proof-tcard-clinic">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Solo practitioner · 65 clients
+            </span>
+          </div>
+          <p class="lp-proof-tcard-quote">
+            I run a solo nutrition and wellness practice, and before CuraFlow, I was rebuilding program structures from scratch for each new client. There's only so much a spreadsheet can do. What I needed was a tool that understood that nutrition, movement, and stress reduction are interconnected — not separate modules. CuraFlow handles that naturally. I can bundle a 12-week metabolic reset that includes nutrition protocols, mobility sessions, and stress management practices into a single, trackable program. My client retention rate in the first six months went from 54% to 81%.
+          </p>
+          <div class="lp-proof-tcard-metrics" aria-label="Reported outcomes">
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">81%</span>
+              <span class="lp-proof-tcard-metric-label">Client retention (up from 54%)</span>
+            </div>
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">3 hr</span>
+              <span class="lp-proof-tcard-metric-label">Admin saved per week</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="lp-proof-tcard">
+          <div class="lp-proof-tcard-top">
+            <div class="lp-proof-tcard-author">
+              <div class="lp-proof-tcard-avatar" style="background:#fce7f3;color:#9d174d" aria-hidden="true">RO</div>
+              <div>
+                <p class="lp-proof-tcard-name">Reuben Osei, CSCS</p>
+                <p class="lp-proof-tcard-role">Head of Performance, Kinetic Health & Performance</p>
+              </div>
+            </div>
+            <span class="lp-proof-tcard-clinic">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              5-person performance clinic
+            </span>
+          </div>
+          <p class="lp-proof-tcard-quote">
+            Our clinic bridges the gap between sports rehab and athletic performance, which means our clients have complex, phased programs that change significantly week to week. Tracking that manually — who's in which phase, what load parameters apply, who needs a deload — was consuming a disproportionate amount of our practitioners' cognitive load. CuraFlow's phased program structure and session-by-session logging resolved that. Our practitioners now spend their mental energy coaching, not administrating. The adherence alert system has also been invaluable for our athlete clientele who tend to push through despite setbacks.
+          </p>
+          <div class="lp-proof-tcard-metrics" aria-label="Reported outcomes">
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">−55%</span>
+              <span class="lp-proof-tcard-metric-label">Practitioner admin overhead</span>
+            </div>
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">+28%</span>
+              <span class="lp-proof-tcard-metric-label">Early dropout prevention</span>
+            </div>
+            <div class="lp-proof-tcard-metric">
+              <span class="lp-proof-tcard-metric-num">100%</span>
+              <span class="lp-proof-tcard-metric-label">Team adoption within 2 weeks</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<section class="lp-final-cta" id="book-demo" aria-labelledby="final-cta-title">
+  <div class="lp-container">
+    <div class="lp-final-cta-inner">
+
+      <div class="lp-final-cta-left">
+        <div class="lp-final-cta-eyebrow" aria-hidden="true">Get started today</div>
+        <h2 class="lp-final-cta-headline" id="final-cta-title">
+          Your patients deserve<br>
+          a <em>better program.</em><br>
+          Your practice deserves<br>
+          <em>better tools.</em>
+        </h2>
+        <p class="lp-final-cta-body">
+          Book a 30-minute walkthrough with a CuraFlow specialist. We'll show you exactly how the platform fits your workflow — and configure your first program before you leave the call.
+        </p>
+        <div class="lp-final-cta-actions">
+          <a href="{% url 'register' %}" class="lp-final-cta-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Book a Demo
+          </a>
+          <a href="{% url 'register' %}" class="lp-final-cta-secondary">Start using CuraFlow</a>
+        </div>
+        <p class="lp-final-cta-note">No credit card required · HIPAA-compliant infrastructure · Cancel anytime</p>
+      </div>
+
+      <div class="lp-final-cta-right">
+        <div class="lp-demo-card" aria-label="What happens on your demo call">
+          <p class="lp-demo-card-title">What happens on your demo call</p>
+          <p class="lp-demo-card-subtitle">A focused 30-minute session with a CuraFlow specialist — no slides, no generic walkthrough.</p>
+          <div class="lp-demo-steps" role="list">
+            <div class="lp-demo-step" role="listitem">
+              <div class="lp-demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              </div>
+              <span class="lp-demo-step-text">We understand your current workflow and patient volume</span>
+              <span class="lp-demo-step-time">0–8 min</span>
+            </div>
+            <div class="lp-demo-step" role="listitem">
+              <div class="lp-demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+              </div>
+              <span class="lp-demo-step-text">Live walkthrough of the platform with your use case in mind</span>
+              <span class="lp-demo-step-time">8–22 min</span>
+            </div>
+            <div class="lp-demo-step" role="listitem">
+              <div class="lp-demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <span class="lp-demo-step-text">We build your first program template together, live</span>
+              <span class="lp-demo-step-time">22–30 min</span>
+            </div>
+          </div>
+          <a href="{% url 'register' %}" class="lp-demo-card-cta" aria-label="Book your demo">
+            <span class="lp-demo-card-cta-label">Reserve your 30-minute slot →</span>
+            <span class="lp-demo-card-cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="lp-footer-v2" aria-label="Site footer">
+  <div class="lp-container">
+    <div class="lp-footer-v2-inner">
+
+      <div class="lp-footer-v2-brand">
+        <a href="/" class="lp-footer-v2-logo" aria-label="CuraFlow home">
+          <span class="lp-footer-v2-logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </span>
+          CuraFlow
+        </a>
+        <p class="lp-footer-v2-tagline">AI-powered wellness program management for clinics, physios, gyms, and independent health coaches.</p>
+        <div class="lp-footer-v2-compliance" aria-label="Compliance certifications">
+          <span class="lp-footer-v2-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            HIPAA Ready
+          </span>
+          <span class="lp-footer-v2-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            SOC 2 Type II
+          </span>
+          <span class="lp-footer-v2-badge">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            GDPR Compliant
+          </span>
+        </div>
+        <div class="lp-footer-v2-socials" style="margin-top:20px" aria-label="Social media links">
+          <a href="#" class="lp-footer-v2-social-link" aria-label="Follow CuraFlow on Twitter/X">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="lp-footer-v2-social-link" aria-label="Follow CuraFlow on LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="lp-footer-v2-social-link" aria-label="Follow CuraFlow on YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" style="stroke:none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav aria-label="Product navigation">
+        <p class="lp-footer-v2-col-title">Product</p>
+        <ul class="lp-footer-v2-links">
+          <li><a href="#platform-features">Features</a></li>
+          <li><a href="#how-it-works-detail">How it works</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Program Builder <span class="new-badge">New</span></a></li>
+          <li><a href="#">AI Recommendations</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Solutions navigation">
+        <p class="lp-footer-v2-col-title">Solutions</p>
+        <ul class="lp-footer-v2-links">
+          <li><a href="#">Physiotherapy Clinics</a></li>
+          <li><a href="#">Wellness Centers</a></li>
+          <li><a href="#">Rehabilitation Providers</a></li>
+          <li><a href="#">Health Coaches</a></li>
+          <li><a href="#">Gyms &amp; Performance</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Company navigation">
+        <p class="lp-footer-v2-col-title">Company</p>
+        <ul class="lp-footer-v2-links">
+          <li><a href="#">About CuraFlow</a></li>
+          <li><a href="#">Clinical Advisory Board</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Legal and support navigation">
+        <p class="lp-footer-v2-col-title">Legal &amp; Support</p>
+        <ul class="lp-footer-v2-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">HIPAA Compliance</a></li>
+          <li><a href="#">Security Overview</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Help Center</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="lp-footer-v2-bottom">
+      <p class="lp-footer-v2-copy">© {% now "Y" %} CuraFlow Technologies, Inc. All rights reserved.</p>
+      <div class="lp-footer-v2-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+        <a href="#">Status</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% endblock %}

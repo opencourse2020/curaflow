@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, TimeStampedModel
+from curaflow.profiles.models import OrganizationScopedModel, TimeStampedModel, StaffProfile, Location
 
 
 class Appointment(TimeStampedModel, OrganizationScopedModel):
@@ -34,14 +34,14 @@ class Appointment(TimeStampedModel, OrganizationScopedModel):
         "services.Service", on_delete=models.CASCADE, related_name="appointments"
     )
     staff = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="appointments",
     )
     location = models.ForeignKey(
-        "core.Location",
+        Location,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -111,7 +111,7 @@ class SessionExecution(TimeStampedModel):
         "services.Service", on_delete=models.CASCADE, related_name="session_executions"
     )
     staff = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -195,7 +195,7 @@ class ExecutionAlert(TimeStampedModel, OrganizationScopedModel):
     description = models.TextField()
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.OPEN)
     assigned_to = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

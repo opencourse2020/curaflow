@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+
+{% trans "Login" %}
+
+{% endblock title%}
+
+{% block css %}
+
+    {{ block.super }}
+<style>
+    /* ── Login-page-scoped styles ─────────────────────────── */
+
+    body {
+      background: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+    }
+
+    /* Two-column shell */
+    .login-shell {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* ── Left branding panel ─────────────────────────────── */
+    .login-left {
+      flex: 0 0 44%;
+      background: #0f1923;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle radial glow */
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: -80px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .login-left::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      right: -80px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Logo */
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-brand img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    /* Hero text block */
+    .login-hero {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 40px;
+    }
+
+    .login-hero-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+    }
+
+    .login-hero-title em {
+      font-style: normal;
+      color: #14b8a6;
+    }
+
+    .login-hero-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.7;
+      max-width: 360px;
+    }
+
+    /* Stats row */
+    .login-stats {
+      display: flex;
+      gap: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-stat-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .login-stat-label {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* Trust badges */
+    .login-trust {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .login-trust-item svg {
+      width: 12px;
+      height: 12px;
+      color: #14b8a6;
+      flex-shrink: 0;
+    }
+
+    .login-trust-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #334155;
+    }
+
+    /* ── Right form panel ────────────────────────────────── */
+    .login-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+      background: #ffffff;
+    }
+
+    .login-form-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-form-header {
+      margin-bottom: 32px;
+    }
+
+    .login-form-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+
+    .login-form-subtitle {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Error banner */
+    .login-error {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #991b1b;
+    }
+
+    .login-error svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Form field */
+    .login-field {
+      margin-bottom: 16px;
+    }
+
+    .login-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .login-field input {
+      width: 100%;
+      height: 42px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: #0f172a;
+      outline: none;
+      transition: all 150ms ease;
+    }
+
+    .login-field input:focus {
+      border-color: #0f766e;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px #ccfbf1;
+    }
+
+    .login-field input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Footer row under password field */
+    .login-field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .login-field-row label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #0f172a;
+      margin-bottom: 0;
+    }
+
+    .login-forgot {
+      font-size: 12px;
+      color: #0f766e;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-forgot:hover {
+      text-decoration: underline;
+    }
+
+    /* Submit button */
+    .login-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 44px;
+      background: #0f766e;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 150ms ease;
+      margin-top: 20px;
+      letter-spacing: 0.1px;
+    }
+
+    .login-submit:hover {
+      background: #0d6b62;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+    }
+
+    .login-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Divider */
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    /* Google SSO button */
+    .login-sso {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 42px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #334155;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .login-sso:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* Footer copy */
+    .login-form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .login-form-footer a {
+      color: #64748b;
+      text-decoration: underline;
+    }
+
+    /* ── Responsive: stack vertically on mobile ──────────── */
+    @media (max-width: 900px) {
+      .login-left {
+        display: none;
+      }
+
+      .login-right {
+        background: #f8fafc;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-right {
+        padding: 32px 20px;
+      }
+    }
+  </style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-5">
+	<!-- BEGIN #app -->
+	<div id="app" class="app app-full-height app-without-header">
+		<!-- BEGIN login -->
+		<div class="login">
+			<!-- BEGIN login-content -->
+			<div class="login-content">
+				<form action="{% url 'account_login' %}" class="contact-form login_form" method="POST">
+					{% csrf_token %}
+                <h1 class="text-center">{% trans "Sign In" %}</h1>
+					<div class="text-inverse text-opacity-50 text-center mb-4">
+						{% trans "For your protection, please verify your identity." %}
+					</div>
+					{{ form|crispy }}
+					{% if redirect_field_value %}
+						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					{% endif %}
+{#					<a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+					<div class="form-group">
+						<button type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">{% trans 'Sign In' %}</button>
+					</div>
+                    <div class="text-center text-inverse text-opacity-50">
+						{% trans "Don't have an account yet?" %} <a href="{% url 'account_signup' %}">{% trans 'Sign Up' %}</a>.
+					</div>
+				</form>
+			</div>
+			<!-- END login-content -->
+		</div>
+		<!-- END login -->
+		
+		<!-- BEGIN theme-panel -->
+		
+		<!-- END theme-panel -->
+		<!-- BEGIN btn-scroll-top -->
+		<a href="#" data-toggle="scroll-to-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+		<!-- END btn-scroll-top -->
+	</div>
+	<!-- END #app -->
+	</div>
+</div>
+{% endblock content %}
+
+
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+

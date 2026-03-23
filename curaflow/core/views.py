@@ -8,6 +8,15 @@ from django.views.generic import (
 class DashboardView(TemplateView):
     template_name = "dashboard.html"
 
+    def get_context_data(self, **kwargs):
+        raw_data = "72,Wk1|76,Wk2|81,Wk3|79,Wk4|74,Wk5|82,Wk6|85,Wk7|78,Wk8"
+        # Create a list of tuples: [('72', 'Wk1'), ('76', 'Wk2'), ...]
+        weeks = [item.split(',') for item in raw_data.split('|')]
+
+        kwargs["weeks"] = weeks
+
+        return super(DashboardView, self).get_context_data(**kwargs)
+
 
 class RecommendationView(TemplateView):
     template_name = "recommendation.html"

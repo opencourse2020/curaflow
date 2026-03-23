@@ -123,8 +123,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # "curaflow.profiles.context_processors.loginaccountform",
-                # "curaflow.profiles.context_processors.signupaccountform",
+                "curaflow.profiles.context_processors.loginaccountform",
+                "curaflow.profiles.context_processors.signupaccountform",
                 # "curaflow.logiflex.context_processors.client_active",
             ],
 

@@ -1,31 +1,88 @@
-{# templates/partials/service_card.html #}
-{# Variables: name, category, icon, duration, price, staff, intensity, contraindication #}
-<div class="service-card" data-selectable>
-  <div class="service-card-header">
-    <div class="service-card-icon {{ icon_class|default:'fitness' }}">{{ icon|default:'💪' }}</div>
+{# ============================================================
+partials/service_card.html
+Include variables:
+name — service name (e.g. "Deep Tissue Massage")
+category — category label (e.g. "Physiotherapy")
+duration — duration string (e.g. "45 min")
+staff — practitioner name (e.g. "Dr. Emma Carter")
+staff_role — staff role (e.g. "Physiotherapist")
+contraindication — boolean — shows caution badge when truthy
+action_url — URL for the "View details" action
+selectable — boolean — adds data-selectable for JS toggle
+============================================================ #}
+
+<div class="service-card card" {% if selectable %}data-selectable{% endif %}>
+
+  <!-- Card header: category + caution badge -->
+  <div class="card-header">
+    <div>
+      <span class="badge badge-neutral" style="font-size: 11px;">
+        {{ category|default:"General Wellness" }}
+      </span>
+    </div>
     {% if contraindication %}
-    <span class="contraindication-badge">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:10px;height:10px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg>
+    <span class="badge badge-risk" title="This service has contraindication notes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round" style="width:10px;height:10px;" aria-hidden="true">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+        <line x1="12" y1="9" x2="12" y2="13" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
       Caution
     </span>
     {% endif %}
   </div>
-  <div class="service-card-name">{{ name }}</div>
-  <div class="service-card-category">{{ category }}</div>
-  <div class="service-card-meta">
-    <span class="service-meta-item">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      {{ duration }}
-    </span>
-    {% if intensity %}
-    <span class="service-meta-item">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
-      {{ intensity }}
-    </span>
+
+  <!-- Body: name + meta -->
+  <div class="card-body">
+
+    <h3 class="card-title" style="margin-bottom: 12px;">
+      {{ name|default:"Service Name" }}
+    </h3>
+
+    <!-- Duration -->
+    <div class="flex items-center gap-2" style="margin-bottom: 8px; color: var(--muted); font-size: var(--text-sm);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" style="width: 14px; height: 14px; flex-shrink: 0;" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </svg>
+      <span>{{ duration|default:"30 min" }}</span>
+    </div>
+
+    <!-- Staff -->
+    {% if staff %}
+    <div class="flex items-center gap-2" style="color: var(--muted); font-size: var(--text-sm);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" style="width: 14px; height: 14px; flex-shrink: 0;" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <span>
+        {{ staff }}
+        {% if staff_role %}
+        <span class="text-subtle"> · {{ staff_role }}</span>
+        {% endif %}
+      </span>
+    </div>
     {% endif %}
+
   </div>
-  <div class="service-card-footer">
-    <span class="service-price">{{ price }}</span>
-    <button class="btn btn-secondary btn-sm service-add-btn btn-add-service">Add</button>
+
+  <!-- Footer: action button -->
+  <div class="card-footer flex items-center justify-between">
+    {% if action_url %}
+    <a href="{{ action_url }}" class="btn btn-ghost btn-sm" style="padding-left: 0;">
+      View details →
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+
+    <button class="btn btn-primary btn-sm service-add-btn btn-add-service" type="button"
+      aria-label="Add {{ name|default:'service' }} to program">
+      Add
+    </button>
   </div>
+
 </div>

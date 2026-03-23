@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+    <meta charset="utf-8">
+  <h1 class="mb-0 pb-0 display-4" id="title">{% trans "Profile Overview" %}</h1>
+    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+        <ul class="breadcrumb pt-0">
+            <li class="breadcrumb-item"><a href="{% url 'idmeapi:sdashboard' %}">{% trans "Home" %}</a></li>
+            <li class="breadcrumb-item"><a href="">{% trans "Profile" %}</a></li>
+
+        </ul>
+    </nav>
+
+<link href={% static "assets/css/vendor.min.css" %} rel="stylesheet">
+<link href={% static "assets/css/app.min.css" %} rel="stylesheet">
+
+{% block content_head %}
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'core:dashboard' %}">{% trans "Home" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Profile" %}</li>
+</ul>
+
+<h1 class="page-header">
+    {% trans "Profile Management" %}
+</h1>
+{% endblock content_head %}
+
+{% block content_body %}
+
+<div class="row gx-4 justify-content-center">
+    <div class="col-lg-6">
+        <!-- Biography Start -->
+
+        <div class="card mb-5">
+
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body pt-4 pb-4 text-center">
+                        {% if user.picture %}
+                        <img class="img-fluid" src="{{ user.picture.url }}" style="border-radius: 50%; max-width: 200px; height: 200px" alt="">
+                        {% else %}
+                        <img class="img-fluid" style="border-radius: 50%;" src="{% static "assets/img/user/user_placeholder.png" %}" width="170" height="170" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="h5 mb-0">{{ user.first_name }} {{ user.last_name }}</div>
+                        <div class="text-muted">
+                            <i class="fas fa-md fa-fw me-2 fa-map-marker-alt"></i>
+                            <span class="align-middle">{{ user.profile.location.city }}, {{ user.profile.location.country }}</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">
+                        <div class="card-arrow-top-left"></div>
+                        <div class="card-arrow-top-right"></div>
+                        <div class="card-arrow-bottom-left"></div>
+                        <div class="card-arrow-bottom-right"></div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="card text-center">
+                    <div class="card-body pt-4 pb-4">
+                        <a class="nav-link active px-0 border-bottom border-separator-light"  href="{% url 'profiles:userinfo' user.pk %}" >
+                            <i data-cs-icon="user" class="me-2" data-cs-size="17"></i>
+                            <span class="align-middle">{% trans "User Information" %}</span>
+                        </a>
+                        <a class="nav-link px-0 border-bottom border-separator-light"  href="{% url 'profiles:editprofile' %}" >
+                            <i data-cs-icon="settings-1" class="me-2" data-cs-size="17"></i>
+                            <span class="align-middle">{% trans "Edit Profile" %}</span>
+                        </a>
+                        <a class="nav-link px-0 border-bottom border-separator-light"  href="{% url 'account_change_password' %}" >
+                            <i data-cs-icon="lock-off" class="me-2" data-cs-size="17"></i>
+                            <span class="align-middle">{% trans "Manage Password"  %}</span>
+                        </a>
+                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url "account_email" %}" >
+                        <i data-cs-icon="email" class="me-2" data-cs-size="17"></i>
+                        <span class="align-middle">{% trans "Manage Emails" %}</span>
+                        </a>
+{#                        <a class="nav-link active px-0 border-bottom border-separator-light"  href="{% url 'mfa_index' %}" >#}
+{#                            <i data-cs-icon="user" class="me-2" data-cs-size="17"></i>#}
+{#                            <span class="align-middle">{% trans "Enable 2FA with Autheticator App" %}</span>#}
+{#                        </a>#}
+{#                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url 'profiles:language' user.pk %}" >#}
+{#                            <i data-cs-icon="web" class="me-2" data-cs-size="17"></i>#}
+{#                            <span class="align-middle">{% trans "Prefered Language" %}</span>#}
+{#                        </a>#}
+{#                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url 'profiles:activate' user.pk %}" >#}
+{#                            <i data-cs-icon="eye-off" class="me-2" data-cs-size="17"></i>#}
+{#                            <span class="align-middle">{% trans "Deactivate" %}</span>#}
+{#                        </a>#}
+{#                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url 'profiles:services:list' %}" >#}
+{#                            <i data-cs-icon="eye-off" class="me-2" data-cs-size="17"></i>#}
+{#                            <span class="align-middle">{% trans "Services" %}</span>#}
+{#                        </a>#}
+{#                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url 'profiles:payments:list' %}" >#}
+{#                            <i data-cs-icon="eye-off" class="me-2" data-cs-size="17"></i>#}
+{#                            <span class="align-middle">{% trans "Payments" %}</span>#}
+{#                        </a>#}
+                        <a class="nav-link px-0 border-bottom border-separator-light" href="{% url 'account_logout' %}" >
+                            <i data-cs-icon="logout" class="me-2" data-cs-size="17"></i>
+                            <span class="align-middle">{% trans "Logout" %}</span>
+                        </a>
+
+
+                    </div>
+                    <div class="card-arrow">
+                        <div class="card-arrow-top-left"></div>
+                        <div class="card-arrow-top-right"></div>
+                        <div class="card-arrow-bottom-left"></div>
+                        <div class="card-arrow-bottom-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-arrow">
+                        <div class="card-arrow-top-left"></div>
+                        <div class="card-arrow-top-right"></div>
+                        <div class="card-arrow-bottom-left"></div>
+                        <div class="card-arrow-bottom-right"></div>
+                    </div>
+        </div>
+        <div class="card-arrow">
+            <div class="card-arrow-top-left"></div>
+            <div class="card-arrow-top-right"></div>
+            <div class="card-arrow-bottom-left"></div>
+            <div class="card-arrow-bottom-right"></div>
+        </div>
+    </div>
+    <!-- Biography End -->
+</div>
+
+
+
+
+{% endblock content_body %}
+
+
+
+{% block js %}
+  {{ block.super }}
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+{% endblock js %}

@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel
+# from curaflow.core.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel
+from curaflow.profiles.models import *
 
 
 class Customer(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
@@ -16,7 +17,7 @@ class Customer(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
         INACTIVE = "inactive", "Inactive"
         PROSPECT = "prospect", "Prospect"
         ARCHIVED = "archived", "Archived"
-
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     external_customer_id = models.CharField(max_length=100, blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -258,7 +259,7 @@ class CustomerAssessment(TimeStampedModel):
         "customers.Customer", on_delete=models.CASCADE, related_name="assessments"
     )
     assessed_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -295,7 +296,7 @@ class Notification(TimeStampedModel, OrganizationScopedModel):
 
     # organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="notifications")
     user = models.ForeignKey(
-        "profiles.User",
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

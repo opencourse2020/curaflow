@@ -1,14 +1,111 @@
-{# templates/partials/timeline_block.html #}
-{# Variables: date, title, desc, color (teal/green/amber/red/gray) #}
-<div class="timeline-item">
-  <div class="timeline-marker {{ color|default:'teal' }}">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-    </svg>
+{# ============================================================
+partials/timeline_block.html
+Include variables:
+day_label — week/day heading (e.g. "Monday, Week 1")
+entries — list of dicts with keys:
+time — e.g. "09:00"
+service — service name
+duration — e.g. "45 min"
+staff — practitioner name
+status — "scheduled" | "completed" | "missed"
+============================================================ #}
+
+<div class="timeline-block">
+
+  <!-- Day / week heading -->
+  <div class="timeline-block-header">
+    <h4 style="font-size: var(--text-sm); font-weight: 600; color: var(--text-secondary);">
+      {{ day_label|default:"Day 1" }}
+    </h4>
+    <div style="height:1px; flex:1; background: var(--border-light); margin-left: 12px;"></div>
   </div>
-  <div class="timeline-content">
-    <div class="timeline-date">{{ date }}</div>
-    <div class="timeline-title">{{ title }}</div>
-    {% if desc %}<div class="timeline-desc">{{ desc }}</div>{% endif %}
-  </div>
+
+  <!-- Session entries -->
+  <ul style="padding: 0; margin: 0; list-style: none;">
+    {% if entries %}
+    {% for entry in entries %}
+    <li class="timeline-item">
+
+      <!-- Status marker -->
+      <div class="timeline-marker
+            {% if entry.status == 'completed' %}teal
+            {% elif entry.status == 'missed' %}red
+            {% else %}gray
+            {% endif %}" aria-hidden="true">
+        {% if entry.status == 'completed' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        {% elif entry.status == 'missed' %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+        {% else %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        {% endif %}
+      </div>
+
+      <!-- Entry detail -->
+      <div class="timeline-content">
+
+        <div class="flex items-center gap-3" style="flex-wrap: wrap;">
+          <!-- Time -->
+          {% if entry.time %}
+          <span style="font-size: var(--text-xs); color: var(--muted); white-space: nowrap;">
+            {{ entry.time }}
+          </span>
+          {% endif %}
+
+          <!-- Service name -->
+          <span style="font-size: var(--text-sm); font-weight: 500; color: var(--text);">
+            {{ entry.service|default:"Session" }}
+          </span>
+
+          <!-- Duration badge -->
+          {% if entry.duration %}
+          <span class="badge badge-neutral">{{ entry.duration }}</span>
+          {% endif %}
+
+          <!-- Status badge -->
+          {% if entry.status == 'completed' %}
+          <span class="badge badge-active">Completed</span>
+          {% elif entry.status == 'missed' %}
+          <span class="badge badge-risk">Missed</span>
+          {% else %}
+          <span class="badge badge-neutral">Scheduled</span>
+          {% endif %}
+        </div>
+
+        <!-- Staff -->
+        {% if entry.staff %}
+        <div style="margin-top: 4px; font-size: var(--text-xs); color: var(--muted);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round"
+            style="display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:4px;"
+            aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          {{ entry.staff }}
+        </div>
+        {% endif %}
+
+      </div><!-- /timeline-content -->
+
+    </li>
+    {% endfor %}
+    {% else %}
+    <!-- Empty state for this day -->
+    <li style="padding: 12px 0 12px 28px; font-size: var(--text-sm); color: var(--subtle);">
+      No sessions scheduled for this day.
+    </li>
+    {% endif %}
+  </ul>
+
 </div>

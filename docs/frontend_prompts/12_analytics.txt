@@ -1,3 +1,18 @@
+Read and follow these project documents:
+
+claude.md
+skills.md
+design-system.md
+frontend-rules.md
+
+Apply the UI standards and design system defined in them.
+
+Do not modify unrelated files.
+Reuse existing UI components when possible.
+If something conflicts with the design system, the design-system.md rules take priority.
+
+Task:
+
 Use the existing CuraFlow frontend foundation and do not rewrite prior files.
 
 Generate only:

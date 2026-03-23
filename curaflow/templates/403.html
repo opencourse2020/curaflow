@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Dashboard{% endblock %}
+{% block css %}
+    {{ block.super }}
+{% endblock css %}
+{% block header_title %}Dashboard{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+
+{% block header_action %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 ">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h2 class="title">{% trans "Forbidden" %} </h2>
+                    <span class="title" style="color: #eb5849; font-size: 40px">&nbsp;{% trans "Error 404" %}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

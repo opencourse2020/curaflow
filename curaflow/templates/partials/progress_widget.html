@@ -1,11 +1,53 @@
-{# templates/partials/progress_widget.html #}
-{# Variables: label, value, pct, color, unit #}
-<div>
-  <div class="progress-label">
-    <span class="progress-label-text">{{ label }}</span>
-    <span class="progress-label-value">{{ value }}{% if unit %}<span style="font-size:var(--text-xs);font-weight:400;color:var(--muted)"> {{ unit }}</span>{% endif %}</span>
+{# ============================================================
+partials/progress_widget.html
+Include variables:
+label — metric label (e.g. "Session Adherence")
+value — formatted value (e.g. "78%", "23 / 30")
+pct — integer 0–100 for bar fill width
+color — "teal" | "blue" | "green" | "amber" | "red"
+note — supporting note text (e.g. "Target: 85%")
+============================================================ #}
+
+<div class="progress-widget">
+
+  <!-- Label + value row -->
+  <div class="flex items-center justify-between" style="margin-bottom: 8px;">
+    <span class="progress-label-text" style="font-size: var(--text-sm); font-weight: 500; color: var(--text);">
+      {{ label|default:"Metric" }}
+    </span>
+    <span class="progress-label-value" style="font-size: var(--text-sm); font-weight: 600; color: var(--text);">
+      {{ value|default:"—" }}
+    </span>
   </div>
-  <div class="progress-bar">
-    <div class="progress-fill {{ color|default:'teal' }}" style="width: {{ pct|default:50 }}%"></div>
+
+  <!-- Progress bar track -->
+  <div role="progressbar" aria-valuenow="{{ pct|default:0 }}" aria-valuemin="0" aria-valuemax="100"
+    aria-label="{{ label|default:'Progress' }}: {{ pct|default:0 }}%"
+    style="height: 6px; background: var(--border); border-radius: var(--radius-full); overflow: hidden;">
+    <div style="
+           height: 100%;
+           width: {{ pct|default:0 }}%;
+           border-radius: var(--radius-full);
+           transition: width 0.6s ease;
+           {% if color == 'green' %}
+             background: var(--success);
+           {% elif color == 'amber' %}
+             background: var(--warning);
+           {% elif color == 'red' %}
+             background: var(--danger);
+           {% elif color == 'blue' %}
+             background: var(--info);
+           {% else %}
+             background: linear-gradient(90deg, var(--primary), var(--primary-light));
+           {% endif %}
+         "></div>
   </div>
+
+  <!-- Supporting note -->
+  {% if note %}
+  <p style="margin-top: 6px; font-size: var(--text-xs); color: var(--muted);">
+    {{ note }}
+  </p>
+  {% endif %}
+
 </div>

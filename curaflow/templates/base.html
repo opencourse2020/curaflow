@@ -6,29 +6,257 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}CuraFlow{% endblock %} — CuraFlow</title>
   <meta name="description" content="CuraFlow — AI-assisted wellness program management for clinics and wellness businesses." />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+{% endblock css %}
+
+
   {% block extra_head %}{% endblock %}
 </head>
 <body>
 
+<!-- ============================================================
+     APP SHELL
+     ============================================================ -->
 <div class="app-shell">
 
-  <!-- Sidebar -->
-  {% include "partials/sidebar.html" %}
+  <!-- --------------------------------------------------------
+       SIDEBAR
+       -------------------------------------------------------- -->
+  <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
 
-  <!-- Mobile overlay -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Logo -->
+    <a href="/" class="sidebar-logo">
+      <div class="sidebar-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      </div>
+      <span class="sidebar-logo-text">Cura<span>Flow</span></span>
+    </a>
 
-  <!-- Main content -->
+    <!-- Main Navigation -->
+    <nav class="sidebar-section" aria-label="Main menu">
+
+      <p class="sidebar-section-label">Main</p>
+
+      <a href="{% url 'core:dashboard' %}" class="nav-item {% block nav_dashboard %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="{% url 'customers:list' %}" class="nav-item {% block nav_customers %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        Customers
+      </a>
+
+      <a href="{% url 'programs:program_builder' %}" class="nav-item {% block nav_programs %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="12" y1="18" x2="12" y2="12" />
+          <line x1="9" y1="15" x2="15" y2="15" />
+        </svg>
+        Programs
+      </a>
+
+      <a href="{% url 'services:list' %}" class="nav-item {% block nav_services %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+        </svg>
+        Services
+      </a>
+
+      <p class="sidebar-section-label" style="margin-top: 16px;">Monitoring</p>
+
+      <a href="{% url 'core:tracking' %}" class="nav-item {% block nav_tracking %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+        Tracking
+      </a>
+
+      <a href="{% url 'core:analytics' %}" class="nav-item {% block nav_analytics %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+        Analytics
+      </a>
+
+    </nav>
+
+    <!-- Sidebar Footer: Settings + User -->
+    <div class="sidebar-footer">
+
+      <a href="{% url 'core:settings' %}" class="nav-item {% block nav_settings %}{% endblock %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+        Settings
+      </a>
+
+      <!-- User profile -->
+      <div class="sidebar-user" id="sidebarUser" role="button" aria-label="User account">
+        <div class="sidebar-avatar" aria-hidden="true">
+          {% if request.user.is_authenticated %}
+            {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+          {% else %}
+            CF
+          {% endif %}
+        </div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">
+            {% if request.user.is_authenticated %}
+              {{ request.user.get_full_name|default:request.user.username }}
+            {% else %}
+              CuraFlow User
+            {% endif %}
+          </div>
+          <div class="sidebar-user-role">Wellness Provider</div>
+        </div>
+      </div>
+
+    </div>
+
+  </aside><!-- /sidebar -->
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- --------------------------------------------------------
+       MAIN CONTENT AREA
+       -------------------------------------------------------- -->
   <div class="main-content" id="mainContent">
 
-    <!-- Top header -->
-    {% include "partials/header.html" %}
+    <!-- Header -->
+    <header class="page-header" id="pageHeader" role="banner">
 
-    <!-- Page content -->
-    <main class="page-content {% block content_class %}{% endblock %}">
+      <!-- Mobile sidebar toggle -->
+      <button class="header-icon-btn" id="sidebarToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+
+      <!-- Page title slot (filled by partials or child templates) -->
+      <span class="header-title">{% block header_title %}{% endblock %}</span>
+
+      <!-- Search -->
+      <div class="header-search">
+        <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="search" placeholder="Search…" aria-label="Search" id="globalSearch" />
+      </div>
+
+      <!-- Header actions -->
+      <div class="header-actions">
+
+        <!-- Notifications -->
+        <button class="header-icon-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span class="notif-dot" aria-hidden="true"></span>
+        </button>
+
+        <!-- Profile dropdown -->
+        <div class="header-profile" id="profileTrigger" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="profileDropdown">
+          <div class="header-avatar" aria-hidden="true">
+            {% if request.user.is_authenticated %}
+              {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+            {% else %}
+              CF
+            {% endif %}
+          </div>
+          <span class="header-profile-name">
+            {% if request.user.is_authenticated %}
+              {{ request.user.first_name|default:request.user.username }}
+            {% else %}
+              Account
+            {% endif %}
+          </span>
+          <svg style="width:14px;height:14px;color:var(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+
+          <!-- Dropdown panel -->
+          <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+            <div class="profile-dropdown-header">
+              <div class="profile-dropdown-name">
+                {% if request.user.is_authenticated %}
+                  {{ request.user.get_full_name|default:request.user.username }}
+                {% else %}
+                  CuraFlow User
+                {% endif %}
+              </div>
+              <div class="profile-dropdown-email">
+                {% if request.user.is_authenticated %}
+                  {{ request.user.email }}
+                {% else %}
+                  user@curaflow.io
+                {% endif %}
+              </div>
+            </div>
+            <nav class="profile-dropdown-menu">
+              <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                Profile &amp; Settings
+              </a>
+              <div class="profile-dropdown-divider" role="separator"></div>
+              {% if request.user.is_authenticated %}
+                <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Sign Out
+                </a>
+              {% else %}
+                <a href="{% url 'account_login' %}" class="profile-dropdown-item" role="menuitem">Sign In</a>
+              {% endif %}
+            </nav>
+          </div>
+
+        </div><!-- /header-profile -->
+
+      </div><!-- /header-actions -->
+
+    </header><!-- /page-header -->
+
+    <!-- --------------------------------------------------------
+         PAGE CONTENT (child templates fill this block)
+         -------------------------------------------------------- -->
+    <main class="page-content {% block content_class %}{% endblock %}" id="pageContent">
       {% block content %}{% endblock %}
     </main>
 
@@ -36,7 +264,9 @@
 
 </div><!-- /app-shell -->
 
+<!-- Scripts -->
 <script src="{% static 'js/app.js' %}"></script>
 {% block extra_scripts %}{% endblock %}
+
 </body>
 </html>

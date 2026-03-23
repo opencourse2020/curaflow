@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
 
-from curaflow.core.models import OrganizationScopedModel, TimeStampedModel
+# from curaflow.core.models import OrganizationScopedModel, TimeStampedModel
+from curaflow.profiles.models import OrganizationScopedModel, TimeStampedModel, StaffProfile
 
 
 class Document(TimeStampedModel, OrganizationScopedModel):
@@ -65,7 +66,7 @@ class IntakeFormSubmission(TimeStampedModel):
     answers_json = models.JSONField(default=dict)
     submitted_at = models.DateTimeField(auto_now_add=True)
     reviewed_by = models.ForeignKey(
-        "profiles.StaffProfile",
+        StaffProfile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

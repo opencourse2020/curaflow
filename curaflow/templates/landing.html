@@ -40,7 +40,13 @@
     <a href="#" class="lp-nav-link" role="listitem">Pricing</a>
   </div>
   <div class="lp-nav-actions">
-    <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>
+      {% if request.user.is_authenticated %}
+          <a href="{% url 'profiles:profile' %}">
+          {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+            </a>
+      {% else %}
+      <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>
+      {% endif %}
     <a href="" class="lp-btn-primary">Request Demo</a>
   </div>
 </nav>

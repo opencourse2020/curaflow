@@ -42,7 +42,7 @@
   <div class="lp-nav-actions">
       {% if request.user.is_authenticated %}
           <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">
-          {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}
             </a>
       {% else %}
       <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>

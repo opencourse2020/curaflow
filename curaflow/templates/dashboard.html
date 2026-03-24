@@ -4,7 +4,7 @@
 {% block header_title %}Dashboard{% endblock %}
 {% block header_subtitle %}Good morning, Sarah{% endblock %}
 {% block nav_dashboard %}active{% endblock %}
-{% block css %} {% endblock css %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/styles.css' %}" /> {% endblock css %}
 {% block header_action %}
 
   <a href="{% url 'programs:program_builder' %}" class="btn btn-primary btn-sm">

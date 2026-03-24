@@ -106,6 +106,15 @@
   /* --- Layout --- */
   --header-height:  60px;
   --content-max:    1280px;
+
+  /* --- Semantic aliases (referenced by templates) --- */
+  --text-muted:     var(--muted);       /* alias — used throughout templates */
+  --text-subtle:    var(--subtle);      /* alias */
+  --primary-subtle: #f0fdfa;            /* very-light teal tint */
+  --bg-alt:         #f1f5f9;            /* alternate background */
+  --border-strong:  #cbd5e1;            /* stronger divider */
+  --divider:        #e2e8f0;            /* alias of --border */
+  --warning-muted:  #92400e;            /* dark amber text */
 }
 
 
@@ -1299,13 +1308,434 @@ select.form-control {
 
 
 /* =============================================================
+   16b. PAGE HEADING
+   ============================================================= */
+
+.page-heading {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--space-6);
+  margin-bottom:   var(--space-6);
+  flex-wrap:       wrap;
+}
+
+/* page-heading already contains .page-title and .page-subtitle */
+
+
+/* =============================================================
+   16c. GRID COLUMN UTILITIES
+   ============================================================= */
+
+/* Used across services, analytics, tracking, recommendation pages */
+.grid-cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+.grid-cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.grid-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.grid-cols-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4); }
+
+/* Stats grid — 4-col KPI strip on dashboard */
+.stats-grid {
+  display:               grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:                   var(--space-5);
+}
+
+/* Chart row — 2-equal-col for analytics chart pairs */
+.chart-row {
+  display:               grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:                   var(--space-6);
+  margin-bottom:         var(--space-6);
+  align-items:           start;
+}
+
+
+/* =============================================================
+   16d. PROGRESS BARS
+   ============================================================= */
+
+.progress-bar {
+  width:         100%;
+  height:        6px;
+  background:    var(--border);
+  border-radius: var(--radius-full);
+  overflow:      hidden;
+}
+
+.progress-bar.progress-sm { height: 4px; }
+
+.progress-fill {
+  height:        100%;
+  border-radius: var(--radius-full);
+  background:    var(--primary);
+  transition:    width 0.4s ease;
+}
+
+/* Width driven by data-width attribute set via inline style in templates */
+.progress-fill[data-width="0"]  { width: 0%; }
+.progress-fill[data-width="10"] { width: 10%; }
+.progress-fill[data-width="20"] { width: 20%; }
+.progress-fill[data-width="25"] { width: 25%; }
+.progress-fill[data-width="30"] { width: 30%; }
+.progress-fill[data-width="33"] { width: 33%; }
+.progress-fill[data-width="40"] { width: 40%; }
+.progress-fill[data-width="42"] { width: 42%; }
+.progress-fill[data-width="44"] { width: 44%; }
+.progress-fill[data-width="47"] { width: 47%; }
+.progress-fill[data-width="50"] { width: 50%; }
+.progress-fill[data-width="60"] { width: 60%; }
+.progress-fill[data-width="62"] { width: 62%; }
+.progress-fill[data-width="63"] { width: 63%; }
+.progress-fill[data-width="65"] { width: 65%; }
+.progress-fill[data-width="66"] { width: 66%; }
+.progress-fill[data-width="67"] { width: 67%; }
+.progress-fill[data-width="68"] { width: 68%; }
+.progress-fill[data-width="69"] { width: 69%; }
+.progress-fill[data-width="70"] { width: 70%; }
+.progress-fill[data-width="71"] { width: 71%; }
+.progress-fill[data-width="72"] { width: 72%; }
+.progress-fill[data-width="74"] { width: 74%; }
+.progress-fill[data-width="76"] { width: 76%; }
+.progress-fill[data-width="77"] { width: 77%; }
+.progress-fill[data-width="78"] { width: 78%; }
+.progress-fill[data-width="79"] { width: 79%; }
+.progress-fill[data-width="80"] { width: 80%; }
+.progress-fill[data-width="82"] { width: 82%; }
+.progress-fill[data-width="83"] { width: 83%; }
+.progress-fill[data-width="84"] { width: 84%; }
+.progress-fill[data-width="87"] { width: 87%; }
+.progress-fill[data-width="88"] { width: 88%; }
+.progress-fill[data-width="90"] { width: 90%; }
+.progress-fill[data-width="91"] { width: 91%; }
+.progress-fill[data-width="95"] { width: 95%; }
+.progress-fill[data-width="100"]{ width: 100%; }
+
+/* Colour modifiers */
+.progress-fill-success { background: var(--success); }
+.progress-fill-warning { background: var(--warning); }
+.progress-fill-danger  { background: var(--danger); }
+.progress-fill-info    { background: var(--info); }
+
+
+/* =============================================================
+   16e. ACTIVITY / TIMELINE FEED
+   ============================================================= */
+
+.activity-list {
+  display:        flex;
+  flex-direction: column;
+}
+
+.activity-item {
+  display:     flex;
+  gap:         var(--space-3);
+  align-items: flex-start;
+  padding:     var(--space-3) 0;
+  border-bottom: 1px solid var(--border-light);
+  position:    relative;
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.activity-indicator {
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  flex-shrink:   0;
+  margin-top:    5px;
+}
+
+.activity-content { flex: 1; min-width: 0; }
+
+.activity-text {
+  font-size:   var(--text-sm);
+  color:       var(--text-secondary);
+  line-height: 1.5;
+}
+
+.activity-time {
+  font-size:  var(--text-xs);
+  color:      var(--muted);
+  margin-top: 2px;
+}
+
+
+/* =============================================================
+   16f. TAB SWITCHER
+   ============================================================= */
+
+.tab-switcher {
+  display:       flex;
+  align-items:   center;
+  gap:           2px;
+  background:    var(--bg);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  padding:       3px;
+}
+
+.tab-btn {
+  padding:       4px 12px;
+  border-radius: calc(var(--radius) - 2px);
+  font-size:     var(--text-xs);
+  font-weight:   500;
+  color:         var(--muted);
+  background:    transparent;
+  border:        none;
+  cursor:        pointer;
+  transition:    all var(--transition-fast);
+  white-space:   nowrap;
+}
+
+.tab-btn:hover  { color: var(--text); background: var(--surface); }
+.tab-btn.active { color: var(--text); background: var(--surface); box-shadow: var(--shadow-xs); font-weight: 600; }
+
+
+/* =============================================================
+   16g. FORM SELECT (inline filter selects)
+   ============================================================= */
+
+.form-select {
+  height:           36px;
+  background:       var(--surface);
+  border:           1px solid var(--border);
+  border-radius:    var(--radius);
+  padding:          0 var(--space-8) 0 var(--space-3);
+  font-size:        var(--text-sm);
+  font-family:      var(--font-sans);
+  color:            var(--text);
+  outline:          none;
+  cursor:           pointer;
+  appearance:       none;
+  transition:       all var(--transition-fast);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 5.17L1.17.34.58.93 6 6.35l5.42-5.42-.59-.59L6 5.17z'/%3E%3C/svg%3E");
+  background-repeat:   no-repeat;
+  background-position: right 10px center;
+}
+
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow:   0 0 0 3px var(--primary-soft);
+}
+
+.form-select-sm {
+  height:      30px;
+  font-size:   var(--text-xs);
+  padding:     0 var(--space-7) 0 var(--space-3);
+}
+
+
+/* =============================================================
+   16h. TABLE-WRAP (alias for table-wrapper)
+   ============================================================= */
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border:        1px solid var(--border-light);
+  border-radius: var(--radius);
+}
+
+.table-wrap table {
+  width:           100%;
+  border-collapse: collapse;
+}
+
+.table-wrap thead th {
+  padding:        var(--space-3) var(--space-4);
+  font-size:      var(--text-xs);
+  font-weight:    600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color:          var(--muted);
+  background:     var(--bg);
+  border-bottom:  1px solid var(--border);
+  white-space:    nowrap;
+  text-align:     left;
+}
+
+.table-wrap tbody td {
+  padding:        var(--space-3) var(--space-4);
+  font-size:      var(--text-sm);
+  color:          var(--text-secondary);
+  border-bottom:  1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.table-wrap tbody tr:last-child td { border-bottom: none; }
+
+.table-wrap tbody tr {
+  transition: background var(--transition-fast);
+}
+
+.table-wrap tbody tr:hover { background: var(--bg); }
+
+
+/* =============================================================
+   16i. STAT-CARD SUBCLASSES (second pattern used in non-dashboard pages)
+   ============================================================= */
+
+/* Larger value display used in tracking/analytics/services stat strips */
+.stat-card-value {
+  font-size:      var(--text-2xl);
+  font-weight:    800;
+  color:          var(--text);
+  letter-spacing: -0.5px;
+  line-height:    1.1;
+  margin:         var(--space-2) 0 var(--space-1);
+}
+
+.stat-card-trend {
+  display:     inline-flex;
+  align-items: center;
+  gap:         4px;
+  font-size:   var(--text-xs);
+  color:       var(--muted);
+  font-weight: 500;
+}
+
+.stat-card-trend svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+/* Icon badge positioned top-right in stat-card */
+.stat-card .stat-card-icon {
+  position:        absolute;
+  top:             var(--space-4);
+  right:           var(--space-4);
+  width:           36px;
+  height:          36px;
+  border-radius:   var(--radius);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+.stat-card .stat-card-icon svg { width: 17px; height: 17px; }
+.stat-card .stat-card-label    { font-size: var(--text-xs); color: var(--muted); font-weight: 500; }
+
+
+/* =============================================================
+   16j. MISSING BADGE VARIANTS
+   ============================================================= */
+
+.badge-warning { background: var(--warning-soft); color: #92400e;         }
+.badge-draft   { background: var(--bg-alt);        color: var(--muted);   }
+.badge-primary { background: var(--primary-soft);  color: var(--primary); }
+
+
+/* =============================================================
+   16k. ALERT VARIANTS (used in tracking / recommendation)
+   ============================================================= */
+
+/* Templates use .alert.alert-warning etc. (Tailwind-style), not .alert-card */
+.alert {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--space-3);
+  padding:       var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border:        1px solid transparent;
+  position:      relative;
+}
+
+.alert-warning { background: var(--warning-soft); border-color: #fcd34d; }
+.alert-info    { background: var(--info-soft);    border-color: #93c5fd; }
+.alert-success { background: var(--success-soft); border-color: #86efac; }
+.alert-danger  { background: var(--danger-soft);  border-color: #fca5a5; }
+
+.alert .alert-icon {
+  width:      18px;
+  height:     18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display:    block;
+}
+
+.alert-warning .alert-icon { color: var(--warning); }
+.alert-info    .alert-icon { color: var(--info);    }
+.alert-success .alert-icon { color: var(--success); }
+.alert-danger  .alert-icon { color: var(--danger);  }
+
+.alert .alert-body  { flex: 1; }
+.alert .alert-title {
+  font-size:     var(--text-sm);
+  font-weight:   600;
+  color:         var(--text);
+  margin-bottom: 2px;
+}
+.alert .alert-message {
+  font-size:   var(--text-sm);
+  line-height: 1.5;
+  color:       var(--text-secondary);
+}
+
+.alert .alert-close {
+  position:      absolute;
+  top:           var(--space-3);
+  right:         var(--space-3);
+  width:         24px;
+  height:        24px;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color:         var(--muted);
+  transition:    all var(--transition-fast);
+  cursor:        pointer;
+}
+
+.alert .alert-close:hover { background: rgba(0,0,0,0.07); color: var(--text); }
+.alert .alert-close svg   { width: 13px; height: 13px; }
+
+
+/* =============================================================
+   16l. POLISH — hover lifts, focus rings, transitions
+   ============================================================= */
+
+/* Card subtle lift on hover */
+.card {
+  transition: box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Stat card lift */
+.stat-card {
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow);
+  transform:  translateY(-1px);
+}
+
+/* Button focus rings (accessibility) */
+.btn:focus-visible {
+  outline:        2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Form controls */
+.form-select:focus-visible,
+.form-control:focus-visible {
+  outline:        none; /* defer to border+shadow focus */
+}
+
+
+/* =============================================================
    16. RESPONSIVE BREAKPOINTS
    ============================================================= */
 
 /* Tablet — ≤ 1024px */
 @media (max-width: 1024px) {
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4         { grid-template-columns: repeat(2, 1fr); }
+  .grid-3         { grid-template-columns: repeat(2, 1fr); }
+  .grid-cols-4    { grid-template-columns: repeat(2, 1fr); }
+  .grid-cols-5    { grid-template-columns: repeat(3, 1fr); }
+  .grid-cols-3    { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid     { grid-template-columns: repeat(2, 1fr); }
+  .chart-row      { grid-template-columns: 1fr; }
 
   .page-header {
     padding: 0 var(--space-6);
@@ -1355,7 +1785,13 @@ select.form-control {
   /* Stack grids to single column */
   .grid-2,
   .grid-3,
-  .grid-4 { grid-template-columns: 1fr; }
+  .grid-4,
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .stats-grid,
+  .chart-row     { grid-template-columns: 1fr; }
 
   /* Form rows stack */
   .form-row { grid-template-columns: 1fr; }
@@ -1370,6 +1806,13 @@ select.form-control {
   /* Page title smaller */
   .page-title { font-size: var(--text-xl); }
 
+  /* Page heading stacks on mobile */
+  .page-heading {
+    flex-direction: column;
+    align-items:    flex-start;
+    gap:            var(--space-4);
+  }
+
   /* Content header stacks */
   .content-header {
     flex-direction: column;
@@ -1378,9 +1821,13 @@ select.form-control {
   }
 
   /* Tables scroll horizontally */
-  .table-wrapper { overflow-x: auto; }
+  .table-wrapper,
+  .table-wrap    { overflow-x: auto; }
 
   /* Table toolbar stacks */
   .table-toolbar { flex-direction: column; align-items: flex-start; }
   .table-search  { max-width: 100%; width: 100%; }
+
+  /* Stat card hover lift disabled on touch */
+  .stat-card:hover { transform: none; box-shadow: none; }
 }

@@ -1,13 +1,3 @@
-{# ============================================================
-partials/alert_card.html
-Include variables (pass via {% include ... with key=value %}):
-type — "info" | "success" | "warning" | "error"
-title — alert heading (short)
-message — descriptive text body
-action_label — optional action link label (e.g. "View customer")
-action_url — optional URL for the action link
-dismissible — boolean (defaults true — add class .alert-dismiss)
-============================================================ #}
 
 <div class="alert-card {{ type|default:'info' }}" role="alert">
 

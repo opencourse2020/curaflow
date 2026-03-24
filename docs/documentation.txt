@@ -1,0 +1,83 @@
+{# ============================================================
+partials/sidebar.html
+Variables: none — uses request.resolver_match for active state
+============================================================ #}
+
+{# ============================================================
+partials/alert_card.html
+Include variables (pass via {% include ... with key=value %}):
+type — "info" | "success" | "warning" | "error"
+title — alert heading (short)
+message — descriptive text body
+action_label — optional action link label (e.g. "View customer")
+action_url — optional URL for the action link
+dismissible — boolean (defaults true — add class .alert-dismiss)
+============================================================ #}
+
+
+{# ============================================================
+partials/header.html
+Variables: none — page title injected via block header_title
+in the parent page, and profile info from request.user
+============================================================ #}
+
+{# ============================================================
+partials/progress_widget.html
+Include variables:
+label — metric label (e.g. "Session Adherence")
+value — formatted value (e.g. "78%", "23 / 30")
+pct — integer 0–100 for bar fill width
+color — "teal" | "blue" | "green" | "amber" | "red"
+note — supporting note text (e.g. "Target: 85%")
+============================================================ #}
+
+{# ============================================================
+partials/service_card.html
+Include variables:
+name — service name (e.g. "Deep Tissue Massage")
+category — category label (e.g. "Physiotherapy")
+duration — duration string (e.g. "45 min")
+staff — practitioner name (e.g. "Dr. Emma Carter")
+staff_role — staff role (e.g. "Physiotherapist")
+contraindication — boolean — shows caution badge when truthy
+action_url — URL for the "View details" action
+selectable — boolean — adds data-selectable for JS toggle
+============================================================ #}
+
+
+{# ============================================================
+partials/stat_card.html
+Include variables (pass via {% include ... with key=value %}):
+label — metric label text
+value — main metric value (e.g. "142", "87%")
+trend — trend text (e.g. "+12%", "−3")
+trend_dir — "up" | "down" | "flat"
+period — supporting note (e.g. "vs last month")
+accent_color — "teal" | "blue" | "green" | "amber"
+icon_color — "teal" | "blue" | "green" | "amber"
+============================================================ #}
+
+{# ============================================================
+partials/table_toolbar.html
+Include variables:
+search_placeholder — input placeholder text
+show_status_filter — boolean — show status <select>
+  show_program_filter — boolean — show program <select>
+    show_sort — boolean (defaults true) — show sort <select>
+      action_label — primary button label (e.g. "Add Customer")
+      action_url — href for primary button
+      count — result count display
+============================================================ #}
+
+
+{# ============================================================
+partials/timeline_block.html
+Include variables:
+day_label — week/day heading (e.g. "Monday, Week 1")
+entries — list of dicts with keys:
+time — e.g. "09:00"
+service — service name
+duration — e.g. "45 min"
+staff — practitioner name
+status — "scheduled" | "completed" | "missed"
+============================================================ #}

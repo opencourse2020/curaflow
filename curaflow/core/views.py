@@ -5,6 +5,10 @@ from django.views.generic import (
 # Create your views here.
 
 
+class HomeView(TemplateView):
+    template_name = "landing.html"
+
+
 class DashboardView(TemplateView):
     template_name = "dashboard.html"
 

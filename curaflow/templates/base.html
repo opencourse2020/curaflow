@@ -8,10 +8,11 @@
   <meta name="description" content="CuraFlow — AI-assisted wellness program man">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
   <!-- Styles -->
 {% block css %}
-
+    <link href="{% static 'vendor/bootstrap5.3/css/bootstrap.min.css' %}" rel="stylesheet"  />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 {% endblock css %}
 
   {% block extra_head %}{% endblock %}
@@ -41,7 +42,12 @@
 
 </div><!-- /app-shell -->
 
+<script src="{% static 'vendor/bootstrap5.3/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap5.3/js/bootstrap.min.js' %}"></script>
+
 <script src="{% static 'js/app.js' %}"></script>
+
 {% block extra_scripts %}{% endblock %}
 </body>
 </html>

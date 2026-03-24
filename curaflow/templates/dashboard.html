@@ -5,7 +5,19 @@
 {% block header_title %}Dashboard{% endblock %}
 {% block header_subtitle %}Good morning, Sarah{% endblock %}
 {#{% block nav_dashboard %}active{% endblock %}#}
-{% block css %}<link rel="stylesheet" href="{% static 'css/styles2.css' %}" /> {% endblock css %}
+{% block css %}{{ block.super }}
+<style>
+:root {
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.9375rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+}
+</style>
+{% endblock css %}
 {% block header_action %}
 
   <a href="{% url 'programs:program_builder' %}" class="btn btn-primary btn-sm">
@@ -75,13 +87,17 @@
 </div>
 
 <!-- Alert Banner -->
-<div class="alert alert-warning mb-8" style="position:relative;">
-  <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-  <div class="alert-body">
-    <div class="alert-title">Adherence alert &mdash; 7 customers below 60%</div>
-    <div class="alert-message">Marcus Johnson, Priya Patel, and 5 others have missed more than 3 consecutive sessions. Consider scheduling a check-in call.</div>
-  </div>
-  <button class="alert-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+<div class="alert alert-warning alert-dismissible fade show " role="alert">
+{#  <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>#}
+
+    <h6 class="alert-heading d-flex text-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
+  <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+</svg> &nbsp;&nbsp;Adherence alert &mdash; 7 customers below 60%</h6>
+
+    <p class="alert-message" style="font-size: var(--text-sm)">Marcus Johnson, Priya Patel, and 5 others have missed more than 3 consecutive sessions. Consider scheduling a check-in call.</p>
+
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 <!-- Main Row: Chart + Today's Sessions -->
@@ -334,5 +350,8 @@
     </div>
   </div>
 </div>
+
+{% endblock %}
+{% block extra_scripts %}
 
 {% endblock %}

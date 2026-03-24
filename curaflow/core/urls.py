@@ -5,7 +5,8 @@ app_name = "core"
 
 
 urlpatterns = [
-    path("", views.DashboardView.as_view(), name="dashboard"),
+    path("", views.HomeView.as_view(), name="home"),
+    path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
     path("recommendation/", views.RecommendationView.as_view(), name="recommendation"),
     path("analytics/", views.AnalyticsView.as_view(), name="analytics"),
     path("tracking/", views.TrackingView.as_view(), name="tracking"),

@@ -1,38 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Program Builder{% endblock %}
 {% block header_title %}Program Builder{% endblock %}
 {% block nav_programs %}active{% endblock %}
-
-{% block content %}
-
-{# ── Page heading ──────────────────────────────────────────────────────────── #}
-<div class="page-heading">
-  <div>
-    <h1 class="page-title">Build Wellness Program</h1>
-    <p class="page-subtitle">Curate services, set a recurring schedule, and publish a personalised program for your customer.</p>
-  </div>
-  <div style="display:flex;gap:var(--space-3);flex-shrink:0;">
-    <button class="btn btn-secondary btn-sm" type="button">Save Draft</button>
-    <button class="btn btn-primary btn-sm" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M9 11l3 3L22 4"/>
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-      </svg>
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/styles2.css' %}" />{% endblock %}
+{% block header_action %}
+  <div style="display:flex;gap:var(--space-3);">
+    <button class="btn btn-secondary btn-sm">Save Draft</button>
+    <button class="btn btn-primary btn-sm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Publish Program
     </button>
   </div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="page-header">
+  <div class="page-header-left">
+    <h1 class="page-title">Build Wellness Program</h1>
+    <p class="page-subtitle">Select services, set a schedule, and personalise a program for your customer.</p>
+  </div>
 </div>
 
-{# ── Customer context bar ──────────────────────────────────────────────────── #}
-<div class="context-bar" role="region" aria-label="Customer summary">
-  <div class="context-bar-avatar" aria-hidden="true">EM</div>
+<!-- Customer context bar -->
+<div class="context-bar">
+  <div class="context-bar-avatar">EM</div>
   <div>
     <div style="font-size:var(--text-base);font-weight:700;color:var(--text);">Elena Marchetti</div>
-    <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">Female &middot; 42 &middot; Post-op recovery &middot; Lower back &middot; Pain score 3/10</div>
+    <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;">Female · 42 · Post-op recovery · Low back · Pain score 3/10</div>
   </div>
-  <div class="context-bar-divider" aria-hidden="true"></div>
+  <div class="context-bar-divider"></div>
   <div class="context-bar-meta">
     <div>
       <div class="context-bar-item-label">Goal</div>
@@ -40,294 +39,226 @@
     </div>
     <div>
       <div class="context-bar-item-label">Budget</div>
-      <div class="context-bar-item-value">$1,200 / month</div>
+      <div class="context-bar-item-value">€1,200 / month</div>
     </div>
     <div>
-      <div class="context-bar-item-label">Program duration</div>
+      <div class="context-bar-item-label">Duration</div>
       <div class="context-bar-item-value">12 weeks</div>
     </div>
     <div>
       <div class="context-bar-item-label">Availability</div>
-      <div class="context-bar-item-value">Mon &ndash; Fri</div>
+      <div class="context-bar-item-value">Mon – Fri</div>
     </div>
   </div>
   <div style="margin-left:auto;flex-shrink:0;">
     <a href="{% url 'core:recommendation' %}" class="btn btn-secondary btn-sm">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
       AI Suggestions
     </a>
   </div>
 </div>
 
-{# ── Contraindication alert ────────────────────────────────────────────────── #}
-<div class="alert alert-warning mb-6" role="alert" style="position:relative;">
-  <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-    <line x1="12" y1="9" x2="12" y2="13"/>
-    <line x1="12" y1="17" x2="12.01" y2="17"/>
-  </svg>
+<!-- Contraindication alert -->
+<div class="alert alert-warning mb-6" style="position:relative;">
+  <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
   <div class="alert-body">
-    <div class="alert-title">Contraindication flagged &mdash; Deep Tissue Massage</div>
-    <div class="alert-message">Elena has active post-surgical inflammation within 6 weeks. Avoid high-pressure manual therapy until cleared by Dr. Kim. Light massage and hydrotherapy are acceptable alternatives.</div>
+    <div class="alert-title">Contraindication flagged — Deep Tissue Massage</div>
+    <div class="alert-message">Elena has active post-surgical inflammation within 6 weeks. Avoid high-pressure manual therapy until cleared by Dr. Kim. Light massage is acceptable.</div>
   </div>
-  <button class="alert-close" aria-label="Dismiss alert" type="button">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
+  <button class="alert-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
 </div>
 
-{# ══════════════════════════════════════════════════════════════════════════════
-   BUILDER LAYOUT: LEFT (catalog + schedule + notes) · RIGHT (builder sidebar)
-══════════════════════════════════════════════════════════════════════════════ #}
+<!-- Builder layout -->
 <div class="builder-layout">
 
-  {# ── LEFT COLUMN ─────────────────────────────────────────────────────────── #}
+  <!-- LEFT: Catalog + schedule -->
   <div style="display:flex;flex-direction:column;gap:var(--space-6);">
 
-    {# ════════════════════════════════
-       SERVICE CATALOG
-    ════════════════════════════════ #}
+    <!-- Service catalog -->
     <div class="card">
       <div class="card-header">
         <div class="card-header-left">
           <div class="card-title">Service Catalog</div>
-          <div class="card-subtitle">Select services to add to this program &mdash; contraindicated services are flagged</div>
+          <div class="card-subtitle">Click a service to add it to the program</div>
         </div>
         <div style="display:flex;gap:var(--space-2);align-items:center;flex-shrink:0;">
           <div class="toolbar-search" style="max-width:180px;">
-            <svg class="toolbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"/>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="search" placeholder="Search&hellip;" aria-label="Search services" id="catalogSearch">
+            <svg class="toolbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" placeholder="Search…">
           </div>
-          <select class="form-select form-select-sm" style="width:auto;" aria-label="Filter by category" id="catalogFilter">
-            <option value="">All Categories</option>
+          <select class="form-select form-select-sm" style="width:auto;">
+            <option>All Categories</option>
             <option>Physiotherapy</option>
-            <option>Massage Therapy</option>
-            <option>Movement &amp; Mobility</option>
+            <option>Massage</option>
+            <option>Fitness</option>
             <option>Nutrition</option>
             <option>Mindfulness</option>
-            <option>Fitness &amp; Strength</option>
           </select>
         </div>
       </div>
       <div class="card-body">
         <div class="grid-cols-3" style="gap:var(--space-4);">
 
-          {# 1 · Initial Physiotherapy Assessment #}
-          <div class="service-card" data-service="physio">
+          <!-- Physiotherapy -->
+          <div class="service-card">
             <div class="service-card-header">
-              <div class="service-icon" style="background:#f0fdfa;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4.5 9.5V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4.5"/>
-                  <path d="M4.5 14.5V19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4.5"/>
-                  <line x1="12" y1="2" x2="12" y2="22"/>
-                </svg>
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12h8M12 8v8"/></svg>
               </div>
               <div>
-                <div class="service-card-name">Initial Physio Assessment</div>
-                <div class="service-card-category" style="color:#0f766e;">Physiotherapy</div>
+                <div class="service-card-name">Physiotherapy Session</div>
+                <div class="service-card-category">Rehabilitation</div>
               </div>
             </div>
             <div class="service-card-meta">
               <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                75 min
-              </div>
-              <div class="service-meta-item">Moderate</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;flex-shrink:0;" aria-hidden="true">DK</div>
-              Dr. Dana Kim
-            </div>
-            <div class="service-card-footer">
-              <span class="service-price">$145 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" aria-label="Add Initial Physio Assessment to program">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Add
-              </button>
-            </div>
-          </div>
-
-          {# 2 · Deep Tissue Massage — CONTRAINDICATED #}
-          <div class="service-card" data-service="massage" style="opacity:.6;pointer-events:none;position:relative;" aria-disabled="true">
-            <div style="position:absolute;top:var(--space-3);right:var(--space-3);z-index:1;">
-              <span class="badge badge-warning" role="status">Contraindicated</span>
-            </div>
-            <div class="service-card-header">
-              <div class="service-icon" style="background:#fffbeb;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                  <line x1="6" y1="1" x2="6" y2="4"/>
-                  <line x1="10" y1="1" x2="10" y2="4"/>
-                  <line x1="14" y1="1" x2="14" y2="4"/>
-                </svg>
-              </div>
-              <div>
-                <div class="service-card-name" style="color:var(--text-muted);">Deep Tissue Massage</div>
-                <div class="service-card-category" style="color:#d97706;">Massage Therapy</div>
-              </div>
-            </div>
-            <div class="service-card-meta">
-              <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                60 min
-              </div>
-              <div class="service-meta-item">High</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;background:linear-gradient(135deg,#67e8f9,#0891b2);flex-shrink:0;" aria-hidden="true">SM</div>
-              Sophie M.
-            </div>
-            <div class="service-card-footer">
-              <span class="service-price">$110 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" disabled>Unavailable</button>
-            </div>
-          </div>
-
-          {# 3 · Hydrotherapy Session #}
-          <div class="service-card" data-service="physio">
-            <div class="service-card-header">
-              <div class="service-icon" style="background:#e0f2fe;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2v6"/>
-                  <path d="M5.2 11.2a7 7 0 1 0 13.6 0"/>
-                  <path d="M9 11a3 3 0 0 0 6 0"/>
-                </svg>
-              </div>
-              <div>
-                <div class="service-card-name">Hydrotherapy Session</div>
-                <div class="service-card-category" style="color:#0284c7;">Physiotherapy</div>
-              </div>
-            </div>
-            <div class="service-card-meta">
-              <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                45 min
-              </div>
-              <div class="service-meta-item">Low &ndash; Moderate</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;flex-shrink:0;" aria-hidden="true">DK</div>
-              Dr. Dana Kim
-            </div>
-            <div class="service-card-footer">
-              <span class="service-price">$120 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" aria-label="Add Hydrotherapy to program">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Add
-              </button>
-            </div>
-          </div>
-
-          {# 4 · Mobility & Functional Movement #}
-          <div class="service-card" data-service="mobility">
-            <div class="service-card-header">
-              <div class="service-icon" style="background:#ede9fe;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="5" r="3"/>
-                  <path d="M6.5 8a8 8 0 0 0-1 3.5C5 14 7 16 7 16l1 5"/>
-                  <path d="M17.5 8a8 8 0 0 1 1 3.5C19 14 17 16 17 16l-1 5"/>
-                  <path d="M7 16l5-3 5 3"/>
-                </svg>
-              </div>
-              <div>
-                <div class="service-card-name">Mobility &amp; Functional Movement</div>
-                <div class="service-card-category" style="color:#7c3aed;">Movement &amp; Mobility</div>
-              </div>
-            </div>
-            <div class="service-card-meta">
-              <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                45 min
-              </div>
-              <div class="service-meta-item">Low</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;background:linear-gradient(135deg,#c4b5fd,#7c3aed);flex-shrink:0;" aria-hidden="true">JR</div>
-              James R.
-            </div>
-            <div class="service-card-footer">
-              <span class="service-price">$75 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" aria-label="Add Mobility to program">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Add
-              </button>
-            </div>
-          </div>
-
-          {# 5 · Nutrition Coaching #}
-          <div class="service-card" data-service="nutrition">
-            <div class="service-card-header">
-              <div class="service-icon" style="background:#fef3c7;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/>
-                  <path d="M12 12v10"/>
-                  <path d="M7 16.5C7 15 9 13 12 13s5 2 5 3.5"/>
-                </svg>
-              </div>
-              <div>
-                <div class="service-card-name">Nutrition Coaching Session</div>
-                <div class="service-card-category" style="color:#d97706;">Nutrition</div>
-              </div>
-            </div>
-            <div class="service-card-meta">
-              <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 50 min
               </div>
-              <div class="service-meta-item">Low</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;background:linear-gradient(135deg,#fbbf24,#d97706);flex-shrink:0;" aria-hidden="true">AL</div>
-              Aria L.
+              <div class="service-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Moderate intensity
+              </div>
             </div>
             <div class="service-card-footer">
-              <span class="service-price">$90 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" aria-label="Add Nutrition Coaching to program">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span class="service-price">€95 / session</span>
+              <button class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Add
               </button>
             </div>
           </div>
 
-          {# 6 · Yoga Recovery Flow #}
-          <div class="service-card" data-service="mindfulness">
+          <!-- Deep Tissue Massage -->
+          <div class="service-card" style="opacity:.6;pointer-events:none;position:relative;">
+            <div style="position:absolute;top:var(--space-3);right:var(--space-3);">
+              <span class="badge badge-warning">Contraindicated</span>
+            </div>
             <div class="service-card-header">
-              <div class="service-icon" style="background:#fce7f3;" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                  <line x1="9" y1="9" x2="9.01" y2="9"/>
-                  <line x1="15" y1="9" x2="15.01" y2="9"/>
-                </svg>
+              <div class="service-icon" style="background:var(--warning-soft);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M3 9c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M12 7V5m0 12v-2"/></svg>
               </div>
               <div>
-                <div class="service-card-name">Yoga Recovery Flow</div>
-                <div class="service-card-category" style="color:#db2777;">Mindfulness</div>
+                <div class="service-card-name">Deep Tissue Massage</div>
+                <div class="service-card-category">Manual Therapy</div>
               </div>
             </div>
             <div class="service-card-meta">
               <div class="service-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                60 min
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                45 min
               </div>
-              <div class="service-meta-item">Low</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0;font-size:var(--text-xs);color:var(--text-muted);">
-              <div class="sidebar-avatar" style="width:18px;height:18px;font-size:7px;background:linear-gradient(135deg,#f9a8d4,#db2777);flex-shrink:0;" aria-hidden="true">AN</div>
-              Anna L.
+              <div class="service-meta-item">High intensity</div>
             </div>
             <div class="service-card-footer">
-              <span class="service-price">$65 / session</span>
-              <button class="btn btn-secondary btn-sm" type="button" aria-label="Add Yoga Recovery to program">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span class="service-price">€75 / session</span>
+              <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
+            </div>
+          </div>
+
+          <!-- Pool Hydrotherapy -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon" style="background:var(--info-soft);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--info)" stroke-width="2"><path d="M2 12h1.5M4.5 5.5L5.9 7M12 2v1.5M19.1 5.5l-1.4 1.4M22 12h-1.5M19.5 18.5 18.1 17M12 22v-1.5M5.5 18.5l1.4-1.4M7 12a5 5 0 1 0 10 0 5 5 0 0 0-10 0z"/></svg>
+              </div>
+              <div>
+                <div class="service-card-name">Pool Hydrotherapy</div>
+                <div class="service-card-category">Aquatic Therapy</div>
+              </div>
+            </div>
+            <div class="service-card-meta">
+              <div class="service-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                45 min
+              </div>
+              <div class="service-meta-item">Low–Moderate</div>
+            </div>
+            <div class="service-card-footer">
+              <span class="service-price">€60 / session</span>
+              <button class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobility & Stretch -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon" style="background:var(--success-soft);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div>
+                <div class="service-card-name">Mobility &amp; Stretch</div>
+                <div class="service-card-category">Movement Therapy</div>
+              </div>
+            </div>
+            <div class="service-card-meta">
+              <div class="service-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                40 min
+              </div>
+              <div class="service-meta-item">Low intensity</div>
+            </div>
+            <div class="service-card-footer">
+              <span class="service-price">€55 / session</span>
+              <button class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Nutrition Coaching -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon" style="background:var(--warning-soft);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+              </div>
+              <div>
+                <div class="service-card-name">Nutrition Coaching</div>
+                <div class="service-card-category">Dietary Support</div>
+              </div>
+            </div>
+            <div class="service-card-meta">
+              <div class="service-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                50 min
+              </div>
+              <div class="service-meta-item">Low intensity</div>
+            </div>
+            <div class="service-card-footer">
+              <span class="service-price">€85 / session</span>
+              <button class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Mindfulness -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon" style="background:var(--primary-soft);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div>
+                <div class="service-card-name">Mindfulness Coaching</div>
+                <div class="service-card-category">Mental Wellness</div>
+              </div>
+            </div>
+            <div class="service-card-meta">
+              <div class="service-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                45 min
+              </div>
+              <div class="service-meta-item">Low intensity</div>
+            </div>
+            <div class="service-card-footer">
+              <span class="service-price">€70 / session</span>
+              <button class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Add
               </button>
             </div>
@@ -335,27 +266,25 @@
 
         </div>
       </div>
-    </div>{# /service catalog #}
+    </div>
 
-    {# ════════════════════════════════
-       PROGRAM DETAILS
-    ════════════════════════════════ #}
+    <!-- Program settings form -->
     <div class="card">
       <div class="card-header">
         <div class="card-header-left">
           <div class="card-title">Program Details</div>
-          <div class="card-subtitle">Name, duration, start date, and lead practitioner</div>
+          <div class="card-subtitle">Name, duration, and assignee</div>
         </div>
       </div>
       <div class="card-body">
         <div class="form-group">
-          <label class="form-label" for="programName">Program Name <span class="required">*</span></label>
-          <input type="text" class="form-input" id="programName" value="Post-Op Recovery Plan &mdash; Elena M." placeholder="e.g. 12-Week Post-Surgical Rehab">
+          <label class="form-label">Program Name <span class="required">*</span></label>
+          <input type="text" class="form-input" value="Post-Op Recovery Plan — Elena M." placeholder="e.g. 12-Week Post-Surgical Rehab">
         </div>
         <div class="form-row">
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="programDuration">Duration</label>
-            <select class="form-select" id="programDuration">
+            <label class="form-label">Duration</label>
+            <select class="form-select">
               <option>6 weeks</option>
               <option selected>12 weeks</option>
               <option>16 weeks</option>
@@ -364,409 +293,191 @@
             </select>
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="startDate">Start Date</label>
-            <input type="date" class="form-input" id="startDate" value="2025-04-07">
+            <label class="form-label">Start Date</label>
+            <input type="date" class="form-input" value="2025-01-14">
           </div>
         </div>
-        <hr class="section-divider" style="margin:var(--space-5) 0;">
+        <div class="section-divider" style="margin:var(--space-5) 0;"></div>
         <div class="form-row">
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="leadPractitioner">Lead Practitioner</label>
-            <select class="form-select" id="leadPractitioner">
-              <option selected>Dr. Dana Kim</option>
-              <option>James Reeves</option>
-              <option>Sophie Marchetti</option>
-              <option>Aria Lim</option>
-              <option>Anna Novak</option>
+            <label class="form-label">Lead Practitioner</label>
+            <select class="form-select">
+              <option selected>Dr. Ananya Patel</option>
+              <option>Dr. Rui Santos</option>
+              <option>Maria Torres</option>
             </select>
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="programPhase">Program Phase</label>
-            <select class="form-select" id="programPhase">
+            <label class="form-label">Program Phase</label>
+            <select class="form-select">
               <option selected>Single phase</option>
-              <option>2 phases (Rehab + Conditioning)</option>
+              <option>2 phases</option>
               <option>3 phases</option>
             </select>
           </div>
         </div>
       </div>
-    </div>{# /program details #}
+    </div>
 
-    {# ════════════════════════════════
-       WEEKLY TIMELINE PREVIEW
-    ════════════════════════════════ #}
+    <!-- Weekly schedule grid -->
     <div class="card">
       <div class="card-header">
         <div class="card-header-left">
-          <div class="card-title">Weekly Schedule Preview</div>
-          <div class="card-subtitle">Recurring weekly template &mdash; reflects current program selections</div>
+          <div class="card-title">Weekly Schedule</div>
+          <div class="card-subtitle">Recurring weekly template · Drag sessions to reschedule</div>
         </div>
-        <button class="btn btn-ghost btn-sm" type="button">Clear</button>
+        <button class="btn btn-ghost btn-sm">Clear</button>
       </div>
-      <div class="card-body" style="overflow-x:auto;padding-top:0;">
-
-        {# Legend #}
-        <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) 0;border-bottom:1px solid var(--border);margin-bottom:var(--space-4);">
-          <div style="display:flex;align-items:center;gap:6px;font-size:var(--text-xs);color:var(--text-muted);">
-            <span style="width:10px;height:10px;background:#f0fdfa;border:1.5px solid #0f766e;border-radius:2px;flex-shrink:0;display:inline-block;"></span>
-            Physiotherapy
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:var(--text-xs);color:var(--text-muted);">
-            <span style="width:10px;height:10px;background:#e0f2fe;border:1.5px solid #0284c7;border-radius:2px;flex-shrink:0;display:inline-block;"></span>
-            Hydrotherapy
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:var(--text-xs);color:var(--text-muted);">
-            <span style="width:10px;height:10px;background:#ede9fe;border:1.5px solid #7c3aed;border-radius:2px;flex-shrink:0;display:inline-block;"></span>
-            Mobility
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:var(--text-xs);color:var(--text-muted);">
-            <span style="width:10px;height:10px;background:#fef3c7;border:1.5px solid #d97706;border-radius:2px;flex-shrink:0;display:inline-block;"></span>
-            Nutrition
-          </div>
-        </div>
-
-        {# Grid #}
-        <div class="weekly-grid" style="min-width:580px;" role="grid" aria-label="Weekly schedule">
-          {# Header row #}
+      <div class="card-body" style="overflow-x:auto;">
+        <div class="weekly-grid" style="min-width:560px;">
           <div></div>
-          <div class="weekly-grid-header" role="columnheader">Mon</div>
-          <div class="weekly-grid-header" role="columnheader">Tue</div>
-          <div class="weekly-grid-header" role="columnheader">Wed</div>
-          <div class="weekly-grid-header" role="columnheader">Thu</div>
-          <div class="weekly-grid-header" role="columnheader">Fri</div>
-          <div class="weekly-grid-header" role="columnheader">Sat</div>
-          <div class="weekly-grid-header" role="columnheader">Sun</div>
+          <div class="weekly-grid-header">Mon</div>
+          <div class="weekly-grid-header">Tue</div>
+          <div class="weekly-grid-header">Wed</div>
+          <div class="weekly-grid-header">Thu</div>
+          <div class="weekly-grid-header">Fri</div>
+          <div class="weekly-grid-header">Sat</div>
+          <div class="weekly-grid-header">Sun</div>
 
-          {# 9 AM #}
-          <div class="weekly-time-label" role="rowheader">9:00 AM</div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#f0fdfa;border-color:#0f766e;color:#0f766e;">
-              Physio &middot; 75 min<br>
-              <span style="font-size:9px;opacity:.85;">Dr. Dana Kim</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#f0fdfa;border-color:#0f766e;color:#0f766e;">
-              Physio &middot; 75 min<br>
-              <span style="font-size:9px;opacity:.85;">Dr. Dana Kim</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#ede9fe;border-color:#7c3aed;color:#7c3aed;">
-              Mobility &middot; 45 min<br>
-              <span style="font-size:9px;opacity:.85;">James R.</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
+          <div class="weekly-time-label">9 AM</div>
+          <div class="weekly-cell"><div class="weekly-event">Physio · Dr. P</div></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"><div class="weekly-event">Physio · Dr. P</div></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
 
-          {# 10 AM #}
-          <div class="weekly-time-label" role="rowheader">10:00 AM</div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#e0f2fe;border-color:#0284c7;color:#0284c7;">
-              Hydro &middot; 45 min<br>
-              <span style="font-size:9px;opacity:.85;">Dr. Dana Kim</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#ede9fe;border-color:#7c3aed;color:#7c3aed;">
-              Mobility &middot; 45 min<br>
-              <span style="font-size:9px;opacity:.85;">James R.</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
+          <div class="weekly-time-label">10 AM</div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"><div class="weekly-event" style="background:var(--info-soft);border-color:var(--info);color:var(--info);">Hydro · M. Torres</div></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"><div class="weekly-event" style="background:var(--success-soft);border-color:var(--success);color:var(--success);">Mobility · K. Osei</div></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
 
-          {# 2 PM #}
-          <div class="weekly-time-label" role="rowheader">2:00 PM</div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell">
-            <div class="weekly-event" style="background:#fef3c7;border-color:#d97706;color:#92400e;">
-              Nutrition &middot; 50 min<br>
-              <span style="font-size:9px;opacity:.85;">Aria L.</span>
-            </div>
-          </div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-          <div class="weekly-cell" role="gridcell"></div>
-        </div>
-
-        {# Session count summary #}
-        <div style="display:flex;gap:var(--space-6);padding:var(--space-4) 0 0;border-top:1px solid var(--border);margin-top:var(--space-4);">
-          <div style="font-size:var(--text-xs);color:var(--text-muted);">
-            <strong style="color:var(--text);">5 sessions / week</strong>
-          </div>
-          <div style="font-size:var(--text-xs);color:var(--text-muted);">
-            <strong style="color:var(--text);">4 hrs 35 min</strong> of therapy per week
-          </div>
-          <div style="font-size:var(--text-xs);color:var(--text-muted);">
-            Mon &middot; Tue &middot; Wed &middot; Thu &middot; Fri
-          </div>
-        </div>
-
-      </div>
-    </div>{# /weekly schedule #}
-
-    {# ════════════════════════════════
-       NOTES & CLINICAL RATIONALE
-    ════════════════════════════════ #}
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-left">
-          <div class="card-title">Clinical Notes &amp; Rationale</div>
-          <div class="card-subtitle">Document your reasoning, goals, and any special instructions for this program</div>
+          <div class="weekly-time-label">2 PM</div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"><div class="weekly-event" style="background:var(--success-soft);border-color:var(--success);color:var(--success);">Mobility · K. Osei</div></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
+          <div class="weekly-cell"></div>
         </div>
       </div>
-      <div class="card-body">
+    </div>
 
-        <div class="form-group">
-          <label class="form-label" for="clinicalGoals">Primary Goals</label>
-          <textarea class="form-textarea" id="clinicalGoals" rows="3" placeholder="e.g. Restore lumbar ROM to 80% of pre-surgical baseline, reduce pain score from 3/10 to 1/10 within 8 weeks&hellip;">Restore full lumbar range of motion following L4–L5 discectomy. Reduce residual pain score from 3/10 to 1/10 within 8 weeks. Rebuild core stability and functional strength to support return to work (desk-based) by week 10.</textarea>
-        </div>
+  </div>
 
-        <div class="form-group">
-          <label class="form-label" for="clinicalRationale">Clinical Rationale</label>
-          <textarea class="form-textarea" id="clinicalRationale" rows="4" placeholder="Explain why these services were selected for this customer&hellip;">Physiotherapy selected as the primary intervention to manage post-surgical tissue healing and reactivate neuromuscular patterns. Hydrotherapy introduced from week 2 to enable weight-supported movement without axial loading. Mobility sessions complement physio on off-days to maintain joint mobility. Nutrition coaching addresses post-surgical recovery needs: protein intake optimisation, anti-inflammatory diet, and body composition monitoring.</textarea>
-        </div>
-
-        <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label" for="contraindNotes">Contraindication Notes &amp; Risk Mitigations</label>
-          <textarea class="form-textarea" id="contraindNotes" rows="2">Deep tissue massage excluded per post-surgical inflammation protocol (&lt;6 weeks post-op). Reassess at week 6 — may introduce light massage with Dr. Kim clearance. All physio sessions limited to Grade 1–2 joint mobilisations until week 4.</textarea>
-        </div>
-
-      </div>
-    </div>{# /notes #}
-
-  </div>{# /left column #}
-
-  {# ── RIGHT COLUMN (sticky sidebar panel) ─────────────────────────────────── #}
+  <!-- RIGHT: Sticky summary panel -->
   <div class="builder-sidebar-panel" style="display:flex;flex-direction:column;gap:var(--space-5);">
 
-    {# ════════════════════════════════
-       SELECTED SERVICES BUILDER
-    ════════════════════════════════ #}
+    <!-- Selected services -->
     <div class="card">
       <div class="card-header" style="padding-bottom:var(--space-4);">
         <div class="card-header-left">
           <div class="card-title">Selected Services</div>
         </div>
-        <span class="badge badge-primary" aria-label="4 services added">4 added</span>
+        <span class="badge badge-primary">4 added</span>
       </div>
       <div class="builder-selected-list">
 
-        {# ── Service block 1: Initial Physio Assessment ── #}
         <div class="builder-item">
-          <div class="builder-item-icon icon-primary" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4.5 9.5V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4.5"/>
-              <path d="M4.5 14.5V19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4.5"/>
-              <line x1="12" y1="2" x2="12" y2="22"/>
-            </svg>
+          <div class="builder-item-icon icon-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12h8M12 8v8"/></svg>
           </div>
           <div class="builder-item-info">
-            <div class="builder-item-name">Initial Physio Assessment</div>
-            <div class="builder-item-meta" style="display:flex;flex-direction:column;gap:2px;">
-              <span>Dr. Dana Kim &middot; 75 min</span>
-              <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">Freq:</span>
-                <div class="freq-selector">
-                  <button class="freq-btn" type="button" aria-label="Decrease frequency">&minus;</button>
-                  <span class="freq-value" aria-live="polite">2</span>
-                  <button class="freq-btn" type="button" aria-label="Increase frequency">+</button>
-                </div>
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
-              </div>
-            </div>
+            <div class="builder-item-name">Physiotherapy</div>
+            <div class="builder-item-meta">Dr. Ananya Patel</div>
           </div>
-          <button class="slot-btn" type="button" title="Remove service" aria-label="Remove Initial Physio Assessment">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
+          <div class="builder-item-actions">
+            <div class="freq-selector">
+              <button class="freq-btn">−</button>
+              <span class="freq-value">2</span>
+              <button class="freq-btn">+</button>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
+          </div>
+          <button class="slot-btn" title="Remove">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
 
-        {# ── Service block 2: Hydrotherapy ── #}
         <div class="builder-item">
-          <div class="builder-item-icon icon-info" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v6"/>
-              <path d="M5.2 11.2a7 7 0 1 0 13.6 0"/>
-              <path d="M9 11a3 3 0 0 0 6 0"/>
-            </svg>
+          <div class="builder-item-icon icon-info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h1.5M4.5 5.5L5.9 7M12 2v1.5M19.1 5.5l-1.4 1.4M22 12h-1.5M19.5 18.5 18.1 17M12 22v-1.5M5.5 18.5l1.4-1.4M7 12a5 5 0 1 0 10 0 5 5 0 0 0-10 0z"/></svg>
           </div>
           <div class="builder-item-info">
-            <div class="builder-item-name">Hydrotherapy Session</div>
-            <div class="builder-item-meta" style="display:flex;flex-direction:column;gap:2px;">
-              <span>Dr. Dana Kim &middot; 45 min</span>
-              <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">Freq:</span>
-                <div class="freq-selector">
-                  <button class="freq-btn" type="button" aria-label="Decrease frequency">&minus;</button>
-                  <span class="freq-value" aria-live="polite">1</span>
-                  <button class="freq-btn" type="button" aria-label="Increase frequency">+</button>
-                </div>
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
-              </div>
-            </div>
+            <div class="builder-item-name">Pool Hydrotherapy</div>
+            <div class="builder-item-meta">M. Torres</div>
           </div>
-          <button class="slot-btn" type="button" title="Remove service" aria-label="Remove Hydrotherapy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
+          <div class="builder-item-actions">
+            <div class="freq-selector">
+              <button class="freq-btn">−</button>
+              <span class="freq-value">1</span>
+              <button class="freq-btn">+</button>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
+          </div>
+          <button class="slot-btn" title="Remove">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
 
-        {# ── Service block 3: Mobility ── #}
         <div class="builder-item">
-          <div class="builder-item-icon" style="background:#ede9fe;color:#7c3aed;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="5" r="3"/>
-              <path d="M6.5 8a8 8 0 0 0-1 3.5C5 14 7 16 7 16l1 5"/>
-              <path d="M17.5 8a8 8 0 0 1 1 3.5C19 14 17 16 17 16l-1 5"/>
-              <path d="M7 16l5-3 5 3"/>
-            </svg>
+          <div class="builder-item-icon icon-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <div class="builder-item-info">
-            <div class="builder-item-name">Mobility &amp; Functional Movement</div>
-            <div class="builder-item-meta" style="display:flex;flex-direction:column;gap:2px;">
-              <span>James R. &middot; 45 min</span>
-              <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">Freq:</span>
-                <div class="freq-selector">
-                  <button class="freq-btn" type="button" aria-label="Decrease frequency">&minus;</button>
-                  <span class="freq-value" aria-live="polite">2</span>
-                  <button class="freq-btn" type="button" aria-label="Increase frequency">+</button>
-                </div>
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
-              </div>
-            </div>
+            <div class="builder-item-name">Mobility &amp; Stretch</div>
+            <div class="builder-item-meta">K. Osei</div>
           </div>
-          <button class="slot-btn" type="button" title="Remove service" aria-label="Remove Mobility">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
+          <div class="builder-item-actions">
+            <div class="freq-selector">
+              <button class="freq-btn">−</button>
+              <span class="freq-value">2</span>
+              <button class="freq-btn">+</button>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
+          </div>
+          <button class="slot-btn" title="Remove">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
 
-        {# ── Service block 4: Nutrition Coaching ── #}
         <div class="builder-item">
-          <div class="builder-item-icon icon-warning" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/>
-              <path d="M12 12v10"/>
-              <path d="M7 16.5C7 15 9 13 12 13s5 2 5 3.5"/>
-            </svg>
+          <div class="builder-item-icon icon-warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
           </div>
           <div class="builder-item-info">
             <div class="builder-item-name">Nutrition Coaching</div>
-            <div class="builder-item-meta" style="display:flex;flex-direction:column;gap:2px;">
-              <span>Aria L. &middot; 50 min</span>
-              <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">Freq:</span>
-                <div class="freq-selector">
-                  <button class="freq-btn" type="button" aria-label="Decrease frequency">&minus;</button>
-                  <span class="freq-value" aria-live="polite">1</span>
-                  <button class="freq-btn" type="button" aria-label="Increase frequency">+</button>
-                </div>
-                <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
-              </div>
-            </div>
+            <div class="builder-item-meta">Aria L.</div>
           </div>
-          <button class="slot-btn" type="button" title="Remove service" aria-label="Remove Nutrition Coaching">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
+          <div class="builder-item-actions">
+            <div class="freq-selector">
+              <button class="freq-btn">−</button>
+              <span class="freq-value">1</span>
+              <button class="freq-btn">+</button>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--text-muted);">/wk</span>
+          </div>
+          <button class="slot-btn" title="Remove">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
 
       </div>
       <div class="card-footer" style="padding:var(--space-3) var(--space-5);">
-        <button class="btn btn-ghost btn-sm w-full" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;" aria-hidden="true">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
+        <button class="btn btn-ghost btn-sm w-full">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add another service
         </button>
       </div>
-    </div>{# /selected services #}
+    </div>
 
-    {# ════════════════════════════════
-       DURATION SUMMARY
-    ════════════════════════════════ #}
-    <div class="card">
-      <div class="card-header" style="padding-bottom:var(--space-4);">
-        <div class="card-title">Duration Summary</div>
-      </div>
-      <div class="card-body" style="padding-top:0;">
-        <div style="display:flex;flex-direction:column;gap:var(--space-3);">
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Program duration</span>
-            <strong style="color:var(--text);">12 weeks</strong>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Start &rarr; End</span>
-            <span style="color:var(--text);">7 Apr &rarr; 30 Jun 2025</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Sessions / week</span>
-            <strong style="color:var(--text);">5 sessions</strong>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Total sessions</span>
-            <strong style="color:var(--text);">72 sessions</strong>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Therapy time / week</span>
-            <span style="color:var(--text);">4 hr 35 min</span>
-          </div>
-          <hr class="section-divider" style="margin:var(--space-1) 0;">
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-sm);">
-            <span style="color:var(--text-muted);">Total therapy hours</span>
-            <strong style="color:var(--text);">54 hr 40 min</strong>
-          </div>
-        </div>
-
-        {# Phase progress bar #}
-        <div style="margin-top:var(--space-5);">
-          <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-3);">Phase Breakdown</div>
-          <div style="display:flex;height:8px;border-radius:var(--radius-full);overflow:hidden;gap:2px;">
-            <div style="flex:0 0 33%;background:#0f766e;border-radius:var(--radius-full) 0 0 var(--radius-full);" title="Phase 1 — Acute (weeks 1–4)"></div>
-            <div style="flex:0 0 42%;background:#14b8a6;" title="Phase 2 — Progressive (weeks 5–9)"></div>
-            <div style="flex:1;background:#ccfbf1;border-radius:0 var(--radius-full) var(--radius-full) 0;" title="Phase 3 — Functional (weeks 10–12)"></div>
-          </div>
-          <div style="display:flex;gap:var(--space-4);margin-top:var(--space-3);">
-            <div style="display:flex;align-items:center;gap:5px;font-size:var(--text-xs);color:var(--text-muted);">
-              <span style="width:8px;height:8px;background:#0f766e;border-radius:50%;display:inline-block;"></span>
-              Acute (wk 1–4)
-            </div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:var(--text-xs);color:var(--text-muted);">
-              <span style="width:8px;height:8px;background:#14b8a6;border-radius:50%;display:inline-block;"></span>
-              Progressive (wk 5–9)
-            </div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:var(--text-xs);color:var(--text-muted);">
-              <span style="width:8px;height:8px;background:#ccfbf1;border:1px solid #0f766e;border-radius:50%;display:inline-block;"></span>
-              Functional (wk 10–12)
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>{# /duration summary #}
-
-    {# ════════════════════════════════
-       PRICING SUMMARY
-    ════════════════════════════════ #}
+    <!-- Pricing summary -->
     <div class="card">
       <div class="card-header" style="padding-bottom:var(--space-4);">
         <div class="card-title">Pricing Summary</div>
@@ -774,58 +485,48 @@
       </div>
       <div class="card-body" style="padding-top:var(--space-4);">
         <div style="display:flex;flex-direction:column;gap:0;">
-
           <div class="pricing-row">
-            <span class="pricing-label">Physio Assessment (2&times;/wk &times; 12 wk)</span>
-            <span class="pricing-value">$3,480</span>
+            <span class="pricing-label">Physiotherapy (2×/wk × 12 wk)</span>
+            <span class="pricing-value">€2,280</span>
           </div>
           <div class="pricing-row">
-            <span class="pricing-label">Hydrotherapy (1&times;/wk &times; 12 wk)</span>
-            <span class="pricing-value">$1,440</span>
+            <span class="pricing-label">Hydrotherapy (1×/wk × 12 wk)</span>
+            <span class="pricing-value">€720</span>
           </div>
           <div class="pricing-row">
-            <span class="pricing-label">Mobility Session (2&times;/wk &times; 12 wk)</span>
-            <span class="pricing-value">$1,800</span>
+            <span class="pricing-label">Mobility (2×/wk × 12 wk)</span>
+            <span class="pricing-value">€1,320</span>
           </div>
           <div class="pricing-row">
-            <span class="pricing-label">Nutrition Coaching (1&times;/wk &times; 12 wk)</span>
-            <span class="pricing-value">$1,080</span>
+            <span class="pricing-label">Nutrition (1×/wk × 12 wk)</span>
+            <span class="pricing-value">€1,020</span>
           </div>
           <div class="pricing-row">
             <span class="pricing-label" style="color:var(--success);font-weight:600;">Program Discount (10%)</span>
-            <span class="pricing-value" style="color:var(--success);">&minus;$780</span>
+            <span class="pricing-value" style="color:var(--success);">−€534</span>
           </div>
-
-          <hr class="section-divider" style="margin:var(--space-3) 0;">
-
+          <div class="section-divider" style="margin:var(--space-3) 0;"></div>
           <div class="pricing-row pricing-total" style="border-bottom:none;padding-bottom:0;">
             <span class="pricing-label">Total Program Cost</span>
-            <span class="pricing-value">$7,020</span>
+            <span class="pricing-value">€4,806</span>
           </div>
         </div>
-
-        <div style="margin-top:var(--space-3);padding:var(--space-3) var(--space-4);background:#f0fdf4;border-radius:var(--radius);border:1px solid #bbf7d0;">
-          <span style="font-size:var(--text-xs);color:#14532d;font-weight:600;">&#x2248; $585.00 / month &middot; within Elena&rsquo;s $1,200 budget</span>
+        <div style="margin-top:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--success-soft);border-radius:var(--radius);border:1px solid #bbf7d0;">
+          <span style="font-size:var(--text-xs);color:#14532d;font-weight:600;">≈ €400.50/month · within Elena's €1,200 budget</span>
         </div>
       </div>
-    </div>{# /pricing #}
+    </div>
 
-    {# ════════════════════════════════
-       PUBLISH ACTIONS
-    ════════════════════════════════ #}
+    <!-- Actions -->
     <div style="display:flex;gap:var(--space-3);">
-      <button class="btn btn-secondary" style="flex:1;" type="button">Save Draft</button>
-      <button class="btn btn-primary" style="flex:1;" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 11l3 3L22 4"/>
-          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-        </svg>
+      <button class="btn btn-secondary" style="flex:1;">Save Draft</button>
+      <button class="btn btn-primary" style="flex:1;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         Publish Program
       </button>
     </div>
 
-  </div>{# /right sidebar panel #}
-
-</div>{# /builder-layout #}
+  </div>
+</div>
 
 {% endblock %}

@@ -1,159 +1,74 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Services{% endblock %}
 {% block header_title %}Services{% endblock %}
 {% block nav_services %}active{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/styles2.css' %}" />{% endblock %}
+{% block header_action %}
+  <a href="#" class="btn btn-primary btn-sm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Add Service
+  </a>
+{% endblock %}
 
 {% block content %}
 
-{# ── Page heading ──────────────────────────────────────────────────────────── #}
-<div class="page-heading">
-  <div>
+<div class="page-header">
+  <div class="page-header-left">
     <h1 class="page-title">Services</h1>
-    <p class="page-subtitle">Manage your clinic's service catalogue — pricing, staff, and clinical guidelines in one place.</p>
+    <p class="page-subtitle">18 services across 6 categories &middot; 14 active &middot; 4 archived</p>
   </div>
-  <div style="display:flex;align-items:center;gap:var(--space-3);flex-shrink:0;">
-    <a href="#" class="btn btn-primary btn-sm" id="addServiceBtn" aria-label="Add new service">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
+  <div class="page-actions">
+    <div class="tab-switcher" id="viewToggle">
+      <button class="tab-btn active" title="Grid view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Grid
+      </button>
+      <button class="tab-btn" title="Table view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Table
+      </button>
+    </div>
+    <a href="#" class="btn btn-primary btn-sm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Add Service
     </a>
   </div>
 </div>
 
-{# ── Stat strip ────────────────────────────────────────────────────────────── #}
-<div class="stats-grid" style="margin-bottom:var(--space-6);">
-
-  <div class="stat-card">
-    <div class="stat-card-accent teal"></div>
-    <div class="stat-card-header">
-      <span class="stat-card-label">Total Services</span>
-      <div class="stat-card-icon teal" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-        </svg>
-      </div>
-    </div>
-    <div class="stat-value">18</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-      <span class="stat-trend up">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="12" y1="19" x2="12" y2="5"/>
-          <polyline points="5 12 12 5 19 12"/>
-        </svg>
-        +2
-      </span>
-      <span class="stat-period">this quarter</span>
-    </div>
-  </div>
-
-  <div class="stat-card">
-    <div class="stat-card-accent green"></div>
-    <div class="stat-card-header">
-      <span class="stat-card-label">Active</span>
-      <div class="stat-card-icon green" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-      </div>
-    </div>
-    <div class="stat-value">14</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-      <span class="stat-period">77.8% of catalogue</span>
-    </div>
-  </div>
-
-  <div class="stat-card">
-    <div class="stat-card-accent amber"></div>
-    <div class="stat-card-header">
-      <span class="stat-card-label">Categories</span>
-      <div class="stat-card-icon amber" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7" rx="1"/>
-          <rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/>
-          <rect x="14" y="14" width="7" height="7" rx="1"/>
-        </svg>
-      </div>
-    </div>
-    <div class="stat-value">6</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-      <span class="stat-period">across specialties</span>
-    </div>
-  </div>
-
-  <div class="stat-card">
-    <div class="stat-card-accent blue"></div>
-    <div class="stat-card-header">
-      <span class="stat-card-label">Avg. Price</span>
-      <div class="stat-card-icon blue" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-      </div>
-    </div>
-    <div class="stat-value">$96</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-      <span class="stat-trend up">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="12" y1="19" x2="12" y2="5"/>
-          <polyline points="5 12 12 5 19 12"/>
-        </svg>
-        +$4
-      </span>
-      <span class="stat-period">vs last quarter</span>
-    </div>
-  </div>
-
-</div>
-
-{# ── Search / filter / sort toolbar ───────────────────────────────────────── #}
-<div class="card" style="padding:0;margin-bottom:var(--space-5);overflow:visible;">
-  <div class="table-toolbar" style="border-radius:var(--radius-lg);">
-
+<!-- Toolbar -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:var(--space-6);">
+  <div class="table-toolbar" style="border-radius:var(--radius-lg);border-bottom:none;">
     <div class="toolbar-search">
-      <svg class="toolbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"/>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input type="search" id="serviceSearch" placeholder="Search by name or category&hellip;" aria-label="Search services">
+      <svg class="toolbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search by service name or category&hellip;">
     </div>
-
     <div class="toolbar-filters">
-      <select class="form-select form-select-sm" id="categoryFilter" aria-label="Filter by category">
+      <select class="form-select form-select-sm">
         <option value="">All categories</option>
-        <option>Physiotherapy</option>
-        <option>Massage Therapy</option>
-        <option>Movement &amp; Mobility</option>
-        <option>Nutrition</option>
-        <option>Mindfulness</option>
-        <option>Fitness &amp; Strength</option>
+        <option value="physio">Physiotherapy</option>
+        <option value="massage">Massage Therapy</option>
+        <option value="movement">Movement &amp; Mobility</option>
+        <option value="nutrition">Nutrition</option>
+        <option value="mindfulness">Mindfulness</option>
+        <option value="fitness">Fitness &amp; Strength</option>
       </select>
-
-      <select class="form-select form-select-sm" id="statusFilter" aria-label="Filter by status">
+      <select class="form-select form-select-sm">
         <option value="">All statuses</option>
-        <option>Active</option>
-        <option>Draft</option>
-        <option>Archived</option>
+        <option value="active">Active</option>
+        <option value="archived">Archived</option>
+        <option value="draft">Draft</option>
       </select>
-
-      <select class="form-select form-select-sm" id="staffFilter" aria-label="Filter by staff">
+      <select class="form-select form-select-sm">
         <option value="">All practitioners</option>
-        <option>Dr. Dana Kim</option>
-        <option>James R.</option>
-        <option>Sophie M.</option>
-        <option>Aria L.</option>
-        <option>Anna L.</option>
-        <option>Tom B.</option>
+        <option value="kim">Dr. Dana Kim</option>
+        <option value="james">James R.</option>
+        <option value="sophie">Sophie M.</option>
+        <option value="aria">Aria L.</option>
+        <option value="anna">Anna L.</option>
+        <option value="tom">Tom B.</option>
       </select>
-
-      <select class="form-select form-select-sm" id="sortSelect" aria-label="Sort services">
+      <select class="form-select form-select-sm">
         <option value="name_asc">Sort: Name A&ndash;Z</option>
         <option value="price_high">Price: High first</option>
         <option value="price_low">Price: Low first</option>
@@ -161,71 +76,60 @@
         <option value="popular">Most used</option>
       </select>
     </div>
-
     <div class="toolbar-actions">
       <span style="font-size:var(--text-xs);color:var(--text-muted);white-space:nowrap;">14 active services</span>
     </div>
-
   </div>
 </div>
 
-{# ── Category quick-filter tabs ────────────────────────────────────────────── #}
-<div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;" role="group" aria-label="Filter by category">
-  <button class="btn btn-primary btn-sm" type="button" data-cat="all">All</button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="physio">
-    <span style="width:8px;height:8px;background:#0f766e;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+<!-- Category tabs -->
+<div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;">
+  <button class="btn btn-primary btn-sm">All</button>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#0f766e;border-radius:50%;display:inline-block;"></span>
     Physiotherapy
   </button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="massage">
-    <span style="width:8px;height:8px;background:#0891b2;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#0891b2;border-radius:50%;display:inline-block;"></span>
     Massage Therapy
   </button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="mobility">
-    <span style="width:8px;height:8px;background:#7c3aed;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#7c3aed;border-radius:50%;display:inline-block;"></span>
     Movement &amp; Mobility
   </button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="nutrition">
-    <span style="width:8px;height:8px;background:#d97706;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#d97706;border-radius:50%;display:inline-block;"></span>
     Nutrition
   </button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="mindfulness">
-    <span style="width:8px;height:8px;background:#db2777;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#db2777;border-radius:50%;display:inline-block;"></span>
     Mindfulness
   </button>
-  <button class="btn btn-secondary btn-sm" type="button" data-cat="fitness">
-    <span style="width:8px;height:8px;background:#16a34a;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+  <button class="btn btn-secondary btn-sm">
+    <span style="width:8px;height:8px;background:#16a34a;border-radius:50%;display:inline-block;"></span>
     Fitness &amp; Strength
   </button>
 </div>
 
-{# ── Service card grid ─────────────────────────────────────────────────────── #}
-<div class="grid-auto-fill" id="servicesGrid">
+<!-- Service Cards Grid -->
+<div class="grid-auto-fill">
 
-  {# ── 1 · Initial Physiotherapy Assessment ─────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="physio">
+  <!-- 1 — Physiotherapy Initial Assessment -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
-
-      {# Card header: icon + name + category badge + status #}
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#f0fdfa;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4.5 9.5V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4.5"/>
-              <path d="M4.5 14.5V19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4.5"/>
-              <line x1="12" y1="2" x2="12" y2="22"/>
-            </svg>
+          <div class="service-icon" style="background:#f0fdfa;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 9.5V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4.5"/><path d="M4.5 14.5V19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4.5"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
           </div>
           <div>
             <div class="service-card-name">Initial Physiotherapy Assessment</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#0f766e;background:#f0fdfa;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ccfbf1;">Physiotherapy</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#0f766e;background:#f0fdfa;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ccfbf1;">Physiotherapy</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
 
-      {# Details grid: duration + price + staff #}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -238,56 +142,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;" aria-hidden="true">DK</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;">DK</div>
             <span class="detail-value">Dr. Dana Kim</span>
           </div>
         </div>
       </div>
 
-      {# Contraindications #}
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
         <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Active fractures &middot; Open wounds &middot; Severe cardiovascular instability</div>
       </div>
 
-      {# Usage / rating footer #}
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">34</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.9 avg rating</span>
       </div>
     </div>
-
-    {# Card actions #}
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 2 · Deep Tissue Massage ──────────────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="massage">
+  <!-- 2 — Deep Tissue Massage -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#e0f2fe;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-              <line x1="6" y1="1" x2="6" y2="4"/>
-              <line x1="10" y1="1" x2="10" y2="4"/>
-              <line x1="14" y1="1" x2="14" y2="4"/>
-            </svg>
+          <div class="service-icon" style="background:#e0f2fe;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
           </div>
           <div>
             <div class="service-card-name">Deep Tissue Massage</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bae6fd;">Massage Therapy</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bae6fd;">Massage Therapy</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -300,49 +193,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#67e8f9,#0891b2);" aria-hidden="true">SM</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#67e8f9,#0891b2);">SM</div>
             <span class="detail-value">Sophie M.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
-        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Blood clots or DVT &middot; Skin infections &middot; Recent surgical sites &middot; Bleeding disorders</div>
+        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Blood clots or DVT &middot; Skin infections &middot; Recent surgery sites &middot; Bleeding disorders</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">28</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.8 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 3 · Mobility & Functional Movement ───────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="mobility">
+  <!-- 3 — Mobility & Functional Movement -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#ede9fe;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="5" r="3"/>
-              <path d="M6.5 8a8 8 0 0 0-1 3.5C5 14 7 16 7 16l1 5"/>
-              <path d="M17.5 8a8 8 0 0 1 1 3.5C19 14 17 16 17 16l-1 5"/>
-              <path d="M7 16l5-3 5 3"/>
-            </svg>
+          <div class="service-icon" style="background:#ede9fe;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M6.5 8a8 8 0 0 0-1 3.5C5 14 7 16 7 16l1 5"/><path d="M17.5 8a8 8 0 0 1 1 3.5C19 14 17 16 17 16l-1 5"/><path d="M7 16l5-3 5 3"/></svg>
           </div>
           <div>
             <div class="service-card-name">Mobility &amp; Functional Movement</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#7c3aed;background:#ede9fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ddd6fe;">Movement &amp; Mobility</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#7c3aed;background:#ede9fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ddd6fe;">Movement &amp; Mobility</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -355,48 +244,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#c4b5fd,#7c3aed);" aria-hidden="true">JR</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#c4b5fd,#7c3aed);">JR</div>
             <span class="detail-value">James R.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
         <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Acute joint inflammation &middot; Unstable fractures &middot; Severe osteoporosis</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">51</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.7 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 4 · Nutrition Coaching Session ───────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="nutrition">
+  <!-- 4 — Nutrition Coaching -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#fef3c7;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/>
-              <path d="M12 12v10"/>
-              <path d="M7 16.5C7 15 9 13 12 13s5 2 5 3.5"/>
-            </svg>
+          <div class="service-icon" style="background:#fef3c7;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><path d="M12 12v10"/><path d="M7 16.5C7 15 9 13 12 13s5 2 5 3.5"/></svg>
           </div>
           <div>
             <div class="service-card-name">Nutrition Coaching Session</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#d97706;background:#fef3c7;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #fde68a;">Nutrition</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#d97706;background:#fef3c7;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #fde68a;">Nutrition</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -409,49 +295,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#fbbf24,#d97706);" aria-hidden="true">AL</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#fbbf24,#d97706);">AL</div>
             <span class="detail-value">Aria L.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
-        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Active eating disorder — refer to specialist &middot; Renal failure without dietitian approval</div>
+        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Active eating disorder (refer to specialist) &middot; Renal failure without dietitian approval</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">39</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.8 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 5 · Yoga Recovery Flow ───────────────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="mindfulness">
+  <!-- 5 — Yoga Recovery Flow -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#fce7f3;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-              <line x1="9" y1="9" x2="9.01" y2="9"/>
-              <line x1="15" y1="9" x2="15.01" y2="9"/>
-            </svg>
+          <div class="service-icon" style="background:#fce7f3;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           </div>
           <div>
             <div class="service-card-name">Yoga Recovery Flow</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#db2777;background:#fce7f3;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #fbcfe8;">Mindfulness</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#db2777;background:#fce7f3;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #fbcfe8;">Mindfulness</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -464,46 +346,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#f9a8d4,#db2777);" aria-hidden="true">AN</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#f9a8d4,#db2777);">AN</div>
             <span class="detail-value">Anna L.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
-        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Severe hypertension &middot; Recent abdominal surgery &middot; High-risk pregnancy — consult first</div>
+        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Severe hypertension &middot; Recent abdominal surgery &middot; High-risk pregnancy (consult first)</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">22</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.9 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 6 · Strength & Conditioning Class ────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="fitness">
+  <!-- 6 — Strength & Conditioning -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#dcfce7;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 4v16M18 4v16M2 9h4M2 15h4M18 9h4M18 15h4M6 12h12"/>
-            </svg>
+          <div class="service-icon" style="background:#dcfce7;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M6 4v16M18 4v16M2 9h4M2 15h4M18 9h4M18 15h4M6 12h12"/></svg>
           </div>
           <div>
             <div class="service-card-name">Strength &amp; Conditioning Class</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#16a34a;background:#dcfce7;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bbf7d0;">Fitness &amp; Strength</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#16a34a;background:#dcfce7;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bbf7d0;">Fitness &amp; Strength</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -516,46 +397,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#86efac,#16a34a);" aria-hidden="true">TB</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#86efac,#16a34a);">TB</div>
             <span class="detail-value">Tom B.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
         <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Acute injury or pain above 5/10 &middot; Uncontrolled hypertension &middot; Post-op &lt;6 weeks</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">17</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.6 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 7 · Sports Massage Therapy ───────────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="massage">
+  <!-- 7 — Sports Massage -->
+  <div class="card" style="display:flex;flex-direction:column;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#e0f2fe;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-            </svg>
+          <div class="service-icon" style="background:#e0f2fe;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
           </div>
           <div>
             <div class="service-card-name">Sports Massage Therapy</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bae6fd;">Massage Therapy</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #bae6fd;">Massage Therapy</span></div>
           </div>
         </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -568,102 +448,45 @@
         <div style="grid-column:span 2;">
           <div class="detail-label">Assigned Staff</div>
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#67e8f9,#0891b2);" aria-hidden="true">SM</div>
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;background:linear-gradient(135deg,#67e8f9,#0891b2);">SM</div>
             <span class="detail-value">Sophie M.</span>
           </div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
         <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Fever or acute infection &middot; Varicose veins (localised) &middot; Acute muscle tears</div>
       </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
         <span>Used in <strong style="color:var(--text);">19</strong> programs</span>
         <span style="color:var(--success);font-weight:600;">&#x2022; 4.7 avg rating</span>
       </div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
     </div>
-  </article>
+  </div>
 
-  {# ── 8 · Hydrotherapy Session ──────────────────────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;" data-cat="physio">
+  <!-- 8 — Mindfulness Coaching — Archived -->
+  <div class="card" style="display:flex;flex-direction:column;opacity:0.65;">
     <div style="padding:var(--space-5);flex:1;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:#f0fdfa;flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v6"/>
-              <path d="M5.2 11.2a7 7 0 1 0 13.6 0"/>
-              <path d="M9 11a3 3 0 0 0 6 0"/>
-            </svg>
-          </div>
-          <div>
-            <div class="service-card-name">Hydrotherapy Session</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:#0f766e;background:#f0fdfa;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ccfbf1;">Physiotherapy</span>
-            </div>
-          </div>
-        </div>
-        <span class="badge badge-active" style="flex-shrink:0;"><span class="badge-dot"></span>Active</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
-        <div>
-          <div class="detail-label">Duration</div>
-          <div class="detail-value">45 min</div>
-        </div>
-        <div>
-          <div class="detail-label">Price</div>
-          <div class="detail-value" style="color:var(--text);font-weight:700;">$120</div>
-        </div>
-        <div style="grid-column:span 2;">
-          <div class="detail-label">Assigned Staff</div>
-          <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
-            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;" aria-hidden="true">DK</div>
-            <span class="detail-value">Dr. Dana Kim</span>
-          </div>
-        </div>
-      </div>
-      <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
-        <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
-        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Open wounds &middot; Uncontrolled epilepsy &middot; Incontinence &middot; Severe cardiovascular disease</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
-        <span>Used in <strong style="color:var(--text);">12</strong> programs</span>
-        <span style="color:var(--success);font-weight:600;">&#x2022; 4.9 avg rating</span>
-      </div>
-    </div>
-    <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-ghost btn-sm" type="button">Archive</button>
-      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
-      <button class="btn btn-primary btn-sm" type="button">Add to Program</button>
-    </div>
-  </article>
-
-  {# ── 9 · Mindfulness Coaching 1:1 — Archived ──────────────────────────── #}
-  <article class="card" style="display:flex;flex-direction:column;opacity:0.65;" data-cat="mindfulness">
-    <div style="padding:var(--space-5);flex:1;">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
-        <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
-          <div class="service-icon" style="background:var(--bg-alt);flex-shrink:0;" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="17" x2="12.01" y2="17"/>
-            </svg>
+          <div class="service-icon" style="background:var(--bg-alt);flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </div>
           <div>
             <div class="service-card-name" style="color:var(--text-muted);">Mindfulness Coaching 1:1</div>
-            <div style="margin-top:3px;">
-              <span style="font-size:var(--text-xs);font-weight:500;color:var(--text-muted);background:var(--bg-alt);padding:2px 8px;border-radius:var(--radius-full);border:1px solid var(--border);">Mindfulness</span>
-            </div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:var(--text-muted);background:var(--bg-alt);padding:2px 8px;border-radius:var(--radius-full);border:1px solid var(--border);">Mindfulness</span></div>
           </div>
         </div>
-        <span class="badge badge-draft" style="flex-shrink:0;"><span class="badge-dot"></span>Archived</span>
+        <span class="badge badge-draft"><span class="badge-dot"></span>Archived</span>
       </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
         <div>
           <div class="detail-label">Duration</div>
@@ -678,33 +501,86 @@
           <div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:4px;">Unassigned</div>
         </div>
       </div>
+
       <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
         <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
-        <div style="font-size:var(--text-xs);color:var(--text-subtle);line-height:1.5;">Active psychosis &middot; Severe dissociative disorder — refer to clinical psychologist</div>
+        <div style="font-size:var(--text-xs);color:var(--text-subtle);line-height:1.5;">Active psychosis &middot; Severe dissociative disorder (refer to clinical psychologist)</div>
       </div>
-      <div style="font-size:var(--text-xs);color:var(--text-subtle);">Archived Jun 1, 2024 &middot; Was used in 8 programs</div>
+
+      <div style="font-size:var(--text-xs);color:var(--text-subtle);">Archived Jun 1, 2024 &middot; Was in 8 programs</div>
     </div>
     <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
-      <button class="btn btn-secondary btn-sm" type="button">Restore</button>
-      <button class="btn btn-ghost btn-sm" type="button" style="color:var(--danger);">Delete</button>
+      <button class="btn btn-secondary btn-sm">Restore</button>
+      <button class="btn btn-ghost btn-sm" style="color:var(--danger);">Delete</button>
     </div>
-  </article>
+  </div>
 
-</div>{# /servicesGrid #}
+  <!-- 9 — Hydrotherapy -->
+  <div class="card" style="display:flex;flex-direction:column;">
+    <div style="padding:var(--space-5);flex:1;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4);">
+        <div style="display:flex;align-items:flex-start;gap:var(--space-3);">
+          <div class="service-icon" style="background:#f0fdfa;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2"><path d="M12 2v6"/><path d="M5.2 11.2a7 7 0 1 0 13.6 0"/><path d="M9 11a3 3 0 0 0 6 0"/></svg>
+          </div>
+          <div>
+            <div class="service-card-name">Hydrotherapy Session</div>
+            <div style="margin-top:3px;"><span style="font-size:var(--text-xs);font-weight:500;color:#0f766e;background:#f0fdfa;padding:2px 8px;border-radius:var(--radius-full);border:1px solid #ccfbf1;">Physiotherapy</span></div>
+          </div>
+        </div>
+        <span class="badge badge-active"><span class="badge-dot"></span>Active</span>
+      </div>
 
-{# ── Pagination ────────────────────────────────────────────────────────────── #}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
+        <div>
+          <div class="detail-label">Duration</div>
+          <div class="detail-value">45 min</div>
+        </div>
+        <div>
+          <div class="detail-label">Price</div>
+          <div class="detail-value" style="color:var(--text);font-weight:700;">$120</div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div class="detail-label">Assigned Staff</div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:4px;">
+            <div class="sidebar-avatar" style="width:22px;height:22px;font-size:9px;flex-shrink:0;">DK</div>
+            <span class="detail-value">Dr. Dana Kim</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:var(--space-3);background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-4);">
+        <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Contraindications</div>
+        <div style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;">Open wounds &middot; Uncontrolled epilepsy &middot; Incontinence &middot; Severe cardiovascular disease</div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);">
+        <span>Used in <strong style="color:var(--text);">12</strong> programs</span>
+        <span style="color:var(--success);font-weight:600;">&#x2022; 4.9 avg rating</span>
+      </div>
+    </div>
+    <div class="card-footer" style="display:flex;gap:var(--space-2);justify-content:flex-end;">
+      <button class="btn btn-ghost btn-sm">Archive</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+      <button class="btn btn-primary btn-sm">Add to Program</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Pagination -->
 <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-5) 0;margin-top:var(--space-2);">
   <span style="font-size:var(--text-xs);color:var(--text-muted);">Showing 1&ndash;9 of <strong style="color:var(--text);">18</strong> services</span>
   <div style="display:flex;align-items:center;gap:var(--space-1);">
-    <button class="btn btn-secondary btn-sm" type="button" disabled aria-label="Previous page" style="opacity:.4;cursor:not-allowed;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    <button class="btn btn-secondary btn-sm" disabled style="opacity:.4;cursor:not-allowed;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="15 18 9 12 15 6"/></svg>
       Prev
     </button>
-    <button class="btn btn-primary btn-sm" type="button" aria-label="Page 1" aria-current="page">1</button>
-    <button class="btn btn-secondary btn-sm" type="button" aria-label="Page 2">2</button>
-    <button class="btn btn-secondary btn-sm" type="button" aria-label="Next page">
+    <button class="btn btn-primary btn-sm">1</button>
+    <button class="btn btn-secondary btn-sm">2</button>
+    <button class="btn btn-secondary btn-sm">
       Next
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
 </div>

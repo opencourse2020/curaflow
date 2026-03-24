@@ -1,4 +1,4 @@
-{% load static %}
+
 <header class="page-header" id="pageHeader" role="banner">
 
   <!-- Mobile sidebar toggle (shown on ≤768px via CSS) -->
@@ -15,6 +15,7 @@
   <!-- Page title (filled by child template or page partial) -->
   <span class="header-title" id="pageHeaderTitle">
     {% block header_title %}{% endblock %}
+  <p class="page-subtitle">{% block header_subtitle %}{% endblock %}</p>
   </span>
 
   <!-- Global search -->

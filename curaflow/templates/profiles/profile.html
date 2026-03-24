@@ -2,31 +2,20 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load i18n %}
-    <meta charset="utf-8">
-  <h1 class="mb-0 pb-0 display-4" id="title">{% trans "Profile Overview" %}</h1>
-    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
-        <ul class="breadcrumb pt-0">
-            <li class="breadcrumb-item"><a href="{% url 'idmeapi:sdashboard' %}">{% trans "Home" %}</a></li>
-            <li class="breadcrumb-item"><a href="">{% trans "Profile" %}</a></li>
+ {% block title %}{% trans "Profile Detail" %}{% endblock %}
+{% block css %}
+    {{ block.super }}
+{% endblock css %}
 
-        </ul>
-    </nav>
 
-<link href={% static "assets/css/vendor.min.css" %} rel="stylesheet">
-<link href={% static "assets/css/app.min.css" %} rel="stylesheet">
-
-{% block content_head %}
-<ul class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'core:dashboard' %}">{% trans "Home" %}</a></li>
-    <li class="breadcrumb-item active">{% trans "Profile" %}</li>
-</ul>
-
-<h1 class="page-header">
-    {% trans "Profile Management" %}
-</h1>
-{% endblock content_head %}
-
-{% block content_body %}
+{% block content %}
+{# ── Page heading ─────────────────────────────────────────────────────── #}
+<div class="page-heading">
+  <div>
+    <h1 class="page-title">{% trans "Profile" %}</h1>
+    <p class="page-subtitle">{% trans "Manage client profiles." %}</p>
+  </div>
+</div>
 
 <div class="row gx-4 justify-content-center">
     <div class="col-lg-6">
@@ -134,16 +123,11 @@
 
 
 
-{% endblock content_body %}
+{% endblock content %}
 
-
-
-{% block js %}
-  {{ block.super }}
 
 <script>
 function goBack() {
   window.history.back();
 }
 </script>
-{% endblock js %}

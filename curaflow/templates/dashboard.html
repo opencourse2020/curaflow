@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}Dashboard{% endblock %}
 {% block header_title %}Dashboard{% endblock %}
 {% block header_subtitle %}Good morning, Sarah{% endblock %}
-{% block nav_dashboard %}active{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/styles.css' %}" /> {% endblock css %}
+{#{% block nav_dashboard %}active{% endblock %}#}
+{% block css %}<link rel="stylesheet" href="{% static 'css/styles2.css' %}" /> {% endblock css %}
 {% block header_action %}
 
   <a href="{% url 'programs:program_builder' %}" class="btn btn-primary btn-sm">
@@ -15,12 +16,12 @@
 
 {% block content %}
 
-{#<div class="page-header">#}
-{#  <div class="page-header-left">#}
-{#    <h1 class="page-title">Good morning, Sarah</h1>#}
-{#    <p class="page-subtitle">Tuesday, 18 June 2024 &middot; Apex Wellness Center</p>#}
-{#  </div>#}
-{#</div>#}
+<div class="content-header">
+  <div class="content-header-left">
+    <h1 class="page-title">Good morning, Sarah</h1>
+    <p class="page-subtitle">Tuesday, 18 June 2024 &middot; Apex Wellness Center</p>
+  </div>
+</div>
 
 <!-- KPI Stats -->
 <div class="grid-cols-4 mb-8">

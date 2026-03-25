@@ -41,9 +41,71 @@
   </div>
   <div class="lp-nav-actions">
       {% if request.user.is_authenticated %}
-          <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">
-          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}
-            </a>
+
+          <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
+
+        <div class="profile-dropdown-header">
+          <div class="profile-dropdown-name">
+            {% if request.user.is_authenticated %}
+            {{ request.user.get_full_name|default:request.user.username }}
+            {% else %}
+            Sarah Kim
+            {% endif %}
+          </div>
+          <div class="profile-dropdown-email">
+            {% if request.user.is_authenticated %}
+            {{ request.user.email|default:"sarah@peakwellness.com" }}
+            {% else %}
+            sarah@peakwellness.com
+            {% endif %}
+          </div>
+        </div>
+
+        <nav class="profile-dropdown-menu">
+
+          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            My Profile
+          </a>
+
+          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            Settings
+          </a>
+
+          <div class="profile-dropdown-divider" role="separator"></div>
+
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem"
+            style="color: var(--danger);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Sign out
+          </a>
+          {% else %}
+          <a href="{% url 'account_login' %}" class="profile-dropdown-item" role="menuitem">
+            Sign in
+          </a>
+          {% endif %}
+
+        </nav>
+      </div><!-- /profile-dropdown -->
+{#          <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">#}
+{#          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}#}
+{#            </a>#}
       {% else %}
       <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>
       {% endif %}

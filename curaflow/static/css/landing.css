@@ -452,14 +452,16 @@
     50%       { transform: translateY(-6px); }
   }
   .lp-hero-float-1 {
-    bottom: 60px;
-    left: -36px;
+    bottom: -20px;
+    left: -66px;
     animation-delay: 0s;
+    z-index: 1000;
   }
   .lp-hero-float-2 {
-    top: 60px;
+    top: -70px;
     right: -24px;
     animation-delay: 1.8s;
+    z-index: 1000;
   }
   .lp-float-icon {
     width: 32px;

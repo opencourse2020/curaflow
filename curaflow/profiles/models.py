@@ -216,7 +216,7 @@ class StaffAvailability(TimeStampedModel):
         SUNDAY = 7, "Sunday"
 
     admin = models.ForeignKey(
-        Admin, on_delete=models.CASCADE, related_name="availabilities"
+        Admin, on_delete=models.CASCADE, related_name="availabilities", null=True
     )
     weekday = models.PositiveSmallIntegerField(choices=Weekday.choices)
     start_time = models.TimeField()

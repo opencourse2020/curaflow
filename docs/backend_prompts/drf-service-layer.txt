@@ -1,0 +1,36 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume the server-rendered backend has already been generated.
+
+You are a senior Django backend engineer and DRF architect.
+
+Your task is to add only the DRF APIs that are truly justified in CuraFlow.
+
+Allowed reasons for DRF:
+- chart JSON endpoints for analytics
+- async recommendation generation/status endpoints
+- dynamic program builder interactions if the UI genuinely needs AJAX/JSON
+- reusable JSON data for tracking widgets
+
+Do NOT create APIs for pages that are fully server-rendered and do not benefit from JSON endpoints.
+
+Generate:
+
+1. A short justification matrix of which APIs should exist and why
+2. Only the necessary serializer/view/url files
+3. Reusable permission classes if needed
+4. Reusable organization-scoped API mixins if useful
+
+Expected output format:
+
+=== api_strategy.md ===
+=== <necessary api files only> ===
+
+Keep the API surface lean.
+Favor simplicity.
+Do not duplicate business logic already handled in services.

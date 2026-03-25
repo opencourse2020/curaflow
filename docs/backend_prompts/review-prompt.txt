@@ -1,0 +1,8 @@
+Review the generated code for:
+- multi-tenant safety
+- queryset optimization
+- maintainability
+- unnecessary complexity
+- Django best practices
+
+Then produce only the improved versions of files that need refinement.

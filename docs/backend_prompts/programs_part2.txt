@@ -1,0 +1,63 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume programs/forms.py, programs/views.py, and core mixins already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the backend structure for the Recommendation page in CuraFlow.
+
+Important:
+- This page can be server-rendered initially
+- DRF should only be introduced if truly necessary
+- Recommendation generation itself should be prepared for a service layer
+
+Relevant models may include:
+- RecommendationRun
+- RecommendationInputSnapshot
+- RecommendationOption
+- RecommendationOptionItem
+- EvidenceSource
+- RecommendationDecision
+- ProgramCase
+- Program
+- Customer
+
+Generate only:
+
+1. ai_engine/views.py
+2. ai_engine/urls.py
+3. ai_engine/services.py
+
+Views to include:
+- RecommendationDetailView
+- RecommendationGenerateView or FormView if justified
+- RecommendationApproveView if appropriate
+
+Requirements:
+- organization-scoped
+- production-oriented
+- clean context for template rendering:
+  - customer snapshot
+  - recommendation summary
+  - options
+  - evidence sources
+  - decision state
+
+In services.py:
+- define service-layer stubs for recommendation generation
+- keep them backend-clean and ready for future LangGraph integration
+
+Expected output format:
+
+=== ai_engine/views.py ===
+=== ai_engine/urls.py ===
+=== ai_engine/services.py ===
+
+Do not generate full AI logic.
+Do not generate DRF unless clearly necessary.
+If DRF is not necessary yet, say so by omission and keep it server-rendered.

@@ -1,0 +1,58 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume core mixins already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the backend for the Services section of CuraFlow.
+
+Pages to support:
+- services list page
+- service create page
+- service update page
+
+Relevant models may include:
+- ServiceCategory
+- Service
+- ServiceContraindication
+- ServiceEligibilityRule
+- ServiceStaffAssignment
+
+Requirements:
+- Use class-based views
+- Scope all data by organization
+- Use ModelForms
+- Optimize related data
+- Keep views simple and production-oriented
+
+Generate only:
+
+1. services/forms.py
+2. services/views.py
+3. services/urls.py
+
+Views to include:
+- ServiceListView
+- ServiceCreateView
+- ServiceUpdateView
+
+For the list page, provide context needed for:
+- category
+- duration
+- price
+- assigned staff
+- contraindications count or summary
+- service status
+
+Expected output format:
+
+=== services/forms.py ===
+=== services/views.py ===
+=== services/urls.py ===
+
+Do not generate APIs yet.

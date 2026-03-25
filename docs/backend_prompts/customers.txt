@@ -1,0 +1,73 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Also assume the core backend foundations and mixins already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the backend for the Customers section of CuraFlow.
+
+Pages to support:
+- customers list page
+- customer detail/profile page
+- customer create page
+- customer update page
+
+Relevant models may include:
+- Customer
+- CustomerProfile
+- CustomerGoal
+- CustomerMedicalCondition
+- CustomerAssessment
+- CustomerFeedback
+- Program
+- AdherenceSnapshot
+- CustomerMetricRecord
+
+Requirements:
+- Use Django class-based views
+- Use ListView, DetailView, CreateView, UpdateView where appropriate
+- Scope everything by organization
+- Optimize querysets using select_related/prefetch_related
+- Keep context data useful for the existing templates
+- Use ModelForms where appropriate
+- Keep the code production-grade and readable
+- Use PostgreSQL-friendly query patterns and avoid N+1 query risks.
+
+Generate only:
+
+1. customers/forms.py
+2. customers/views.py
+3. customers/urls.py
+
+Views to include:
+- CustomerListView
+- CustomerDetailView
+- CustomerCreateView
+- CustomerUpdateView
+
+For CustomerDetailView:
+Include enough context for:
+- profile summary
+- goals
+- medical conditions
+- recent assessments
+- recent feedback
+- active programs
+- recent adherence snapshots
+- key metrics if available
+
+Use clean queryset optimization.
+
+Expected output format:
+
+=== customers/forms.py ===
+=== customers/views.py ===
+=== customers/urls.py ===
+
+Do not generate APIs yet.
+Do not generate serializers yet.

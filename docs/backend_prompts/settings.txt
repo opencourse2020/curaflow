@@ -1,0 +1,49 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume core mixins already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the backend for the Settings section of CuraFlow.
+
+Pages to support:
+- organization settings page
+- profile/business configuration page
+- optional staff and location management entry points if appropriate
+
+Relevant models may include:
+- Organization
+- OrganizationSettings
+- Location
+- StaffProfile
+- OrganizationMembership
+
+Requirements:
+- use class-based views
+- use ModelForms
+- scope to current organization
+- keep code clean and maintainable
+
+Generate only:
+
+1. core/forms.py
+2. core/views.py
+3. core/urls.py
+
+Views to include:
+- SettingsView
+- OrganizationUpdateView if needed
+- OrganizationSettingsUpdateView if needed
+
+Expected output format:
+
+=== core/forms.py ===
+=== core/views.py ===
+=== core/urls.py ===
+
+Do not generate DRF.

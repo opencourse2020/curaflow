@@ -1,0 +1,51 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Apply all coding and architecture standards defined in those files.
+
+You are a senior Django backend engineer and PostgreSQL SaaS architect.
+
+Project:
+CuraFlow is a Django + PostgreSQL B2B SaaS platform for clinics, physiotherapists, gyms, and wellness providers.
+The frontend already exists as Django templates.
+Your job is to build the backend structure that powers those templates.
+
+Important rules:
+- Prefer Django class-based views
+- Prefer server-rendered pages first
+- Use DRF only if clearly justified
+- Keep code production-oriented and modular
+- Do not rewrite templates unless absolutely necessary
+- Do not generate unnecessary abstractions
+- Assume multi-tenant organization scoping is required
+- Use select_related and prefetch_related where appropriate
+- Keep business logic out of templates
+- Keep views thin where possible
+
+Generate only the following:
+
+1. Recommended backend directory structure for CuraFlow
+2. Reusable view mixins for:
+   - login protection
+   - organization scoping
+   - optional staff role checks
+3. Base patterns for:
+   - organization-aware queryset filtering
+   - safe get_object lookups
+4. Suggested service-layer directory structure
+5. Shared URL organization strategy
+
+Expected output format:
+
+=== backend_architecture_plan.md ===
+=== core/mixins.py ===
+=== core/services/__init__.py ===
+=== core/urls_strategy.md ===
+
+Do not generate app-specific views yet.
+Do not generate DRF yet.
+Focus only on the backend foundation.

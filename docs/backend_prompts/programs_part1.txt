@@ -1,0 +1,67 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume the backend foundations already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the first backend version of the Program Builder workflow for CuraFlow.
+
+This version is manual first, not AI-first.
+
+Pages to support:
+- program builder page
+- program detail page
+- basic program edit page if needed
+
+Relevant models may include:
+- ProgramCase
+- Program
+- ProgramItem
+- ProgramRestriction
+- ProgramNote
+- Customer
+- Service
+- StaffProfile
+
+Requirements:
+- Use class-based views
+- Scope everything by organization
+- Build the manual program workflow first
+- Use forms or formsets if appropriate
+- Keep business logic clean and maintainable
+- Avoid overengineering
+- If inline formsets are too heavy, propose a clean staged approach
+
+Generate only:
+
+1. programs/forms.py
+2. programs/views.py
+3. programs/urls.py
+
+Views to include:
+- ProgramBuilderView
+- ProgramDetailView
+- ProgramUpdateView (if appropriate)
+
+For ProgramBuilderView:
+- allow selecting a customer
+- show organization services
+- support creating a Program and associated ProgramItems
+- include a clean recommended approach if multiple forms are needed
+
+If useful, include a small service/helper function inside a programs/services.py file, but only if it improves maintainability.
+
+Expected output format:
+
+=== programs/forms.py ===
+=== programs/views.py ===
+=== programs/urls.py ===
+=== programs/services.py ===
+
+Do not generate DRF yet.
+Do not generate AI recommendation endpoints yet.

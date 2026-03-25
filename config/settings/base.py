@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "guardian",
     "django_extensions",
+    "rest_framework",
     # "django_celery_results",
     # "django_celery_beat",
     # "admin_honeypot",
@@ -262,3 +263,8 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 RECAPTCHA_REQUIRED_SCORE = 0.85
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}

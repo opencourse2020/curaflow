@@ -1,0 +1,64 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume core mixins already exist.
+
+You are a senior Django backend engineer and PostgreSQL query optimization expert.
+
+Your task is to build the backend for the Analytics page in CuraFlow.
+
+Important:
+- This page is data-heavy
+- Use Django server-rendered views for the page shell
+- Use DRF or lightweight JSON endpoints only if clearly justified for charts
+
+Relevant models may include:
+- Program
+- Appointment
+- SessionExecution
+- AdherenceSnapshot
+- CustomerMetricRecord
+- ExecutionAlert
+- Service
+- StaffProfile
+
+Generate only:
+
+1. metrics/views.py
+2. metrics/urls.py
+3. metrics/services.py
+
+If justified, also generate:
+4. metrics/api/serializers.py
+5. metrics/api/views.py
+6. metrics/api/urls.py
+
+Requirements:
+- create AnalyticsDashboardView for the template page
+- move heavy aggregations into services.py
+- if chart endpoints are needed, use DRF only for those JSON responses
+- optimize queries using annotations, aggregation, select_related/prefetch_related where relevant
+- explain the justification through implementation choices, not long commentary
+
+Analytics page should support:
+- adherence trends
+- completion rates
+- service utilization
+- customer outcome trends
+- drop-off indicators
+- alert counts
+
+Expected output format:
+
+=== metrics/views.py ===
+=== metrics/urls.py ===
+=== metrics/services.py ===
+=== metrics/api/serializers.py ===
+=== metrics/api/views.py ===
+=== metrics/api/urls.py ===
+
+Only include the API files if they are truly needed.

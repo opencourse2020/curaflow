@@ -1,0 +1,67 @@
+Before generating code, read and follow these project documents:
+
+- claude.md
+- skills.md
+- design-system.md
+- frontend-rules.md
+
+Assume core mixins already exist.
+
+You are a senior Django backend engineer.
+
+Your task is to build the backend for the Tracking section of CuraFlow.
+
+Pages to support:
+- tracking overview page for a program
+- appointment/session update actions
+- adherence-related context for the page
+
+Relevant models may include:
+- Appointment
+- SessionExecution
+- AdherenceSnapshot
+- ExecutionAlert
+- Program
+- ProgramItem
+- Customer
+
+Requirements:
+- use class-based views
+- scope all querysets by organization
+- optimize with select_related/prefetch_related
+- use forms where useful
+- keep logic maintainable
+
+Generate only:
+
+1. scheduling/forms.py
+2. scheduling/views.py
+3. scheduling/urls.py
+4. scheduling/services.py
+
+Views to include:
+- TrackingOverviewView
+- AppointmentUpdateView or status update views
+- SessionExecutionUpdateView if appropriate
+
+The tracking overview page should have context for:
+- adherence summary
+- appointments
+- recent session executions
+- alerts
+- progress indicators if available
+
+In services.py:
+include helper methods for:
+- adherence calculations
+- alert aggregation
+- status summaries
+
+Expected output format:
+
+=== scheduling/forms.py ===
+=== scheduling/views.py ===
+=== scheduling/urls.py ===
+=== scheduling/services.py ===
+
+Do not generate DRF yet unless strictly necessary.

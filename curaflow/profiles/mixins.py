@@ -43,7 +43,7 @@ class OrganizationRequiredMixin(LoginRequiredMixin):
             return self.handle_no_permission()
 
         self.organization = getattr(request.user, 'organization', None)
-        print("organization:", self.organization)
+
         if not self.organization:
             # Optionally redirect to an organization creation page
             raise PermissionDenied("You must belong to an organization to access this.")
@@ -66,5 +66,6 @@ class OrganizationRequiredMixin(LoginRequiredMixin):
         Inject the current organization into the template context.
         """
         context = super().get_context_data(**kwargs)
+        print("organization:", self.organization)
         context['current_organization'] = self.organization
         return context

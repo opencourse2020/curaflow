@@ -43,6 +43,7 @@ class OrganizationRequiredMixin(LoginRequiredMixin):
             return self.handle_no_permission()
 
         self.organization = getattr(request.user, 'organization', None)
+        print("organization:", self.organization)
         if not self.organization:
             # Optionally redirect to an organization creation page
             raise PermissionDenied("You must belong to an organization to access this.")

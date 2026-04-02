@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from curaflow.core.mixins import OrganizationRequiredMixin
+from curaflow.profiles.mixins import OrganizationRequiredMixin
 from curaflow.metrics.models import CustomerMetricRecord
 from curaflow.programs.models import Program
 

@@ -16,7 +16,7 @@ from .models import Customer, CustomerProfile
 logger = logging.getLogger(__name__)
 
 
-class CustomerListView(OrganizationRequiredMixin, ListView):
+class CustomerListView(ListView):
     """
     Paginated list of customers scoped to the current organization.
     Supports search by name/email/phone and filtering by status.

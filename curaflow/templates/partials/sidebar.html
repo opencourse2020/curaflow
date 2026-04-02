@@ -39,7 +39,7 @@
       Customers
     </a>
 
-    <a href="{% url 'programs:program_builder' %}"
+    <a href="{% url 'programs:create' %}"
       class="nav-item {% if 'program' in request.resolver_match.url_name %}active{% endif %}"
       aria-current="{% if 'program' in request.resolver_match.url_name %}page{% endif %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"

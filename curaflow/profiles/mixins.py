@@ -42,7 +42,9 @@ class OrganizationRequiredMixin(LoginRequiredMixin):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
         # getattr(request.user, 'organization', None)
-        self.organization = 1
+
+        # org = request.user.profile.organization
+        self.organization = getattr(request.user.profile, 'organization', None)
 
         if not self.organization:
             # Optionally redirect to an organization creation page

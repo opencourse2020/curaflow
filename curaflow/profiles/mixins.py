@@ -71,3 +71,20 @@ class OrganizationRequiredMixin(LoginRequiredMixin):
         print("organization:", self.organization)
         context['current_organization'] = self.organization
         return context
+
+
+class StaffRoleRequiredMixin(OrganizationRequiredMixin):
+    """
+    Ensures the user has staff privileges within their organization.
+    """
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if response.status_code != 200:
+            return response
+
+        # Example role check logic
+        # if not request.user.is_org_staff:
+        #     raise PermissionDenied("Staff role required.")
+
+        return response

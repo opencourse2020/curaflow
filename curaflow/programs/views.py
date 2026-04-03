@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, FormView, UpdateView, View
 
-from curaflow.core.mixins import OrganizationRequiredMixin
+from curaflow.profiles.mixins import OrganizationRequiredMixin
 from curaflow.services.models import Service
 
 from .forms import (

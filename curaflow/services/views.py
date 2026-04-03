@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
-from curaflow.core.mixins import OrganizationRequiredMixin
+from curaflow.profiles.mixins import OrganizationRequiredMixin
 
 from .forms import ServiceForm, ServiceSearchForm
 from .models import Service, ServiceCategory, ServiceStaffAssignment

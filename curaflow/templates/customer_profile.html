@@ -10,7 +10,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
     AI Recommend
   </a>
-  <a href="{% url 'programs:program_builder' %}" class="btn btn-primary btn-sm">Edit Program</a>
+  <a href="{% url 'programs:create' %}" class="btn btn-primary btn-sm">Edit Program</a>
 </div>
 {% endblock %}
 
@@ -116,7 +116,7 @@
           <div class="card-title">Active Program</div>
           <div class="card-subtitle">Post-Op Recovery Plan — Week 7 of 12</div>
         </div>
-        <a href="{% url 'programs:program_builder' %}" class="btn btn-secondary btn-sm">Edit</a>
+        <a href="{% url 'programs:create' %}" class="btn btn-secondary btn-sm">Edit</a>
       </div>
       <div class="card-body" style="display:flex;flex-direction:column;gap:var(--space-5)">
 

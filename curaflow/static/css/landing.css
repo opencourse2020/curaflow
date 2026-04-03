@@ -2815,6 +2815,43 @@
   margin-left: auto;
 }
 
+.header-icon-btn {
+  width:           36px;
+  height:          36px;
+  border-radius:   var(--radius);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  color:           var(--muted);
+  transition:      all var(--transition-fast);
+  position:        relative;
+  background:      none;
+  flex-shrink:     0;
+}
+
+.header-icon-btn:hover {
+  background: var(--bg);
+  color:      var(--text);
+}
+
+.header-icon-btn svg { width: 18px; height: 18px; }
+
+/* Mobile-only toggle is hidden on desktop */
+#sidebarToggle { display: none; }
+
+/* Notification dot */
+.notif-dot {
+  position:     absolute;
+  top:          6px;
+  right:        6px;
+  width:        7px;
+  height:       7px;
+  background:   var(--danger);
+  border-radius: 50%;
+  border:       2px solid var(--surface);
+  animation:    pulse 2.5s ease-in-out infinite;
+}
+
 /* --- Profile dropdown trigger --- */
 .header-profile {
   display:      flex;

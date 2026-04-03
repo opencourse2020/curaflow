@@ -1009,6 +1009,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: auto;
   }
 
   /* ─────────────────────────────────────
@@ -2722,65 +2723,13 @@
   }
 .logo-principal {height: 40px; width: auto; display: block;}
 
-  /* ─────────────────────────────────────
-     RESPONSIVE
-  ───────────────────────────────────── */
-  @media (max-width: 1024px) {
-    .lp-hero-inner {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-    .lp-mockup-shell {
-      transform: none;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-    .lp-hero-float-1,
-    .lp-hero-float-2 { display: none; }
-    .lp-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .lp-steps::before { display: none; }
-    .lp-features-grid { grid-template-columns: repeat(2, 1fr); }
-    .lp-solution-grid { grid-template-columns: 1fr; gap: 1px; }
-    .lp-footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .lp-deep-features-grid { grid-template-columns: repeat(2, 1fr); }
-    .lp-hiw-layout { grid-template-columns: 1fr; gap: 48px; }
-    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
-    .lp-preview-main-body { grid-template-columns: 160px 1fr; }
-    .lp-preview-secondary { grid-template-columns: 1fr; }
-    .lp-benefits-layout { grid-template-columns: 1fr; gap: 48px; }
-    .lp-proof-layout { grid-template-columns: 1fr; }
-    .lp-proof-score-card { position: static; }
-    .lp-final-cta-inner { grid-template-columns: 1fr; gap: 48px; }
-    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr 1fr; }
-    .lp-footer-v2-brand { grid-column: 1 / -1; }
-
-  }
-  @media (max-width: 768px) {
-    .lp-section { padding: 64px 0; }
-    .lp-container, .lp-container--narrow { padding: 0 20px; }
-    .lp-problem-grid { grid-template-columns: 1fr; }
-    .lp-testimonials-grid { grid-template-columns: 1fr; }
-    .lp-features-grid { grid-template-columns: 1fr; }
-    .lp-steps { grid-template-columns: 1fr; }
-    .lp-nav-links { display: none; }
-    .lp-hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .lp-proof-divider { display: none; }
-    .lp-proof-inner { gap: 24px; }
-    .lp-footer-inner { grid-template-columns: 1fr; gap: 32px; }
-    .lp-footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-    .lp-deep-features-grid { grid-template-columns: 1fr; }
-    .lp-preview-main-sidebar { display: none; }
-    .lp-preview-main-body { grid-template-columns: 1fr; }
-    .lp-preview-tabs { flex-wrap: wrap; width: 100%; justify-content: flex-start; }
-    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
-    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr; }
-    .lp-footer-v2-bottom { flex-direction: column; align-items: flex-start; }
-    .lp-proof-tcard-top { flex-direction: column; align-items: flex-start; }
-    .lp-compare-row { grid-template-columns: 1fr; }
-    .lp-compare-cell:first-child { border-right: none; border-bottom: 1px solid var(--slate-100); }
-    .lp-compare-header { display: none; }
-    .logo-principal {height: 28px; width: auto; display: block;}
-  }
+  /* --- Header actions group --- */
+.header-actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  margin-left: auto;
+}
 
 /* --- Profile dropdown trigger --- */
 .header-profile {
@@ -2882,3 +2831,64 @@
   background: var(--border-light);
   margin:     var(--space-2) 0;
 }
+
+/* ─────────────────────────────────────
+     RESPONSIVE
+  ───────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .lp-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .lp-mockup-shell {
+      transform: none;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .lp-hero-float-1,
+    .lp-hero-float-2 { display: none; }
+    .lp-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .lp-steps::before { display: none; }
+    .lp-features-grid { grid-template-columns: repeat(2, 1fr); }
+    .lp-solution-grid { grid-template-columns: 1fr; gap: 1px; }
+    .lp-footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .lp-deep-features-grid { grid-template-columns: repeat(2, 1fr); }
+    .lp-hiw-layout { grid-template-columns: 1fr; gap: 48px; }
+    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
+    .lp-preview-main-body { grid-template-columns: 160px 1fr; }
+    .lp-preview-secondary { grid-template-columns: 1fr; }
+    .lp-benefits-layout { grid-template-columns: 1fr; gap: 48px; }
+    .lp-proof-layout { grid-template-columns: 1fr; }
+    .lp-proof-score-card { position: static; }
+    .lp-final-cta-inner { grid-template-columns: 1fr; gap: 48px; }
+    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr 1fr; }
+    .lp-footer-v2-brand { grid-column: 1 / -1; }
+
+  }
+  @media (max-width: 768px) {
+    .lp-section { padding: 64px 0; }
+    .lp-container, .lp-container--narrow { padding: 0 20px; }
+    .lp-problem-grid { grid-template-columns: 1fr; }
+    .lp-testimonials-grid { grid-template-columns: 1fr; }
+    .lp-features-grid { grid-template-columns: 1fr; }
+    .lp-steps { grid-template-columns: 1fr; }
+    .lp-nav-links { display: none; }
+    .lp-hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .lp-proof-divider { display: none; }
+    .lp-proof-inner { gap: 24px; }
+    .lp-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .lp-footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .lp-deep-features-grid { grid-template-columns: 1fr; }
+    .lp-preview-main-sidebar { display: none; }
+    .lp-preview-main-body { grid-template-columns: 1fr; }
+    .lp-preview-tabs { flex-wrap: wrap; width: 100%; justify-content: flex-start; }
+    .lp-preview-stat-row { grid-template-columns: repeat(2, 1fr); }
+    .lp-footer-v2-inner { grid-template-columns: 1fr 1fr; }
+    .lp-footer-v2-bottom { flex-direction: column; align-items: flex-start; }
+    .lp-proof-tcard-top { flex-direction: column; align-items: flex-start; }
+    .lp-compare-row { grid-template-columns: 1fr; }
+    .lp-compare-cell:first-child { border-right: none; border-bottom: 1px solid var(--slate-100); }
+    .lp-compare-header { display: none; }
+    .logo-principal {height: 28px; width: auto; display: block;}
+    .header-profile-name{display:none}
+  }

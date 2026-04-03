@@ -42,7 +42,58 @@
   <div class="lp-nav-actions">
       {% if request.user.is_authenticated %}
 
-          <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
+
+
+    <!-- Slot for page-specific primary action (e.g. New Customer) -->
+    {% block header_action %}{% endblock %}
+
+    <!-- Notifications -->
+    <button class="header-icon-btn" aria-label="View notifications" id="notifBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      </svg>
+      <span class="notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <!-- Help -->
+    <button class="header-icon-btn" aria-label="Help and documentation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
+    </button>
+
+    <!-- Profile dropdown trigger -->
+    <div class="header-profile" id="profileTrigger" role="button" tabindex="0" aria-haspopup="true"
+      aria-expanded="false" aria-controls="profileDropdown">
+
+      <div class="header-avatar" aria-hidden="true">
+        {% if request.user.is_authenticated %}
+        {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+        {% else %}
+        SK
+        {% endif %}
+      </div>
+
+      <span class="header-profile-name">
+        {% if request.user.is_authenticated %}
+        {{ request.user.first_name|default:request.user.username }}
+        {% else %}
+        Sarah Kim
+        {% endif %}
+      </span>
+
+      <svg style="width:14px;height:14px;color:var(--muted);flex-shrink:0" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+
+      <!-- ── Profile dropdown panel ──────────────────────── -->
+      <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
 
         <div class="profile-dropdown-header">
           <div class="profile-dropdown-name">
@@ -61,7 +112,7 @@
           </div>
         </div>
 
-        <nav class="profile-dropdown-menu lp-btn-ghost">
+        <nav class="profile-dropdown-menu">
 
           <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -103,6 +154,10 @@
 
         </nav>
       </div><!-- /profile-dropdown -->
+
+    </div><!-- /header-profile -->
+
+  </div><!-
 {#          <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">#}
 {#          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}#}
 {#            </a>#}

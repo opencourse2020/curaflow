@@ -42,10 +42,8 @@
   <div class="lp-nav-actions">
       {% if request.user.is_authenticated %}
 
+<div class="header-actions">
 
-
-    <!-- Slot for page-specific primary action (e.g. New Customer) -->
-    {% block header_action %}{% endblock %}
 
     <!-- Notifications -->
     <button class="header-icon-btn" aria-label="View notifications" id="notifBtn">
@@ -135,7 +133,7 @@
 
           <div class="profile-dropdown-divider" role="separator"></div>
 
-          {% if request.user.is_authenticated %}
+
           <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem"
             style="color: var(--danger);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -146,11 +144,7 @@
             </svg>
             Sign out
           </a>
-          {% else %}
-          <a href="{% url 'account_login' %}" class="profile-dropdown-item" role="menuitem">
-            Sign in
-          </a>
-          {% endif %}
+
 
         </nav>
       </div><!-- /profile-dropdown -->

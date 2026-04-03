@@ -39,127 +39,124 @@
     <a href="#testimonials" class="lp-nav-link" role="listitem">Testimonials</a>
     <a href="#" class="lp-nav-link" role="listitem">Pricing</a>
   </div>
-  <div class="lp-nav-actions">
-      {% if request.user.is_authenticated %}
-
-<div class="header-actions">
-
-
-    <!-- Notifications -->
-    <button class="header-icon-btn" aria-label="View notifications" id="notifBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-        stroke-linejoin="round" aria-hidden="true">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-      </svg>
-      <span class="notif-dot" aria-hidden="true"></span>
-    </button>
-
-    <!-- Help -->
-    <button class="header-icon-btn" aria-label="Help and documentation">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-        stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
-      </svg>
-    </button>
-
-    <!-- Profile dropdown trigger -->
-    <div class="header-profile" id="profileTrigger" role="button" tabindex="0" aria-haspopup="true"
-      aria-expanded="false" aria-controls="profileDropdown">
-
-      <div class="header-avatar" aria-hidden="true">
+    <div class="lp-nav-actions">
         {% if request.user.is_authenticated %}
-        {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+
+            <div class="header-actions">
+
+
+                <!-- Notifications -->
+                <button class="header-icon-btn" aria-label="View notifications" id="notifBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <span class="notif-dot" aria-hidden="true"></span>
+                </button>
+
+                <!-- Help -->
+                <button class="header-icon-btn" aria-label="Help and documentation">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                </button>
+
+                <!-- Profile dropdown trigger -->
+                <div class="header-profile" id="profileTrigger" role="button" tabindex="0" aria-haspopup="true"
+                     aria-expanded="false" aria-controls="profileDropdown">
+
+                    <div class="header-avatar" aria-hidden="true">
+                        {% if request.user.is_authenticated %}
+                            {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+                        {% else %}
+                            SK
+                        {% endif %}
+                    </div>
+
+                    <span class="header-profile-name">
+                        {{ request.user.first_name|default:request.user.username }}
+                  </span>
+
+                    <svg style="width:14px;height:14px;color:var(--muted);flex-shrink:0" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+
+                    <!-- ── Profile dropdown panel ──────────────────────── -->
+                    <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
+
+                        <div class="profile-dropdown-header">
+                            <div class="profile-dropdown-name">
+                                {% if request.user.is_authenticated %}
+                                    {{ request.user.get_full_name|default:request.user.username }}
+                                {% else %}
+                                    Sarah Kim
+                                {% endif %}
+                            </div>
+                            <div class="profile-dropdown-email">
+                                {% if request.user.is_authenticated %}
+                                    {{ request.user.email|default:"sarah@peakwellness.com" }}
+                                {% else %}
+                                    sarah@peakwellness.com
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <nav class="profile-dropdown-menu">
+
+                            <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                     stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                My Profile
+                            </a>
+
+                            <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                     stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path
+                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                                </svg>
+                                Settings
+                            </a>
+
+                            <div class="profile-dropdown-divider" role="separator"></div>
+
+
+                            <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem"
+                               style="color: var(--danger);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                     stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" y1="12" x2="9" y2="12" />
+                                </svg>
+                                Sign out
+                            </a>
+
+
+                        </nav>
+                    </div><!-- /profile-dropdown -->
+
+                </div><!-- /header-profile -->
+
+            </div><!-
+            {#          <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">#}
+            {#          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}#}
+            {#            </a>#}
         {% else %}
-        SK
+            <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>
+            <a href="" class="lp-btn-primary">Request Demo</a>
         {% endif %}
-      </div>
 
-      <span class="header-profile-name">
-        {% if request.user.is_authenticated %}
-        {{ request.user.first_name|default:request.user.username }}
-        {% else %}
-        Sarah Kim
-        {% endif %}
-      </span>
-
-      <svg style="width:14px;height:14px;color:var(--muted);flex-shrink:0" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
-
-      <!-- ── Profile dropdown panel ──────────────────────── -->
-      <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Account options">
-
-        <div class="profile-dropdown-header">
-          <div class="profile-dropdown-name">
-            {% if request.user.is_authenticated %}
-            {{ request.user.get_full_name|default:request.user.username }}
-            {% else %}
-            Sarah Kim
-            {% endif %}
-          </div>
-          <div class="profile-dropdown-email">
-            {% if request.user.is_authenticated %}
-            {{ request.user.email|default:"sarah@peakwellness.com" }}
-            {% else %}
-            sarah@peakwellness.com
-            {% endif %}
-          </div>
-        </div>
-
-        <nav class="profile-dropdown-menu">
-
-          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            My Profile
-          </a>
-
-          <a href="{% url 'core:settings' %}" class="profile-dropdown-item" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-            </svg>
-            Settings
-          </a>
-
-          <div class="profile-dropdown-divider" role="separator"></div>
-
-
-          <a href="{% url 'account_logout' %}" class="profile-dropdown-item" role="menuitem"
-            style="color: var(--danger);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            Sign out
-          </a>
-
-
-        </nav>
-      </div><!-- /profile-dropdown -->
-
-    </div><!-- /header-profile -->
-
-  </div><!-
-{#          <a href="{% url 'profiles:profile' %}" class="lp-btn-ghost">#}
-{#          {{ request.user.first_name|upper }}.{{ request.user.last_name|first|upper }}#}
-{#            </a>#}
-      {% else %}
-      <a href="{% url 'account_login' %}" class="lp-btn-ghost">Sign in</a>
-      {% endif %}
-    <a href="" class="lp-btn-primary">Request Demo</a>
-  </div>
+    </div>
 </nav>
 
 <!-- ─── HERO ─── -->

@@ -542,8 +542,8 @@
     z-index: 1000;
   }
   .lp-hero-float-2 {
-    top: -70px;
-    right: -24px;
+    top: -10px;
+    right: 20px;
     animation-delay: 1.8s;
     z-index: 1000;
   }

@@ -48,7 +48,7 @@ class TrackingView(TemplateView):
 
 class SettingsView(LoginRequiredMixin, OrganizationRequiredMixin, TemplateView):
     """Entry point for the Settings Section, likely showing links/sub-pages."""
-    template_name = "core/settings/index.html"
+    template_name = "settings.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

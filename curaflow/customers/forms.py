@@ -89,5 +89,5 @@ class CustomerSearchForm(forms.Form):
     status = forms.ChoiceField(
         required=False,
         label="Status",
-        choices=[("", "All statuses")] + Customer.Status.choices,
+        choices=[("", "All status")] + Customer.Status.choices,
     )

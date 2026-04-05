@@ -75,7 +75,9 @@
             </div>
           </td>
           <td>{{ customer.age }}</td>
-          <td>{{ customer.customergoal_set.all }}</td>
+          <td> {% for goal in customer.customergoal.all %}
+              {{ goal }}&amp;
+              </td>
           <td><span class="tag">Post-Op Recovery Plan</span></td>
           <td>
             <div style="display:flex;align-items:center;gap:var(--space-2)">

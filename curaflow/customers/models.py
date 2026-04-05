@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-
+from datetime import date
 # from curaflow.core.models import OrganizationScopedModel, SoftDeleteModel, TimeStampedModel
 from curaflow.profiles.models import *
 
@@ -43,6 +43,16 @@ class Customer(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
     class Meta:
         ordering = ["first_name", "last_name"]
         unique_together = ("organization", "external_customer_id")
+
+    @property
+    def age(self):
+        today = date.today()
+        # Subtract birth year from current year
+        age = today.year - self.date_of_birth.year
+        # Adjust by subtracting 1 if today's (month, day) is before birth (month, day)
+        # Python treats True as 1 and False as 0 in this subtraction
+        age -= (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day)
+        return age
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

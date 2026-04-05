@@ -69,8 +69,8 @@
             <div style="display:flex;align-items:center;gap:var(--space-3)">
               <div class="sidebar-avatar" style="background:linear-gradient(135deg,#0d9488,#14b8a6)">EM</div>
               <div>
-                <div class="table-name"><a href="{% url 'customers:detail' 1 %}">Elena Marchetti</a></div>
-                <div class="text-xs text-muted">elena.m@email.com</div>
+                <div class="table-name"><a href="{% url 'customers:detail' 1 %}">{{ customer.first_name }}&nbsp;{{ customer.last_name }}</a></div>
+                <div class="text-xs text-muted">{{ customer.email }}</div>
               </div>
             </div>
           </td>

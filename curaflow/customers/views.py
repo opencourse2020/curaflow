@@ -35,7 +35,7 @@ class CustomerListView(OrganizationRequiredMixin, ListView):
             .order_by("first_name", "last_name")
         )
         for cust in qs:
-            for cusg in cust.customergoal_set.all():
+            for cusg in cust.goals.all():
                 print(cusg)
         form = CustomerSearchForm(self.request.GET)
         if form.is_valid():

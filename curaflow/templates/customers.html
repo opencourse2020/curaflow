@@ -75,7 +75,7 @@
             </div>
           </td>
           <td>{{ customer.age }}</td>
-          <td>Back rehab &amp; mobility</td>
+          <td>Back rehab &amp; mobility{{ customer.customergoal }}</td>
           <td><span class="tag">Post-Op Recovery Plan</span></td>
           <td>
             <div style="display:flex;align-items:center;gap:var(--space-2)">
@@ -84,7 +84,7 @@
             </div>
           </td>
           <td class="text-sm">Today</td>
-          <td><span class="badge badge-active">Active</span></td>
+          <td><span class="badge badge-active">{{ customer.status }}</span></td>
           <td>
             <div class="table-actions">
               <a href="{% url 'customers:detail' 1 %}" class="btn btn-ghost btn-sm">View</a>

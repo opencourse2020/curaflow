@@ -255,7 +255,7 @@ class CustomerGoal(TimeStampedModel):
         unique_together = ("customer", "goal")
 
     def __str__(self):
-        return f"{self.customer} - {self.goal}"
+        return f"{self.goal}"
 
 
 class CustomerAssessment(TimeStampedModel):

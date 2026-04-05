@@ -75,7 +75,7 @@
             </div>
           </td>
           <td>{{ customer.age }}</td>
-          <td> {% for custgoal in customer.customergoal_set.all %}
+          <td> {% for custgoal in customer.goals.all %}
               {{ custgoal }}&amp;
               {% endfor %}
               </td>

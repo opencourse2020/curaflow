@@ -31,7 +31,7 @@ class CustomerListView(OrganizationRequiredMixin, ListView):
         qs = (
             super()
             .get_queryset()
-            .select_related("profile")
+            .select_related("customergoal")
             .order_by("first_name", "last_name")
         )
         form = CustomerSearchForm(self.request.GET)

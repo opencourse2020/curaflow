@@ -45,8 +45,7 @@ class TrackingView(TemplateView):
 #     template_name = "settings.html"
 
 
-
-class SettingsView(LoginRequiredMixin, OrganizationRequiredMixin, TemplateView):
+class SettingsView(OrganizationRequiredMixin, TemplateView):
     """Entry point for the Settings Section, likely showing links/sub-pages."""
     template_name = "settings.html"
 
@@ -56,7 +55,7 @@ class SettingsView(LoginRequiredMixin, OrganizationRequiredMixin, TemplateView):
         return context
 
 
-class OrganizationUpdateView(LoginRequiredMixin, OrganizationRequiredMixin, UpdateView):
+class OrganizationUpdateView(OrganizationRequiredMixin, UpdateView):
     """View to update main business profile details."""
     model = Organization
     form_class = OrganizationForm
@@ -72,7 +71,7 @@ class OrganizationUpdateView(LoginRequiredMixin, OrganizationRequiredMixin, Upda
         return super().form_valid(form)
 
 
-class OrganizationSettingsUpdateView(LoginRequiredMixin, OrganizationRequiredMixin, UpdateView):
+class OrganizationSettingsUpdateView(OrganizationRequiredMixin, UpdateView):
     """View to update functional settings and features for the organization."""
     model = OrganizationSettings
     form_class = OrganizationSettingsForm
@@ -91,7 +90,7 @@ class OrganizationSettingsUpdateView(LoginRequiredMixin, OrganizationRequiredMix
         return super().form_valid(form)
 
 
-class LocationListView(LoginRequiredMixin, OrganizationRequiredMixin, ListView):
+class LocationListView(OrganizationRequiredMixin, ListView):
     """List physical locations associated with the organization."""
     model = Location
     template_name = "core/settings/location_list.html"
@@ -101,7 +100,7 @@ class LocationListView(LoginRequiredMixin, OrganizationRequiredMixin, ListView):
         return super().get_queryset().filter(organization=self.request.organization)
 
 
-class LocationCreateView(LoginRequiredMixin, OrganizationRequiredMixin, CreateView):
+class LocationCreateView(OrganizationRequiredMixin, CreateView):
     """Add a new location to the organization."""
     model = Location
     form_class = LocationForm

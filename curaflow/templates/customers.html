@@ -44,7 +44,7 @@
 <!-- Table card -->
 <div class="card">
 
-  {% with search_placeholder="Search customers by name, goal, condition…" show_status_filter=True show_program_filter=True count="{{ total_count }}" %}
+  {% with search_placeholder="Search customers by name, goal, condition…" show_status_filter=True show_program_filter=True count={{ total_count }} %}
   {% include "partials/table_toolbar.html" %}
   {% endwith %}
 

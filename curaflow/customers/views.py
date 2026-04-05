@@ -31,9 +31,10 @@ class CustomerListView(OrganizationRequiredMixin, ListView):
         qs = (
             super()
             .get_queryset()
-            .select_related("customergoal")
+            .select_related("profile")
             .order_by("first_name", "last_name")
         )
+        print(qs)
         form = CustomerSearchForm(self.request.GET)
         if form.is_valid():
             q = form.cleaned_data.get("q", "").strip()

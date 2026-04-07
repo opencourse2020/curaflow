@@ -56,7 +56,7 @@ class Customer(TimeStampedModel, SoftDeleteModel, OrganizationScopedModel):
 
     @property
     def activeprograms(self):
-        ap = Program.objects.filter(customer_id=self.pk, status="active")
+        ap = Program.objects.filter(customer_id=self.pk, status="active").last()
         return ap
 
     def __str__(self):

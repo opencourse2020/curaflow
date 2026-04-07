@@ -79,7 +79,12 @@
               {{ custgoal }};
               {% endfor %}
               </td>
-          <td><span class="tag">Post-Op Recovery Plan</span></td>
+          <td><span class="tag">
+              {% for program in customer.activeprograms %}
+                {{ program }};
+              {% endfor %}
+
+              </span></td>
           <td>
             <div style="display:flex;align-items:center;gap:var(--space-2)">
               <div class="progress-bar" style="width:64px"><div class="progress-fill teal" style="width:92%"></div></div>

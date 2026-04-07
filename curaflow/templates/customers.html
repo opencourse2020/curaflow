@@ -96,7 +96,7 @@
           <td><span class="badge badge-active">{{ customer.status }}</span></td>
           <td>
             <div class="table-actions">
-              <a href="{% url 'customers:detail' 1 %}" class="btn btn-ghost btn-sm">View</a>
+              <a href="{% url 'customers:detail' customer.pk %}" class="btn btn-ghost btn-sm">View</a>
               <button class="btn btn-ghost btn-sm">Edit</button>
             </div>
           </td>

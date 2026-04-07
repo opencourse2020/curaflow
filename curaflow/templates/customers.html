@@ -80,9 +80,9 @@
               {% endfor %}
               </td>
           <td><span class="tag">
-              {% for program in customer.activeprograms %}
-                {{ program }};
-              {% endfor %}
+{#              {% for program in customer.activeprograms %}#}
+                {{ customer.activeprograms }};
+{#              {% endfor %}#}
 
               </span></td>
           <td>
